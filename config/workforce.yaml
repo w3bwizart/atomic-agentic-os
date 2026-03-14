@@ -1,0 +1,10 @@
+agents:
+  - id: "dictator_01"
+    role: "Orchestrator"
+    description: "Breaks down inbox requests into atomic tasks."
+    skills: ["task_decomposition", "file_management"]
+
+  - id: "lieutenant_coder_01"
+    role: "Executor"
+    description: "Executes terminal commands and writes code."
+    skills: ["terminal_access", "git_management"]

@@ -1,0 +1,6 @@
+{
+  "permissions": {
+    "lieutenant_coder_01": ["terminal_access"],
+    "dictator_01": ["read_inbox", "write_active"]
+  }
+}
