@@ -24,6 +24,11 @@ class ScaffoldSkill(BaseTool[ScaffoldInputSchema, ScaffoldOutputSchema]):
     def run(self, params: ScaffoldInputSchema) -> ScaffoldOutputSchema:
         try:
             base_dir = Path(params.project_name)
+
+            # Recursion Guard: Prevent creating workspaces inside core OS directories or using absolute/traversal paths
+            if base_dir.is_absolute() or ".." in base_dir.parts or base_dir.parts[0] in [".agents", "core", "skills", ".vault", "config", "docs"]:
+                return ScaffoldOutputSchema(status="error", message="Recursion Guard: Cannot scaffold inside core system directories or use absolute/traversal paths.")
+
             if base_dir.exists():
                 return ScaffoldOutputSchema(status="error", message=f"Directory {params.project_name} already exists.")
 
