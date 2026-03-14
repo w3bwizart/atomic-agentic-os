@@ -98,27 +98,3 @@ Acknowledge this file.
 
 2. Watch the orchestrator terminal. You should see logs indicating that the file was detected, the frontmatter parsed, SOPs injected, and the file moved.
 3. Check the `.agents/active/` directory. The `test.md` file will now be located there, along with a newly generated `HW-002.state.json` file used for state synchronization. You can also view `.agents/logs/system.log` to trace exactly what happened.
-
-### 4. Run the Decathlon Stress Test (10-Agent Parallelism)
-
-The OS supports massive true parallelism by dispatching inbox files dynamically to threading workers and routing them to specialized LLMs based on `providers.yaml`.
-
-1. Ensure your `config/workforce.yaml`, `config/providers.yaml`, and `.vault/policy.json` are populated with 10 distinct agents.
-2. Drop this master ticket into `.agents/inbox/master_plan.md`:
-
-```markdown
----
-task_id: "HYPER-SYNTH-001"
-agent_id: "dictator"
-priority: "urgent"
----
-# Master Plan: The 2030 Agentic Report
-Execute a massive parallel research and writing task.
-- 10 Specialist Agents must contribute exactly one chapter each.
-- The Auditor Agent must flag any chapter that lacks Source URLs.
-- The Critic Agent must reject at least 2 chapters for "Low Depth" to force a retry loop.
-- Final output: `review/Final_Whitepaper_2030.md`
-```
-
-3. The Dictator agent will spin up the remaining 8 nested `.md` tasks in the inbox automatically.
-4. The file watcher will spawn threads for all sub-tasks concurrently. You will see 9 `.state.json` files appear in `.agents/active/` in perfect harmony without Race Conditions or state corruption!
