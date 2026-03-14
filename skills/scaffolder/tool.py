@@ -23,14 +23,18 @@ class ScaffoldSkill(BaseTool[ScaffoldInputSchema, ScaffoldOutputSchema]):
     """Creates a fully configured workspace folder, complete with its own core engines, configs, and seed tickets."""
     def run(self, params: ScaffoldInputSchema) -> ScaffoldOutputSchema:
         try:
-            base_dir = Path(params.project_name)
+            # Workspace Discovery Optimization: Isolate generated OSs inside a workspaces/ directory
+            workspace_root = Path("workspaces")
+            workspace_root.mkdir(exist_ok=True)
 
-            # Recursion Guard: Prevent creating workspaces inside core OS directories or using absolute/traversal paths
-            if base_dir.is_absolute() or ".." in base_dir.parts or base_dir.parts[0] in [".agents", "core", "skills", ".vault", "config", "docs"]:
+            base_dir = workspace_root / params.project_name
+
+            # Recursion Guard: Prevent creating workspaces inside core system directories or using absolute/traversal paths
+            if base_dir.is_absolute() or ".." in Path(params.project_name).parts or params.project_name in [".agents", "core", "skills", ".vault", "config", "docs", "workspaces", "archives"]:
                 return ScaffoldOutputSchema(status="error", message="Recursion Guard: Cannot scaffold inside core system directories or use absolute/traversal paths.")
 
             if base_dir.exists():
-                return ScaffoldOutputSchema(status="error", message=f"Directory {params.project_name} already exists.")
+                return ScaffoldOutputSchema(status="error", message=f"Directory {base_dir} already exists.")
 
             # Create core directory tree
             (base_dir / ".agents" / "inbox").mkdir(parents=True)

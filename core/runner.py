@@ -114,7 +114,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
                 initial_ticket_content="---\ntask_id: \"LEGAL-001\"\nagent_id: \"case_law_researcher\"\npriority: \"high\"\n---\n# Research Task\nResearch the impact of the 2026 Capital Gains tax on family holding companies."
             )
             result = scaffold_tool.run(params)
-            final_response = f"Scaffolded legal_research_os: {result.message}"
+            final_response = f"Scaffolded workspaces/legal_research_os: {result.message}"
         else:
             final_response = "Error: ScaffoldSkill not found in authorized tools."
     else:
@@ -142,15 +142,30 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
                 state_data["agent_memory"] = [msg.model_dump() if hasattr(msg, "model_dump") else str(msg) for msg in agent.memory.history]
             else:
                 state_data["agent_memory"] = str(agent.memory)
-    except Exception as mem_err:
-        logger.warning(f"Failed to dump agent memory: {mem_err}")
+    except Exception as e:
+        logger.error(f"Error during agent execution: {e}", exc_info=True)
+        final_response = f"Execution failed: {str(e)}"
+        state_data["current_step"] = "failed"
+        with open(state_file, 'w') as f:
+            json.dump(state_data, f, indent=2)
 
-    # 7. Finalize State and Report
-    if state_data.get("current_step") != "failed":
-        state_data["current_step"] = "completed"
+    # --- Telemetry Lite: Global History Logging ---
+    try:
+        from datetime import datetime
+        history_path = Path.home() / ".agent_os_history"
+        telemetry_entry = {
+            "timestamp": datetime.utcnow().isoformat(),
+            "os_path": str(Path.cwd()),
+            "task_id": task_id,
+            "agent_id": agent_id,
+            "status": state_data.get("current_step", "unknown")
+        }
+        with open(history_path, 'a') as f:
+            f.write(json.dumps(telemetry_entry) + "\n")
+    except Exception as telemetry_error:
+        logger.warning(f"Failed to write to telemetry .agent_os_history: {telemetry_error}")
 
-    with open(state_file, 'w') as f: json.dump(state_data, f, indent=2)
-
+    # 4. Generate the Final Report
     review_dir = Path(".agents/review")
     review_dir.mkdir(parents=True, exist_ok=True)
     review_file = review_dir / f"{task_id}_report.md"

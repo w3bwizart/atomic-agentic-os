@@ -9,6 +9,7 @@ from skills.file_manager.tool import FileManagerSkill
 from skills.terminal.tool import TerminalSkill
 from skills.dependencies.tool import WaitSkill
 from skills.scaffolder.tool import ScaffoldSkill
+from skills.unscaffolder.tool import UnscaffoldSkill
 
 TOOL_REGISTRY: Dict[str, Type[BaseTool]] = {
     "file_management": FileManagerSkill,
@@ -16,6 +17,7 @@ TOOL_REGISTRY: Dict[str, Type[BaseTool]] = {
     "read_active_state": WaitSkill,
     "read_review": WaitSkill,
     "scaffold_skill": ScaffoldSkill,
+    "unscaffold_skill": UnscaffoldSkill,
 }
 
 def get_tool_class(skill_name: str) -> Type[BaseTool]:

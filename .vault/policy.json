@@ -3,7 +3,8 @@
     "dictator": [
       "file_management",
       "task_decomposition",
-      "scaffold_skill"
+      "scaffold_skill",
+      "unscaffold_skill"
     ],
     "economist": [
       "file_management"
