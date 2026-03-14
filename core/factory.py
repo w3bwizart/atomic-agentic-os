@@ -25,8 +25,8 @@ def get_llm_provider(agent_id: str):
     provider_name = routing.get(agent_id)
 
     if not provider_name:
-        logger.warning(f"No routing found for {agent_id}. Defaulting to openai.")
-        provider_name = "openai"
+        logger.warning(f"No routing found for {agent_id}. Defaulting to safe ollama fallback.")
+        provider_name = "ollama"
 
     provider_config = config.get("providers", {}).get(provider_name, {})
     model = provider_config.get("model", "gpt-4o")

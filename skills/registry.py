@@ -19,3 +19,8 @@ TOOL_REGISTRY: Dict[str, Type[BaseTool]] = {
 def get_tool_class(skill_name: str) -> Type[BaseTool]:
     """Returns the tool class for a given skill string from workforce.yaml."""
     return TOOL_REGISTRY.get(skill_name)
+
+print("\n--- OS Boot: Registering Agentic Skills ---")
+for tool_name in TOOL_REGISTRY:
+    print(f" -> [Registered] {tool_name}")
+print("-------------------------------------------\n")

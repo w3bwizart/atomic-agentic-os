@@ -98,10 +98,10 @@ class InboxHandler(FileSystemEventHandler):
                     json.dump(state_data, f, indent=2)
 
             # 2. SOP Injector
-            skill_md_path = Path("config/skill.md")
+            kernel_md_path = Path("config/kernel.md")
             sops = ""
-            if skill_md_path.exists():
-                with open(skill_md_path, 'r') as f:
+            if kernel_md_path.exists():
+                with open(kernel_md_path, 'r') as f:
                     sops = f.read()
 
             # Delegate execution to Runner
@@ -130,6 +130,8 @@ def main():
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
+        logger.info("Graceful shutdown initiated by KeyboardInterrupt.")
+        print("\nOrchestrator V2 shutting down gracefully...")
         observer.stop()
 
     observer.join()

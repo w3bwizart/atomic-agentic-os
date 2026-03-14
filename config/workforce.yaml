@@ -4,42 +4,12 @@ agents:
     description: "Breaks down inbox requests into atomic tasks and delegates them to specialists."
     skills: ["task_decomposition", "file_management"]
 
-  - id: "economist"
-    role: "Economic Analyst"
-    description: "Analyzes macro-economic impact."
-    skills: ["file_management"]
-
-  - id: "cyber_security"
-    role: "Cyber Security Expert"
-    description: "Evaluates the security risks of agentic code."
-    skills: ["file_management"]
-
-  - id: "devops"
-    role: "DevOps Engineer"
-    description: "Assesses changes in CI/CD pipelines."
+  - id: "coder"
+    role: "Software Engineer"
+    description: "Writes, refactors, and manages codebase architectures."
     skills: ["file_management", "terminal_access"]
 
-  - id: "legal_policy"
-    role: "Legal & Policy Advisor"
-    description: "Reviews global regulations and compliance."
-    skills: ["file_management"]
-
-  - id: "case_study_scout"
-    role: "Case Study Scout"
-    description: "Finds real-world examples using the browser."
+  - id: "researcher"
+    role: "Research Specialist"
+    description: "Performs web research and gathers information."
     skills: ["file_management", "browser_access"]
-
-  - id: "sop_auditor"
-    role: "SOP Auditor"
-    description: "Ensures all agents follow the standard operating procedures."
-    skills: ["file_management", "read_active_state"]
-
-  - id: "the_critic"
-    role: "The Critic"
-    description: "Actively finds flaws in other agents' work and forces retries."
-    skills: ["file_management", "read_review"]
-
-  - id: "ghost_writer"
-    role: "The Ghost-Writer"
-    description: "Final synthesis and formatting of the whitepaper."
-    skills: ["file_management"]
