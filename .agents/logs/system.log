@@ -9,3 +9,26 @@
 2026-03-14 02:18:35,559 - Orchestrator - INFO - Injected SOPs. Length: 429
 2026-03-14 02:18:35,559 - Orchestrator - INFO - Dictator module: running Diagnostic test for HW-002
 2026-03-14 02:18:35,559 - Orchestrator - INFO - Moved test.md to active/
+2026-03-14 02:38:41,642 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
+2026-03-14 02:38:49,503 - Orchestrator - INFO - New file detected in inbox: test_v2.md
+2026-03-14 02:38:49,503 - Orchestrator - INFO - Task unknown_task assigned to dictator (Orchestrator)
+2026-03-14 02:38:49,503 - Orchestrator - INFO - Recovered state for unknown_task at step: acknowledged_by_dictator
+2026-03-14 02:38:49,503 - Orchestrator - ERROR - Error processing file test_v2.md: SystemPromptGenerator.__init__() got an unexpected keyword argument 'notes'
+2026-03-14 02:38:50,003 - Orchestrator - INFO - New file detected in inbox: test_v2.md
+2026-03-14 02:38:50,004 - Orchestrator - INFO - Task HW-003 assigned to dictator (Orchestrator)
+2026-03-14 02:38:50,004 - Orchestrator - ERROR - Error processing file test_v2.md: SystemPromptGenerator.__init__() got an unexpected keyword argument 'notes'
+2026-03-14 02:39:08,659 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
+2026-03-14 02:39:21,597 - Orchestrator - INFO - New file detected in inbox: test_v2.md
+2026-03-14 02:39:21,597 - Orchestrator - INFO - New file detected in inbox: test_v2.md
+2026-03-14 02:39:21,597 - Orchestrator - INFO - Task HW-003 assigned to dictator (Orchestrator)
+2026-03-14 02:39:21,597 - Orchestrator - INFO - Recovered state for HW-003 at step: initialization
+2026-03-14 02:39:21,597 - Orchestrator - ERROR - Error processing file test_v2.md: SystemPromptGenerator.__init__() got an unexpected keyword argument 'notes'
+2026-03-14 02:39:21,597 - Orchestrator - INFO - Task HW-003 assigned to dictator (Orchestrator)
+2026-03-14 02:39:21,597 - Orchestrator - INFO - Recovered state for HW-003 at step: initialization
+2026-03-14 02:39:21,598 - Orchestrator - INFO - Initializing openai (gpt-4o) for agent dictator
+2026-03-14 02:39:21,724 - core.vault - WARNING - Security Violation: Agent dictator denied access to task_decomposition
+2026-03-14 02:39:21,724 - Orchestrator - WARNING - Security Block: dictator attempted to load unauthorized tool task_decomposition
+2026-03-14 02:39:21,724 - core.vault - WARNING - Security Violation: Agent dictator denied access to file_management
+2026-03-14 02:39:21,724 - Orchestrator - WARNING - Security Block: dictator attempted to load unauthorized tool file_management
+2026-03-14 02:39:21,724 - Orchestrator - INFO - Executing Agent Run for HW-003...
+2026-03-14 02:39:21,733 - Orchestrator - INFO - Task HW-003 completed. Report written to review folder.
