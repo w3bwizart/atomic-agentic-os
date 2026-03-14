@@ -16,12 +16,18 @@ A decentralized **Agentic OS** where specialized Atomic Agents interact with a s
 ├── config/
 │   ├── workforce.yaml  # Agent roles
 │   ├── providers.yaml  # LLM settings
-│   └── skill.md        # System SOPs
+│   └── kernel.md       # System SOPs
 ├── core/
-│   └── orchestrator.py # File-watcher & Logic
+│   ├── orchestrator.py # File-watcher Dispatcher
+│   ├── runner.py       # LLM Execution Loop
+│   ├── factory.py      # LLM Provider Initialization
+│   └── vault.py        # Security & Validation
+├── docs/examples/      # Stress test configurations
 └── skills/
-    └── terminal/
-        └── tool.py     # Example Atomic Skill
+    ├── registry.py     # Tool dynamic mapping (Phonebook)
+    ├── dependencies/   # Cross-agent WaitSkill
+    ├── file_manager/   # Standard file I/O operations
+    └── terminal/       # Isolated bash access
 ```
 
 ## 🛠️ Core Feature List
@@ -42,7 +48,7 @@ Protect sensitive credentials from the "Agent Brain." Secrets are stored in a se
 Hierarchical task breakdown. 1 Planner (Dictator) → N specialized executors (Lieutenants).
 
 ### 6. Centralized SOPs & Guidelines
-A "Bible" (e.g., `skill.md` or Obsidian vault) containing code standards, branding guides, and security rules.
+A "Bible" (e.g., `kernel.md` or Obsidian vault) containing code standards, branding guides, and security rules.
 
 ## ✨ Visionary / "Nice-to-Have" Features
 
@@ -68,14 +74,17 @@ Clone this repository and create a Python virtual environment:
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-pip install watchdog pyyaml pydantic
+pip install -r requirements.txt
 ```
 
 ### 2. Start the Orchestrator
 
-Run the core orchestrator script. This starts a `watchdog` daemon that listens to the `.agents/inbox/` directory.
+Run the core orchestrator script. This starts a `watchdog` daemon that listens to the `.agents/inbox/` directory and safely dispatches threaded jobs to the `runner`.
 
 ```bash
+# Optional: Clear zombie processes first
+./cleanup.sh
+
 # Keep this running in your terminal
 python3 core/orchestrator.py
 ```
