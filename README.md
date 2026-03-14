@@ -54,3 +54,47 @@ Tracking ROI and performance via token usage per task, success rate of "Micro-Co
 
 ### 3. The "Meta-Scaffolder" (The Yeoman Agent)
 An "Architect Agent" that takes a high-level idea and generates the entire folder structure, `skill.md` files, and initial "Tickets" for a new project.
+
+---
+
+## 🚀 Setup & Diagnostic Testing
+
+To test the core Agentic OS environment and ensure the file-watcher is processing correctly, follow these steps:
+
+### 1. Installation
+
+Clone this repository and create a Python virtual environment:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install watchdog pyyaml pydantic
+```
+
+### 2. Start the Orchestrator
+
+Run the core orchestrator script. This starts a `watchdog` daemon that listens to the `.agents/inbox/` directory.
+
+```bash
+# Keep this running in your terminal
+python3 core/orchestrator.py
+```
+
+### 3. Run the Diagnostic Test (The "Hello World")
+
+The orchestrator is currently configured with a "Dictator" diagnostic mode. If a task is assigned to `dictator`, the system will simply acknowledge the file, initialize its internal state tracking, and move the file out of the inbox.
+
+1. Create a markdown file inside `.agents/inbox/` (for example, `test.md`):
+
+```markdown
+---
+task_id: "HW-002"
+agent_id: "dictator"
+priority: "high"
+---
+# Task: Diagnostic
+Acknowledge this file.
+```
+
+2. Watch the orchestrator terminal. You should see logs indicating that the file was detected, the frontmatter parsed, SOPs injected, and the file moved.
+3. Check the `.agents/active/` directory. The `test.md` file will now be located there, along with a newly generated `HW-002.state.json` file used for state synchronization. You can also view `.agents/logs/system.log` to trace exactly what happened.
