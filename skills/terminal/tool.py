@@ -18,6 +18,31 @@ class TerminalSkill(BaseTool[TerminalCommandInputSchema, TerminalCommandOutputSc
     def run(self, params: TerminalCommandInputSchema) -> TerminalCommandOutputSchema:
         try:
             result = subprocess.run(params.command, shell=True, capture_output=True, text=True)
-            return TerminalCommandOutputSchema(stdout=result.stdout, stderr=result.stderr)
+            output = TerminalCommandOutputSchema(stdout=result.stdout, stderr=result.stderr)
         except Exception as e:
-            return TerminalCommandOutputSchema(stdout="", stderr="", error=str(e))
+            output = TerminalCommandOutputSchema(stdout="", stderr="", error=str(e))
+
+        # Persistent logging for audit trail
+        state_file = getattr(self, "state_file", None)
+        if state_file and state_file.exists():
+            try:
+                import json
+                with open(state_file, 'r') as f:
+                    state_data = json.load(f)
+
+                tool_outputs = state_data.get("tool_outputs", [])
+                tool_outputs.append({
+                    "tool": "TerminalSkill",
+                    "command": params.command,
+                    "stdout": output.stdout,
+                    "stderr": output.stderr,
+                    "error": output.error
+                })
+                state_data["tool_outputs"] = tool_outputs
+
+                with open(state_file, 'w') as f:
+                    json.dump(state_data, f, indent=2)
+            except Exception:
+                pass # Fail silently if logging fails
+
+        return output

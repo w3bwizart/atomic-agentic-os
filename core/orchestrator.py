@@ -18,8 +18,9 @@ from openai import OpenAI
 from anthropic import Anthropic
 
 # Local imports
+from core.factory import get_llm_provider
 from core.vault import check_permission
-from skills.file_manager import FileManagerSkill
+from skills.file_manager.tool import FileManagerSkill
 from skills.terminal.tool import TerminalSkill
 
 log_dir = Path(".agents/logs")
@@ -31,62 +32,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger("Orchestrator")
 
-# ---------------------------------------------------------
-# Phase 2: Brain Switcher (Model Provider Factory)
-# ---------------------------------------------------------
-def get_agent_brain(agent_id: str):
-    """
-    Reads config/providers.yaml, determines the assigned provider for the agent,
-    and returns an initialized instructor client.
-    """
-    providers_path = Path("config/providers.yaml")
-    if not providers_path.exists():
-        logger.error("providers.yaml not found.")
-        return None, None
 
-    with open(providers_path, 'r') as f:
-        config = yaml.safe_load(f)
-
-    routing = config.get("routing", {})
-    provider_name = routing.get(agent_id)
-
-    if not provider_name:
-        logger.warning(f"No routing found for {agent_id}. Defaulting to openai.")
-        provider_name = "openai"
-
-    provider_config = config.get("providers", {}).get(provider_name, {})
-    model = provider_config.get("model", "gpt-4o")
-
-    logger.info(f"Initializing {provider_name} ({model}) for agent {agent_id}")
-
-    if provider_name == "openai":
-        # In a real setup, os.environ.get("OPENAI_API_KEY")
-        # Here we mock it if it's "ENV_VAR" to prevent crashes during the test
-        api_key = provider_config.get("api_key")
-        if api_key == "ENV_VAR": api_key = os.environ.get("OPENAI_API_KEY", "dummy-key")
-        client = instructor.from_openai(OpenAI(api_key=api_key))
-        return client, model
-
-    elif provider_name == "anthropic":
-        api_key = provider_config.get("api_key")
-        if api_key == "ENV_VAR": api_key = os.environ.get("ANTHROPIC_API_KEY", "dummy-key")
-        client = instructor.from_anthropic(Anthropic(api_key=api_key))
-        return client, model
-
-    elif provider_name == "ollama":
-        base_url = provider_config.get("base_url", "http://localhost:11434/v1")
-        # Ollama supports OpenAI compatible endpoints
-        client = instructor.from_openai(OpenAI(base_url=base_url, api_key="ollama"))
-        return client, model
-
-    else:
-        logger.error(f"Unsupported provider: {provider_name}")
-        return None, None
 
 # ---------------------------------------------------------
 # Phase 2: Atomic Tool Runner with Vault Integration
 # ---------------------------------------------------------
-def get_authorized_tools(agent_id: str, requested_skills: list):
+def get_authorized_tools(agent_id: str, requested_skills: list, state_file: Path = None):
     """
     Checks vault permissions for each requested skill and returns instantiated tools.
     """
@@ -97,7 +48,9 @@ def get_authorized_tools(agent_id: str, requested_skills: list):
             if skill == "file_management":
                 authorized_tools.append(FileManagerSkill())
             elif skill == "terminal_access":
-                authorized_tools.append(TerminalSkill())
+                tool = TerminalSkill()
+                tool.state_file = state_file
+                authorized_tools.append(tool)
             else:
                 logger.warning(f"Skill {skill} is authorized but no tool implementation was found.")
         else:
@@ -203,12 +156,12 @@ class InboxHandler(FileSystemEventHandler):
             )
 
             # 3. Brain Switcher & Tool Assignment
-            client, model = get_agent_brain(agent_id)
+            client, model = get_llm_provider(agent_id)
             if not client:
                 logger.error("Failed to initialize LLM client.")
                 return
 
-            tools = get_authorized_tools(agent_id, agent_config.get('skills', []))
+            tools = get_authorized_tools(agent_id, agent_config.get('skills', []), state_file)
 
             agent = AtomicAgent(
                 config=AgentConfig(
@@ -239,6 +192,18 @@ class InboxHandler(FileSystemEventHandler):
                     logger.error(f"LLM Error: {e}")
                     final_response = f"Error during execution: {e}"
             # --- END MOCK ---
+
+            # Dump agent memory for audit trail
+            try:
+                if hasattr(agent, "memory"):
+                    if callable(getattr(agent.memory, "model_dump", None)):
+                        state_data["agent_memory"] = agent.memory.model_dump()
+                    elif hasattr(agent.memory, "history"):
+                        state_data["agent_memory"] = [msg.model_dump() if hasattr(msg, "model_dump") else str(msg) for msg in agent.memory.history]
+                    else:
+                        state_data["agent_memory"] = str(agent.memory)
+            except Exception as mem_err:
+                logger.warning(f"Failed to dump agent memory: {mem_err}")
 
             # 5. Clean up and Review Phase
             state_data["current_step"] = "completed"

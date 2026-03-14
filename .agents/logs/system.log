@@ -32,3 +32,128 @@
 2026-03-14 02:39:21,724 - Orchestrator - WARNING - Security Block: dictator attempted to load unauthorized tool file_management
 2026-03-14 02:39:21,724 - Orchestrator - INFO - Executing Agent Run for HW-003...
 2026-03-14 02:39:21,733 - Orchestrator - INFO - Task HW-003 completed. Report written to review folder.
+2026-03-14 02:46:06,839 - Orchestrator - INFO - New file detected in inbox: test_v3.md
+2026-03-14 02:46:06,839 - Orchestrator - INFO - New file detected in inbox: test_v3.md
+2026-03-14 02:46:06,839 - Orchestrator - INFO - Task unknown_task assigned to dictator (Orchestrator)
+2026-03-14 02:46:06,839 - Orchestrator - INFO - Task unknown_task assigned to dictator (Orchestrator)
+2026-03-14 02:46:06,848 - Orchestrator - INFO - Recovered state for unknown_task at step: acknowledged_by_dictator
+2026-03-14 02:46:06,848 - Orchestrator - ERROR - Error processing file test_v3.md: [Errno 2] No such file or directory: '.agents/inbox/test_v3.md' -> '.agents/active/test_v3.md'
+2026-03-14 02:46:06,848 - Orchestrator - INFO - Initializing openai (gpt-4o) for agent dictator
+2026-03-14 02:46:06,858 - core.vault - WARNING - Security Violation: Agent dictator denied access to task_decomposition
+2026-03-14 02:46:06,858 - Orchestrator - WARNING - Security Block: dictator attempted to load unauthorized tool task_decomposition
+2026-03-14 02:46:06,858 - core.vault - WARNING - Security Violation: Agent dictator denied access to file_management
+2026-03-14 02:46:06,858 - Orchestrator - WARNING - Security Block: dictator attempted to load unauthorized tool file_management
+2026-03-14 02:46:06,858 - Orchestrator - INFO - Executing Agent Run for unknown_task...
+2026-03-14 02:46:07,135 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-03-14 02:46:07,322 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-03-14 02:46:07,348 - Orchestrator - INFO - New file detected in inbox: test_v3.md
+2026-03-14 02:46:07,348 - Orchestrator - INFO - Task HW-004 assigned to dictator (Orchestrator)
+2026-03-14 02:46:07,348 - Orchestrator - ERROR - Error processing file test_v3.md: SystemPromptGenerator.__init__() got an unexpected keyword argument 'notes'
+2026-03-14 02:46:07,491 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-03-14 02:46:07,493 - Orchestrator - ERROR - LLM Error: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 401 - {'error': {'message': 'Incorrect API key provided: dummy-key. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 401 - {'error': {'message': 'Incorrect API key provided: dummy-key. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 401 - {'error': {'message': 'Incorrect API key provided: dummy-key. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 401 - {'error': {'message': 'Incorrect API key provided: dummy-key. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+</last_exception>
+2026-03-14 02:46:07,494 - Orchestrator - INFO - Task unknown_task completed. Report written to review folder.
+2026-03-14 02:46:07,494 - Orchestrator - INFO - New file detected in inbox: test_v3.md
+2026-03-14 02:46:07,494 - Orchestrator - ERROR - Error processing file test_v3.md: [Errno 2] No such file or directory: '.agents/inbox/test_v3.md'
+2026-03-14 02:46:10,240 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
+2026-03-14 02:46:28,857 - Orchestrator - INFO - New file detected in inbox: test_v4.md
+2026-03-14 02:46:28,857 - Orchestrator - INFO - New file detected in inbox: test_v4.md
+2026-03-14 02:46:28,857 - Orchestrator - INFO - Task unknown_task assigned to dictator (Orchestrator)
+2026-03-14 02:46:28,857 - Orchestrator - INFO - New file detected in inbox: test_v4.md
+2026-03-14 02:46:28,857 - Orchestrator - INFO - Task unknown_task assigned to dictator (Orchestrator)
+2026-03-14 02:46:28,858 - Orchestrator - ERROR - Error processing file test_v4.md: [Errno 2] No such file or directory: '.agents/inbox/test_v4.md' -> '.agents/active/test_v4.md'
+2026-03-14 02:46:28,858 - Orchestrator - INFO - Recovered state for unknown_task at step: completed
+2026-03-14 02:46:28,858 - Orchestrator - INFO - Task unknown_task assigned to dictator (Orchestrator)
+2026-03-14 02:46:28,858 - Orchestrator - ERROR - Error processing file test_v4.md: SystemPromptGenerator.__init__() got an unexpected keyword argument 'notes'
+2026-03-14 02:46:28,858 - Orchestrator - INFO - Recovered state for unknown_task at step: completed
+2026-03-14 02:46:28,858 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
+2026-03-14 02:46:28,965 - core.vault - WARNING - Security Violation: Agent dictator denied access to task_decomposition
+2026-03-14 02:46:28,965 - Orchestrator - WARNING - Security Block: dictator attempted to load unauthorized tool task_decomposition
+2026-03-14 02:46:28,965 - core.vault - WARNING - Security Violation: Agent dictator denied access to file_management
+2026-03-14 02:46:28,965 - Orchestrator - WARNING - Security Block: dictator attempted to load unauthorized tool file_management
+2026-03-14 02:46:28,965 - Orchestrator - INFO - Executing Agent Run for unknown_task...
+2026-03-14 02:46:29,192 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-03-14 02:46:29,358 - Orchestrator - INFO - New file detected in inbox: test_v4.md
+2026-03-14 02:46:29,358 - Orchestrator - INFO - New file detected in inbox: test_v4.md
+2026-03-14 02:46:29,358 - Orchestrator - INFO - Task HW-005 assigned to dictator (Orchestrator)
+2026-03-14 02:46:29,358 - Orchestrator - INFO - Task HW-005 assigned to dictator (Orchestrator)
+2026-03-14 02:46:29,359 - Orchestrator - INFO - Initializing openai (gpt-4o) for agent dictator
+2026-03-14 02:46:29,359 - Orchestrator - INFO - Recovered state for HW-005 at step: initialization
+2026-03-14 02:46:29,359 - Orchestrator - ERROR - Error processing file test_v4.md: SystemPromptGenerator.__init__() got an unexpected keyword argument 'notes'
+2026-03-14 02:46:29,367 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-03-14 02:46:29,369 - core.vault - WARNING - Security Violation: Agent dictator denied access to task_decomposition
+2026-03-14 02:46:29,369 - Orchestrator - WARNING - Security Block: dictator attempted to load unauthorized tool task_decomposition
+2026-03-14 02:46:29,369 - core.vault - WARNING - Security Violation: Agent dictator denied access to file_management
+2026-03-14 02:46:29,369 - Orchestrator - WARNING - Security Block: dictator attempted to load unauthorized tool file_management
+2026-03-14 02:46:29,369 - Orchestrator - INFO - Executing Agent Run for HW-005...
+2026-03-14 02:46:29,378 - Orchestrator - INFO - Task HW-005 completed. Report written to review folder.
+2026-03-14 02:46:29,557 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-03-14 02:46:29,559 - Orchestrator - ERROR - LLM Error: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 401 - {'error': {'message': 'Incorrect API key provided: dummy-key. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 401 - {'error': {'message': 'Incorrect API key provided: dummy-key. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 401 - {'error': {'message': 'Incorrect API key provided: dummy-key. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 401 - {'error': {'message': 'Incorrect API key provided: dummy-key. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+</last_exception>
+2026-03-14 02:46:29,559 - Orchestrator - INFO - Task unknown_task completed. Report written to review folder.
+2026-03-14 02:46:29,559 - Orchestrator - INFO - New file detected in inbox: test_v4.md
+2026-03-14 02:46:29,559 - Orchestrator - ERROR - Error processing file test_v4.md: [Errno 2] No such file or directory: '.agents/inbox/test_v4.md'
