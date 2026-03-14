@@ -1,6 +1,36 @@
 {
   "permissions": {
-    "lieutenant_coder_01": ["terminal_access"],
-    "dictator_01": ["read_inbox", "write_active"]
+    "dictator": [
+      "file_management",
+      "task_decomposition"
+    ],
+    "economist": [
+      "file_management"
+    ],
+    "cyber_security": [
+      "file_management"
+    ],
+    "devops": [
+      "file_management",
+      "terminal_access"
+    ],
+    "legal_policy": [
+      "file_management"
+    ],
+    "case_study_scout": [
+      "file_management",
+      "browser_access"
+    ],
+    "sop_auditor": [
+      "file_management",
+      "read_active_state"
+    ],
+    "the_critic": [
+      "file_management",
+      "read_review"
+    ],
+    "ghost_writer": [
+      "file_management"
+    ]
   }
 }

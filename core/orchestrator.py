@@ -2,6 +2,7 @@ import os
 import time
 import json
 import logging
+import threading
 from pathlib import Path
 import yaml
 from watchdog.observers import Observer
@@ -74,7 +75,7 @@ class InboxHandler(FileSystemEventHandler):
 
         filepath = Path(event.src_path)
         logger.info(f"New file detected in inbox: {filepath.name}")
-        self.process_file(filepath)
+        threading.Thread(target=self.process_file, args=(filepath,), daemon=True).start()
 
     def parse_frontmatter(self, content):
         if not content.startswith('---'):
@@ -184,6 +185,25 @@ class InboxHandler(FileSystemEventHandler):
             # --- BEGIN MOCK LLM CALL FOR DIAGNOSTIC (Since API keys are ENV_VAR) ---
             if "HW-002" in task_id or "Acknowledge" in body:
                 final_response = f"Diagnostic Acknowledgment by {agent_id}. Setup is completely valid."
+            elif task_id.startswith("HYPER-SYNTH"):
+                time.sleep(2) # Simulate LLM thinking time for true parallel testing
+                if agent_id == "dictator":
+                    final_response = "Decomposing HYPER-SYNTH-001 into 9 subtasks."
+                    # Simulate Dictator using file_manager tool to create sub-tasks
+                    sub_agents = ["economist", "cyber_security", "devops", "legal_policy", "case_study_scout", "sop_auditor", "the_critic", "ghost_writer"]
+                    inbox_dir = Path(".agents/inbox")
+                    for child in sub_agents:
+                        with open(inbox_dir / f"HYPER-SYNTH-{child}.md", "w") as f:
+                            f.write(f"---\ntask_id: \"HYPER-SYNTH-{child}\"\nagent_id: \"{child}\"\npriority: \"urgent\"\n---\nWrite your chapter.")
+                elif agent_id == "the_critic":
+                    final_response = "Critic Agent: Rejecting chapters for Low Depth."
+                elif agent_id == "sop_auditor":
+                    final_response = "Auditor Agent: Flagging missing URL."
+                elif agent_id == "ghost_writer":
+                    final_response = "Ghost Writer: Assembled Final_Whitepaper_2030.md"
+                else:
+                    final_response = f"{agent_id} completed chapter synthesis."
+
             else:
                 try:
                     response = agent.run(agent.input_schema(chat_message=body))

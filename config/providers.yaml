@@ -6,10 +6,16 @@ providers:
     api_key: "ENV_VAR"
     model: "claude-3-5-sonnet-20240620"
   ollama:
-    base_url: "http://localhost:11434"
+    base_url: "http://localhost:11434/v1"
     model: "llama3:8b"
 
 routing:
-  dictator: "openai"       # High-level logic
-  researcher_01: "openai"  # Good for web-browsing tool calls
-  synthesis_02: "ollama"   # Local, fast, cheap for writing
+  dictator: "openai"
+  economist: "anthropic"
+  cyber_security: "openai"
+  devops: "ollama"
+  legal_policy: "openai"
+  case_study_scout: "anthropic"
+  sop_auditor: "ollama"
+  the_critic: "openai"
+  ghost_writer: "ollama"
