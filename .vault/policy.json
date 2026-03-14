@@ -2,7 +2,8 @@
   "permissions": {
     "dictator": [
       "file_management",
-      "task_decomposition"
+      "task_decomposition",
+      "scaffold_skill"
     ],
     "economist": [
       "file_management"

@@ -1,13 +1,3 @@
-# System SOPs v1.0
-
-## Terminal Usage
-- Always use absolute paths.
-- Never delete directories recursively without a backup.
-- Use `echo` to verify state before running complex pipes.
-
-## Communication
-- Use JSONL for system logs.
-- Use Markdown for human-facing reports in the `/review` folder.
 ## Research Integrity
 All research findings must include the source URL and a 2-sentence summary of the credibility of the source.
 
@@ -15,3 +5,7 @@ All research findings must include the source URL and a 2-sentence summary of th
 - All generated workspaces must follow the standard ASCII directory schema.
 - Every workspace must start with a `README.md` explaining the purpose of the specific agentic workforce.
 - Initial 'Seed Tickets' must be placed in the `.agents/inbox/` of the new workspace.
+
+## Legal Workspace Rules
+- Extreme accuracy.
+- Mandatory citation of Belgian Law.
