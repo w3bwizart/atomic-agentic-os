@@ -1,0 +1,11 @@
+2026-03-14 02:18:27,589 - Orchestrator - INFO - Orchestrator online. Watching inbox.
+2026-03-14 02:18:35,057 - Orchestrator - INFO - New file detected in inbox: test.md
+2026-03-14 02:18:35,057 - Orchestrator - INFO - Task unknown_task assigned to dictator
+2026-03-14 02:18:35,058 - Orchestrator - INFO - Injected SOPs. Length: 429
+2026-03-14 02:18:35,058 - Orchestrator - INFO - Dictator module: running Diagnostic test for unknown_task
+2026-03-14 02:18:35,058 - Orchestrator - INFO - Moved test.md to active/
+2026-03-14 02:18:35,558 - Orchestrator - INFO - New file detected in inbox: test.md
+2026-03-14 02:18:35,558 - Orchestrator - INFO - Task HW-002 assigned to dictator
+2026-03-14 02:18:35,559 - Orchestrator - INFO - Injected SOPs. Length: 429
+2026-03-14 02:18:35,559 - Orchestrator - INFO - Dictator module: running Diagnostic test for HW-002
+2026-03-14 02:18:35,559 - Orchestrator - INFO - Moved test.md to active/
