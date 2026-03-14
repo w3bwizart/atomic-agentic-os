@@ -1,5 +1,5 @@
 agents:
-  - id: "dictator_01"
+  - id: "dictator"
     role: "Orchestrator"
     description: "Breaks down inbox requests into atomic tasks."
     skills: ["task_decomposition", "file_management"]
