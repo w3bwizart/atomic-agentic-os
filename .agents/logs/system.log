@@ -31,3 +31,6 @@
 2026-03-18 00:39:51,357 - LLMRunner - INFO - Executing Agent Run for HW-006 with dictator...
 2026-03-18 00:39:51,358 - LLMRunner - INFO - Task HW-006 completed. Report written to review folder.
 2026-03-18 00:40:03,205 - Orchestrator - INFO - Graceful shutdown initiated by KeyboardInterrupt.
+2026-03-18 00:50:21,426 - Factory - WARNING - No routing found for unknown_agent. Defaulting to safe ollama fallback.
+2026-03-18 00:50:21,426 - Factory - INFO - Initializing ollama (llama3) for agent unknown_agent
+2026-03-18 00:50:21,523 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
