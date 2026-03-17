@@ -34,7 +34,7 @@ class InboxHandler(FileSystemEventHandler):
             return
 
         filepath = Path(event.src_path)
-        logger.info(f"New file detected in inbox: {filepath.name}")
+        # Watchdog debounce: check logic happens in the thread to avoid blocking
         threading.Thread(target=self.process_file, args=(filepath,), daemon=True).start()
 
     def parse_frontmatter(self, content):
@@ -52,6 +52,20 @@ class InboxHandler(FileSystemEventHandler):
 
     def process_file(self, filepath: Path):
         try:
+            # Brief pause to let file writing finish and avoid reading 0 bytes
+            time.sleep(0.1)
+            
+            if not filepath.exists():
+                return
+                
+            if filepath.stat().st_size == 0:
+                logger.debug(f"File {filepath.name} is empty, waiting... (debounce)")
+                time.sleep(0.2)
+                if not filepath.exists() or filepath.stat().st_size == 0:
+                    return
+            
+            logger.info(f"Processing new file in inbox: {filepath.name}")
+
             # Atomic Claim Logic: Try to move the file
             # If the file was moved by another thread, FileNotFoundError handles it cleanly.
             active_dir = Path(".agents/active")

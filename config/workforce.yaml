@@ -2,7 +2,7 @@ agents:
   - id: "dictator"
     role: "Strategy & Task Allocation"
     description: "Breaks down inbox requests into atomic tasks and delegates them to specialists."
-    skills: ["task_decomposition", "file_management", "scaffold_skill", "unscaffold_skill"]
+    skills: ["file_management", "scaffold_skill", "unscaffold_skill"]
 
   - id: "coder"
     role: "Software Engineer"

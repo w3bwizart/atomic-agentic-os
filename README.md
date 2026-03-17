@@ -86,7 +86,7 @@ Run the core orchestrator script. This starts a `watchdog` daemon that listens t
 ./cleanup.sh
 
 # Keep this running in your terminal
-python3 core/orchestrator.py
+PYTHONPATH=. python3 core/orchestrator.py
 ```
 
 ### 3. Run the Diagnostic Test (The "Hello World")
