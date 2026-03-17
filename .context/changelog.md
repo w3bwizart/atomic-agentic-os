@@ -9,11 +9,10 @@
 - Reprioritized development focus purely onto the Core OS. Deferred Agentic UI development.
 - Updated `.context/blueprint.md` task directive to reflect the completion of Phase 1 as the absolute priority.
 
-## [Phase 1 Complete]
+## [Phase 1 in_progress]
 ### Fixed
 - Fixed silent orchestrator startup failure by configuring `PYTHONPATH=.` natively.
 - Fixed duplicate `watchdog` events causing duplicate logic execution via explicit thread debouncing and size verification.
 - Fixed missing `task_decomposition` execution warnings by removing unimplemented skill from Dictator configuration.
 
-### Added
-- Completed `roadmap.json` updates advancing the state to Phase 2: Agentic UI Widgets.
+

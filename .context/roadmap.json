@@ -1,29 +1,29 @@
 {
-  "project": "Atomic Agentic OS",
-  "phases": [
-    {
-      "phase": 1,
-      "name": "Core OS Hardening",
-      "status": "completed",
-      "objectives": [
-        "Finalize Orchestrator V2 and file-based state bus (.agents/inbox, active, review, logs)",
-        "Harden LLM Factory routing (OpenAI, Anthropic, Ollama)",
-        "Perfect the Scaffolder for self-replicating workspaces",
-        "Implement comprehensive error handling and retry logic",
-        "Validate RBAC via .vault/policy.json",
-        "Achieve complete test coverage for core components"
-      ]
-    },
-    {
-      "phase": 2,
-      "name": "Agentic UI Widgets",
-      "status": "in_progress",
-      "objectives": [
-        "Design decoupled UI architecture for State Atoms",
-        "Implement State Publisher to stream JSON state updates",
-        "Create standalone Vanilla JS widgets (e.g., BudgetWidget)",
-        "Connect UI widgets to the OS State Bus"
-      ]
-    }
-  ]
+    "project": "Atomic Agentic OS",
+    "phases": [
+        {
+            "phase": 1,
+            "name": "Core OS Hardening",
+            "status": "in_progress",
+            "objectives": [
+                "Finalize Orchestrator V2 and file-based state bus (.agents/inbox, active, review, logs)",
+                "Harden LLM Factory routing (OpenAI, Anthropic, Ollama)",
+                "Perfect the Scaffolder for self-replicating workspaces",
+                "Implement comprehensive error handling and retry logic",
+                "Validate RBAC via .vault/policy.json",
+                "Achieve complete test coverage for core components"
+            ]
+        },
+        {
+            "phase": 2,
+            "name": "Agentic UI Widgets",
+            "status": "todo",
+            "objectives": [
+                "Design decoupled UI architecture for State Atoms",
+                "Implement State Publisher to stream JSON state updates",
+                "Create standalone Vanilla JS widgets (e.g., BudgetWidget)",
+                "Connect UI widgets to the OS State Bus"
+            ]
+        }
+    ]
 }
