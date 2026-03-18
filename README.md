@@ -1,30 +1,8 @@
-# 🏗️ The Atomic Agentic OS: Architectural Blueprint (v2.0 - V8 Engine)
+# 🏗️ The Atomic Agentic OS: Architectural Blueprint (v2.0)
 
-A decentralized, file-based **Agentic OS** built to act as the "V8 Engine" for specialized AI agents. 
-The system enforces strict separation between the "Shredder" (the immutable, model-agnostic runtime) and the "Paper" (declarative agent workflows, ISO-compliant state traces, and prompt injections).
+A decentralized **Agentic OS** where specialized Atomic Agents interact with a shared workspace and external systems. The system is designed to be **headless, file-based, and human-readable**, allowing it to scale from local coding tasks to enterprise-level business automations.
 
-## 🌟 Current Status: Phase 1 (Core OS Hardening) Complete
-The OS has completed its foundational V8 re-architecture. The execution pipeline is fully automated, highly observable, and uses a strict inter-workspace communication schema.
-
----
-
-## 🏗️ The V8 Architecture
-
-### 1. The Engine (`core/runner.py`)
-The universal execution loop. It is a 9-step immutable pipeline powered by `atomic-agents`. It strictly mounts authorized skills, initializes the agent context, handles API rate-limit retries via exponential backoff, and ensures total observability through the Flight Recorder.
-
-### 2. The Flight Recorder (`.state.json`)
-Every task dispatched to an agent generates a `.state.json` file in the `.agents/active/` directory. This file tracks timestamps, the active step of the pipeline, LLM failure states, and full memory dumps to guarantee ISO-compliant auditability.
-
-### 3. The InterAgentHandshake (`core/schemas/handshake.py`)
-A strict `Pydantic` schema defining how agents communicate. Every request passed through the system is serialized into a standard Markdown file loaded with YAML frontmatter containing the required execution arguments (Sender ID, Receiver ID, Priority, Directive, Payload).
-
-### 4. The Mailroom Skill (`skills/mailroom/tool.py`)
-A dedicated OS-level skill that allows an active agent to seamlessly generate an `InterAgentHandshake` atom and seamlessly drop it into another isolated workspace's inbox over the flat-file State Bus.
-
----
-
-## 📁 Directory Schema (The Workspace Cartridge)
+## 1. Directory Schema
 
 ```text
 .
@@ -51,6 +29,24 @@ A dedicated OS-level skill that allows an active agent to seamlessly generate an
     ├── scaffolder/     # Meta-agent workflow generation
     └── terminal/       # Isolated Bash access
 ```
+
+---
+
+## 🏗️ V8 Engine Architecture (Phase 1 Complete)
+
+The OS has successfully completed its foundational "V8" re-architecture, enforcing a strict separation between the immutable runtime and declarative agent workflows.
+
+### 1. The Engine (`core/runner.py`)
+A 9-step immutable execution loop using `atomic-agents`. It strictly mounts authorized skills, initializes the agent context, handles API rate-limit retries via exponential backoff, and ensures full observability.
+
+### 2. The Flight Recorder (`.state.json`)
+Every task dispatched generates a state trace tracking timestamps, pipeline steps, LLM failures, and full memory dumps for ISO-compliant auditability.
+
+### 3. The InterAgentHandshake (`core/schemas/handshake.py`)
+A strict `Pydantic` schema defining how agents communicate. Requests are serialized into standard Markdown files with YAML frontmatter (Sender, Receiver, Priority, Directive, Payload).
+
+### 4. The Mailroom Skill (`skills/mailroom/tool.py`)
+An OS-level skill allowing an active agent to generate an `InterAgentHandshake` atom and seamlessly route it to another workspace's inbox over the flat-file State Bus.
 
 ---
 
@@ -98,7 +94,7 @@ agent_id: "dictator"
 priority: "high"
 ---
 # Task: Diagnostic
-Acknowledge this file to confirm the V8 pipeline is mounted and the Flight Recorder is tracking.
+Acknowledge this file to confirm the Atomic Agentic OS is mounted and the Flight Recorder is tracking.
 ```
 
 2. Watch the orchestrator terminal. You should see logs indicating the OS booted the V8 framework for the agent `dictator`.

@@ -4,7 +4,7 @@
     {
       "phase": 1,
       "name": "Core OS Hardening and Methodology",
-      "status": "in_progress",
+      "status": "completed",
       "objectives": [
         "Finalize Orchestrator V2 and file-based state bus (.agents/inbox, active, review, logs)",
         "Harden LLM Factory routing (OpenAI, Anthropic, Ollama)",
