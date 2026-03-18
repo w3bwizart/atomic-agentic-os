@@ -17,7 +17,7 @@
     {
       "phase": 2,
       "name": "Multi-Tenant Orchestration (Dynamic Workspaces)",
-      "status": "in_progress",
+      "status": "completed",
       "objectives": [
         "Upgrade Orchestrator to monitor isolated workspace directories (workspaces/*/inbox)",
         "Remove hardcoded sequential routing blocks from the Atomic Engine",
@@ -28,7 +28,7 @@
     {
       "phase": 3,
       "name": "Agentic UI Widgets",
-      "status": "todo",
+      "status": "in_progress",
       "objectives": [
         "Design decoupled UI architecture for State Atoms",
         "Implement State Publisher to stream JSON state updates",

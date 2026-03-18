@@ -47,6 +47,8 @@ touch workspaces/content_team/.agents/inbox/start_post.md
 
 Watch your first terminal! The `researcher`, `writer`, and `editor` agents will securely load the `content_team` workforce graph, pass internal handshakes back and forth, and drop a highly-polished LinkedIn post into the `workspaces/content_team/.agents/review/` directory!
 
+> **Note on Parallelism**: Because the Orchestrator daemon is natively asynchronous, you can drop 10 payloads simultaneously into a single tenant inbox. The engine will instantly spawn 10 parallel execution threads, processing the complete pipelines at once without blocking the file watcher!
+
 ---
 
 ## 🧠 Under the Hood (For Senior Developers)
