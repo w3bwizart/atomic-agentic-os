@@ -3,20 +3,30 @@
   "phases": [
     {
       "phase": 1,
-      "name": "Core OS Hardening and Methodology",
+      "name": "Core OS Hardening and Methodology (MVP)",
       "status": "completed",
       "objectives": [
         "Finalize Orchestrator V2 and file-based state bus (.agents/inbox, active, review, logs)",
-        "Harden LLM Factory routing (OpenAI, Anthropic, Ollama)",
-        "Perfect the Scaffolder for self-replicating workspaces",
-        "Implement comprehensive error handling and retry logic",
+        "Harden LLM Factory routing (OpenAI, Anthropic, Ollama, Groq)",
+        "Implement single-threaded linear execution pipeline",
+        "Implement OS Synthetic Routing (Fail-safes for non-compliant LLMs)",
         "Validate RBAC via .vault/policy.json",
-        "Achieve complete test coverage for core components",
-        "Improve methodology by integrating Atomic-Agents framework to build examples"
+        "Achieve complete test coverage for core Engine components"
       ]
     },
     {
       "phase": 2,
+      "name": "Multi-Tenant Orchestration (Dynamic Workspaces)",
+      "status": "in_progress",
+      "objectives": [
+        "Upgrade Orchestrator to monitor isolated workspace directories (workspaces/*/inbox)",
+        "Remove hardcoded sequential routing blocks from the Atomic Engine",
+        "Dynamically resolve the next agent receiver by parsing local `workforce.yaml` definitions",
+        "Ensure the OS acts as a purely stateless pass-through for multi-tenant payloads"
+      ]
+    },
+    {
+      "phase": 3,
       "name": "Agentic UI Widgets",
       "status": "todo",
       "objectives": [

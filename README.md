@@ -91,3 +91,7 @@ Every single transaction generates a `.state.json` file telemetry trace in the `
     ├── scaffolder/     # Meta-agent workflow generation
     └── terminal/       # Isolated Bash access
 ```
+
+## 🔮 The Roadmap: Moving to Multi-Tenancy
+The Atomic Agentic OS is currently a high-performance **Single-Tenant MVP**, utilizing a single-threaded orchestrator loop and generalized fail-safes. The next evolutionary phase is **Multi-Tenant Architecture**, where the Orchestrator will seamlessly spin up isolated environments based on dynamic folder structures (), completely removing hardcoded fallbacks and enabling universal scalability.
+
