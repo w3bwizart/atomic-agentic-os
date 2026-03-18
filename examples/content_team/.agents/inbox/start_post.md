@@ -18,7 +18,7 @@ We need an epic, thought-provoking LinkedIn post about "The Transition from Prom
     "Prompt engineering is becoming a low-level commodity.",
     "The future is Agentic OS: orchestrating specialized agents with clear boundaries.",
     "File-based state (like Markdown handshakes) ensures observability and debugging.",
-    "The 'V8 of AI Agents' concept: Immutable engine + declarative behaviors."
+    "An Agentic Agent Runtime concept: Immutable engine + declarative behaviors."
   ]
 }
 ```

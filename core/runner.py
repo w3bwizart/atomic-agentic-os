@@ -1,7 +1,7 @@
 """
 LLM Runner (The Engine)
 This module acts as the model-agnostic runtime for the Atomic Agentic OS.
-It is an immutable "V8" engine that reads a Workspace Cartridge and strictly
+It is an immutable "OS" engine that reads a Workspace Cartridge and strictly
 executes it according to ISO compliance and traceability standards.
 """
 import json
@@ -33,7 +33,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
         state_file: The `.state.json` path acting as the flight recorder for this run.
         sops: Workspace-level Standard Operating Procedures injected into the kernel.
     """
-    logger.info(f"V8 Engine: Booting execution for {task_id} assigned to {agent_id}.")
+    logger.info(f"Atomic Engine: Booting execution for {task_id} assigned to {agent_id}.")
     
     # ---------------------------------------------------------
     # 1. FLIGHT RECORDER INITIALIZATION (Traceability)
@@ -54,7 +54,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
     # We strictly isolate the Agent's specific role from the universal system SOPs.
     system_prompt = SystemPromptGenerator(
         background=[
-            "You are a specialized Agent operating within the V8 Atomic Agentic OS runtime.",
+            "You are a specialized Agent operating within the OS Atomic Agentic OS runtime.",
             f"Your strict identity ID is: {agent_id}.",
             f"Your designated Role is: {agent_config.get('role', 'Generic Worker')}.",
             f"Role Explicit Description: {agent_config.get('description', 'No description provided.')}"
@@ -66,6 +66,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
             "4. Never hallucinate API calls or external systems not provided via tools."
         ],
         output_instructions=[
+            "CRITICAL: If you are instructed to use a tool to output your work (like InterAgentHandshake), you MUST NOT output conversational text. You MUST directly invoke the tool to deliver your payload. Failure to use the tool will cause the system to crash.",
             "Universal Workspace Standard Operating Procedures (SOPs):",
             sops
         ]
@@ -76,7 +77,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
     # ---------------------------------------------------------
     client, model = get_llm_provider(agent_id)
     if not client:
-        logger.error(f"V8 Engine Alert: Failed to mount LLM provider for {agent_id}. Halting.")
+        logger.error(f"Atomic Engine Alert: Failed to mount LLM provider for {agent_id}. Halting.")
         state_data["current_step"] = "failed_llm_mount"
         with open(state_file, 'w') as f: json.dump(state_data, f, indent=2)
         return
@@ -97,9 +98,9 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
                 if hasattr(tool_instance, 'state_file') or skill == 'terminal_access':
                     tool_instance.state_file = state_file
                 authorized_tools.append(tool_instance)
-                logger.info(f"V8 Tool Mount: Successfully bound {skill} to {agent_id}.")
+                logger.info(f"OS Tool Mount: Successfully bound {skill} to {agent_id}.")
             else:
-                logger.warning(f"V8 Tool Mount Error: Skill '{skill}' authorized but missing from Runtime Registry.")
+                logger.warning(f"OS Tool Mount Error: Skill '{skill}' authorized but missing from Runtime Registry.")
         else:
             logger.warning(f"SECURITY BLOCK: {agent_id} illegally attempted to load '{skill}'.")
 
@@ -130,7 +131,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
         # Diagnostic trap for safe testing pipelines without wasting API credits
         api_key = getattr(client, "api_key", getattr(getattr(client, "client", None), "api_key", ""))
         if api_key in ["dummy-key", "ollama", "ENV_VAR"]:
-            final_response = f"[V8 Engine Diagnostic] Acknowledged payload by {agent_id}."
+            final_response = f"[Atomic Engine Diagnostic] Acknowledged payload by {agent_id}."
             execution_success = True
         else:
             # The strict run execution
@@ -140,25 +141,61 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
                     final_response = response.chat_message
                     
                     if not final_response or final_response.strip() == "":
-                        logger.warning(f"V8 Execution Warning: {agent_id} generated an empty response. Marking failure.")
+                        logger.warning(f"OS Execution Warning: {agent_id} generated an empty response. Marking failure.")
                         state_data["current_step"] = "failed_empty_return"
                     else:
                         execution_success = True
+                        
+                        # OS SYNTHETIC ROUTING (Self-Healing Fallback for LLMs that ignore tool APIs)
+                        try:
+                            receiver = None
+                            directive = "Process the attached payload."
+                            
+                            # Content Team Sequential Routing Fallbacks
+                            if agent_id == "researcher": 
+                                receiver = "writer"
+                                directive = "Expand this outline into a full narrative draft."
+                            elif agent_id == "writer": 
+                                receiver = "editor"
+                                directive = "Format this draft for maximum engagement on LinkedIn."
+                            
+                            payload_data = {"raw_llm_output": final_response}
+                            
+                            if receiver:
+                                logger.info(f"OS Synthetic Route: Forcing Handshake from {agent_id} to {receiver}.")
+                                inbox_dir = Path(".agents/inbox")
+                                handshake = InterAgentHandshake(
+                                    handshake_id=task_id, sender_workspace="root", 
+                                    sender_id=agent_id, receiver_id=receiver, 
+                                    payload=payload_data, directive=directive
+                                )
+                                with open(inbox_dir / f"{handshake.handshake_id}.md", "w") as hf:
+                                    hf.write(handshake.to_markdown_file())
+                                    
+                            elif agent_id == "editor":
+                                logger.info(f"OS Synthetic Route: Editor finished. Saving final post.")
+                                review_post = Path(".agents/review/linkedin_post_final.md")
+                                with open(review_post, "w") as f:
+                                    f.write(final_response)
+                                    
+                        except Exception as parse_e:
+                            logger.warning(f"OS Synthetic Routing failed: {parse_e}")
+                            
                     break # Break retry loop on successful completion
                     
                 except Exception as llm_e:
-                    logger.warning(f"V8 LLM Constraint Error (Attempt {attempt + 1}/{max_retries}) for {agent_id}: {llm_e}")
+                    logger.warning(f"OS LLM Constraint Error (Attempt {attempt + 1}/{max_retries}) for {agent_id}: {llm_e}")
                     if attempt < max_retries - 1:
                         time.sleep(retry_delay)
                         retry_delay *= 2 # Exponential backoff for rate limits
                     else:
-                        logger.error(f"V8 Engine Error: {agent_id} exhausted {max_retries} LLM retries. Fatal: {llm_e}")
-                        final_response = f"V8 Fatal Execution Error: {llm_e}"
+                        logger.error(f"Atomic Engine Error: {agent_id} exhausted {max_retries} LLM retries. Fatal: {llm_e}")
+                        final_response = f"OS Fatal Execution Error: {llm_e}"
                         state_data["current_step"] = "failed_retry_exhaustion"
                         
     except Exception as fatal_e:
-        logger.error(f"V8 System Panic: Unhandled exception during execution block: {fatal_e}", exc_info=True)
-        final_response = f"V8 Engine Panic: {fatal_e}"
+        logger.error(f"OS System Panic: Unhandled exception during execution block: {fatal_e}", exc_info=True)
+        final_response = f"Atomic Engine Panic: {fatal_e}"
         state_data["current_step"] = "failed_system_panic"
 
     if execution_success:
@@ -179,7 +216,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
             else:
                 state_data["agent_memory"] = str(agent.memory)
     except Exception as mem_e:
-        logger.warning(f"V8 Memory Capture Error: Could not serialize agent history: {mem_e}")
+        logger.warning(f"OS Memory Capture Error: Could not serialize agent history: {mem_e}")
 
     state_data["timestamp_end"] = datetime.utcnow().isoformat()
     with open(state_file, 'w') as f: json.dump(state_data, f, indent=2)
@@ -199,7 +236,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
         with open(history_path, 'a') as f:
             f.write(json.dumps(telemetry_entry) + "\n")
     except Exception as telemetry_error:
-        logger.warning(f"V8 Telemetry Failure: Cannot write to .agent_os_history: {telemetry_error}")
+        logger.warning(f"OS Telemetry Failure: Cannot write to .agent_os_history: {telemetry_error}")
 
     # ---------------------------------------------------------
     # 9. RESULT DISPATCH (Artifact Generation)
@@ -209,7 +246,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
     review_file = review_dir / f"{task_id}_report.md"
 
     with open(review_file, 'w') as f:
-        f.write(f"# V8 Execution Report: {task_id}\n")
+        f.write(f"# OS Execution Report: {task_id}\n")
         f.write(f"**Agent Segment:** {agent_id}\n")
         f.write(f"**Execution Status:** {'Success' if execution_success else 'FAILED'}\n")
         f.write(f"**Timestamp:** {state_data['timestamp_end']}\n\n")
@@ -221,4 +258,4 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
         else:
             f.write("- (None)\n")
 
-    logger.info(f"V8 Engine: Task {task_id} successfully dispatched to {review_file}.")
+    logger.info(f"Atomic Engine: Task {task_id} successfully dispatched to {review_file}.")

@@ -12,10 +12,14 @@ from core.runner import execute_agent_task
 
 log_dir = Path(".agents/logs")
 log_dir.mkdir(parents=True, exist_ok=True)
+import sys
 logging.basicConfig(
-    filename=log_dir / 'system.log',
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_dir / 'system.log'),
+        logging.StreamHandler(sys.stdout)
+    ]
 )
 logger = logging.getLogger("Orchestrator")
 
@@ -36,6 +40,10 @@ class InboxHandler(FileSystemEventHandler):
         filepath = Path(event.src_path)
         # Watchdog debounce: check logic happens in the thread to avoid blocking
         threading.Thread(target=self.process_file, args=(filepath,), daemon=True).start()
+
+    def on_modified(self, event):
+        # Allow `cp` file overwrites to trigger the orchestrator
+        self.on_created(event)
 
     def parse_frontmatter(self, content):
         if not content.startswith('---'):

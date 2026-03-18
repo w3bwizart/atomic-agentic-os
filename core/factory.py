@@ -49,6 +49,17 @@ def get_llm_provider(agent_id: str):
         client = instructor.from_anthropic(Anthropic(api_key=api_key))
         return client, model
 
+    elif provider_name == "groq":
+        from openai import OpenAI
+        api_key = provider_config.get("api_key")
+        if api_key == "ENV_VAR": api_key = os.environ.get("GROQ_API_KEY", "dummy-key")
+        
+        client = instructor.from_openai(OpenAI(
+            api_key=api_key,
+            base_url="https://api.groq.com/openai/v1"
+        ))
+        return client, model
+
     elif provider_name == "ollama":
         base_url = provider_config.get("base_url", "http://localhost:11434/v1")
         # Ollama supports OpenAI compatible endpoints

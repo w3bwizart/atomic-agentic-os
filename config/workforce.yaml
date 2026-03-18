@@ -4,14 +4,14 @@ agents:
     description: "Initiates the content creation process. Gathers structured facts, insights, and develops a compelling outline for the topic. Passes findings to the Writer."
     skills:
       - mailroom_routing
-    model_provider: "openai"
+    model_provider: "groq"
   
   - id: "writer"
     role: "Lead Storyteller"
     description: "Receives the outline from the Researcher. Drafts a comprehensive, engaging narrative that flows well and tells a story."
     skills:
       - mailroom_routing
-    model_provider: "anthropic"
+    model_provider: "groq"
   
   - id: "editor"
     role: "LinkedIn Content Architect"
@@ -19,4 +19,4 @@ agents:
     skills:
       - file_management
       - mailroom_routing
-    model_provider: "openai"
+    model_provider: "groq"

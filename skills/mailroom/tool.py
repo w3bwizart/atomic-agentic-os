@@ -53,7 +53,7 @@ class MailroomSkill(BaseTool):
             with open(target_path, "w") as f:
                 f.write(file_content)
                 
-            return f"V8 Mailroom: Handshake {params.handshake_id} successfully dispatched to {target_path} for '{params.receiver_id}'."
+            return f"OS Mailroom: Handshake {params.handshake_id} successfully dispatched to {target_path} for '{params.receiver_id}'."
             
         except Exception as e:
-            return f"V8 Mailroom Error: Failed to dispatch handshake: {str(e)}"
+            return f"OS Mailroom Error: Failed to dispatch handshake: {str(e)}"

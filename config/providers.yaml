@@ -3,6 +3,13 @@ providers:
   openai:
     model: "gpt-4o"
     api_key: "ENV_VAR"
+  anthropic:
+    model: "claude-3-5-sonnet-20241022"
+    api_key: "ENV_VAR"
+  groq:
+    model: "llama-3.3-70b-versatile"
+    api_key: "ENV_VAR"
+
   ollama:
     model: "llama3"
     base_url: "http://localhost:11434/v1"
@@ -10,3 +17,6 @@ providers:
 routing:
   dictator: "openai"
   coder: "ollama"
+  researcher: "groq"
+  writer: "groq"
+  editor: "groq"

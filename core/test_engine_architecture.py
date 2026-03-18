@@ -5,7 +5,7 @@ from pathlib import Path
 from core.schemas.handshake import InterAgentHandshake
 from skills.mailroom.tool import MailroomSkill
 
-class TestV8Architecture(unittest.TestCase):
+class TestEngineArchitecture(unittest.TestCase):
     def setUp(self):
         # Create a mock workspace environment
         self.workspace_root = Path("workspaces")

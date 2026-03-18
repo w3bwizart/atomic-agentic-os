@@ -1,636 +1,89 @@
-2026-03-18 02:05:08,725 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-18 02:05:40,655 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:05:40,656 - Orchestrator - ERROR - Agent researcher not found in workforce.yaml. Aborting task CONTENT-001.
-2026-03-18 02:06:18,121 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:06:18,122 - Orchestrator - ERROR - Agent researcher not found in workforce.yaml. Aborting task CONTENT-001.
-2026-03-18 02:06:23,760 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-18 02:06:28,805 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:06:28,805 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
-2026-03-18 02:06:28,805 - LLMRunner - INFO - V8 Engine: Booting execution for CONTENT-001 assigned to researcher.
-2026-03-18 02:06:28,806 - Factory - WARNING - No routing found for researcher. Defaulting to safe ollama fallback.
-2026-03-18 02:06:28,806 - Factory - INFO - Initializing ollama (llama3) for agent researcher
-2026-03-18 02:06:28,905 - core.vault - WARNING - Security Violation: Agent researcher denied access to mailroom
-2026-03-18 02:06:28,905 - LLMRunner - WARNING - SECURITY BLOCK: researcher illegally attempted to load 'mailroom'.
-2026-03-18 02:06:28,910 - openai._base_client - INFO - Retrying request to /chat/completions in 0.487991 seconds
-2026-03-18 02:06:29,399 - openai._base_client - INFO - Retrying request to /chat/completions in 0.839720 seconds
-2026-03-18 02:06:30,240 - openai._base_client - INFO - Retrying request to /chat/completions in 0.443865 seconds
-2026-03-18 02:06:30,685 - openai._base_client - INFO - Retrying request to /chat/completions in 0.879759 seconds
-2026-03-18 02:06:31,566 - openai._base_client - INFO - Retrying request to /chat/completions in 0.408100 seconds
-2026-03-18 02:06:31,975 - openai._base_client - INFO - Retrying request to /chat/completions in 0.938601 seconds
-2026-03-18 02:06:32,917 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 1/3) for researcher: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:06:34,919 - openai._base_client - INFO - Retrying request to /chat/completions in 0.454702 seconds
-2026-03-18 02:06:35,374 - openai._base_client - INFO - Retrying request to /chat/completions in 0.760033 seconds
-2026-03-18 02:06:36,136 - openai._base_client - INFO - Retrying request to /chat/completions in 0.437262 seconds
-2026-03-18 02:06:36,574 - openai._base_client - INFO - Retrying request to /chat/completions in 0.859034 seconds
-2026-03-18 02:06:37,435 - openai._base_client - INFO - Retrying request to /chat/completions in 0.433889 seconds
-2026-03-18 02:06:37,870 - openai._base_client - INFO - Retrying request to /chat/completions in 0.898836 seconds
-2026-03-18 02:06:38,770 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 2/3) for researcher: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:06:42,773 - openai._base_client - INFO - Retrying request to /chat/completions in 0.428673 seconds
-2026-03-18 02:06:43,203 - openai._base_client - INFO - Retrying request to /chat/completions in 0.933050 seconds
-2026-03-18 02:06:44,138 - openai._base_client - INFO - Retrying request to /chat/completions in 0.377778 seconds
-2026-03-18 02:06:44,517 - openai._base_client - INFO - Retrying request to /chat/completions in 0.941960 seconds
-2026-03-18 02:06:45,460 - openai._base_client - INFO - Retrying request to /chat/completions in 0.425342 seconds
-2026-03-18 02:06:45,886 - openai._base_client - INFO - Retrying request to /chat/completions in 0.944036 seconds
-2026-03-18 02:06:46,832 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 3/3) for researcher: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:06:46,833 - LLMRunner - ERROR - V8 Engine Error: researcher exhausted 3 LLM retries. Fatal: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:06:46,834 - LLMRunner - INFO - V8 Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
-2026-03-18 02:07:16,473 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:07:16,473 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
-2026-03-18 02:07:16,474 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: failed_retry_exhaustion
-2026-03-18 02:07:16,474 - LLMRunner - INFO - V8 Engine: Booting execution for CONTENT-001 assigned to researcher.
-2026-03-18 02:07:16,474 - Factory - WARNING - No routing found for researcher. Defaulting to safe ollama fallback.
-2026-03-18 02:07:16,474 - Factory - INFO - Initializing ollama (llama3) for agent researcher
-2026-03-18 02:07:16,485 - core.vault - WARNING - Security Violation: Agent researcher denied access to mailroom
-2026-03-18 02:07:16,485 - LLMRunner - WARNING - SECURITY BLOCK: researcher illegally attempted to load 'mailroom'.
-2026-03-18 02:07:16,486 - openai._base_client - INFO - Retrying request to /chat/completions in 0.419323 seconds
-2026-03-18 02:07:16,906 - openai._base_client - INFO - Retrying request to /chat/completions in 0.790963 seconds
-2026-03-18 02:07:17,699 - openai._base_client - INFO - Retrying request to /chat/completions in 0.398002 seconds
-2026-03-18 02:07:18,097 - openai._base_client - INFO - Retrying request to /chat/completions in 0.976153 seconds
-2026-03-18 02:07:19,075 - openai._base_client - INFO - Retrying request to /chat/completions in 0.414505 seconds
-2026-03-18 02:07:19,491 - openai._base_client - INFO - Retrying request to /chat/completions in 0.839805 seconds
-2026-03-18 02:07:20,332 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 1/3) for researcher: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:07:22,334 - openai._base_client - INFO - Retrying request to /chat/completions in 0.388768 seconds
-2026-03-18 02:07:22,724 - openai._base_client - INFO - Retrying request to /chat/completions in 0.765948 seconds
-2026-03-18 02:07:23,492 - openai._base_client - INFO - Retrying request to /chat/completions in 0.394440 seconds
-2026-03-18 02:07:23,887 - openai._base_client - INFO - Retrying request to /chat/completions in 0.946250 seconds
-2026-03-18 02:07:24,835 - openai._base_client - INFO - Retrying request to /chat/completions in 0.498685 seconds
-2026-03-18 02:07:25,335 - openai._base_client - INFO - Retrying request to /chat/completions in 0.903556 seconds
-2026-03-18 02:07:26,240 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 2/3) for researcher: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:07:30,242 - openai._base_client - INFO - Retrying request to /chat/completions in 0.404792 seconds
-2026-03-18 02:07:30,648 - openai._base_client - INFO - Retrying request to /chat/completions in 0.846492 seconds
-2026-03-18 02:07:31,497 - openai._base_client - INFO - Retrying request to /chat/completions in 0.409170 seconds
-2026-03-18 02:07:31,907 - openai._base_client - INFO - Retrying request to /chat/completions in 0.992484 seconds
-2026-03-18 02:07:32,901 - openai._base_client - INFO - Retrying request to /chat/completions in 0.439270 seconds
-2026-03-18 02:07:33,342 - openai._base_client - INFO - Retrying request to /chat/completions in 0.836026 seconds
-2026-03-18 02:07:34,179 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 3/3) for researcher: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:07:34,180 - LLMRunner - ERROR - V8 Engine Error: researcher exhausted 3 LLM retries. Fatal: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:07:34,181 - LLMRunner - INFO - V8 Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
-2026-03-18 02:07:37,432 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:07:37,433 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
-2026-03-18 02:07:37,433 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: failed_retry_exhaustion
-2026-03-18 02:07:37,433 - LLMRunner - INFO - V8 Engine: Booting execution for CONTENT-001 assigned to researcher.
-2026-03-18 02:07:37,434 - Factory - WARNING - No routing found for researcher. Defaulting to safe ollama fallback.
-2026-03-18 02:07:37,434 - Factory - INFO - Initializing ollama (llama3) for agent researcher
-2026-03-18 02:07:37,444 - core.vault - WARNING - Security Violation: Agent researcher denied access to mailroom
-2026-03-18 02:07:37,444 - LLMRunner - WARNING - SECURITY BLOCK: researcher illegally attempted to load 'mailroom'.
-2026-03-18 02:07:37,446 - openai._base_client - INFO - Retrying request to /chat/completions in 0.434244 seconds
-2026-03-18 02:07:37,881 - openai._base_client - INFO - Retrying request to /chat/completions in 0.784793 seconds
-2026-03-18 02:07:38,667 - openai._base_client - INFO - Retrying request to /chat/completions in 0.403359 seconds
-2026-03-18 02:07:39,071 - openai._base_client - INFO - Retrying request to /chat/completions in 0.941142 seconds
-2026-03-18 02:07:40,014 - openai._base_client - INFO - Retrying request to /chat/completions in 0.408812 seconds
-2026-03-18 02:07:40,423 - openai._base_client - INFO - Retrying request to /chat/completions in 0.771601 seconds
-2026-03-18 02:07:41,197 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 1/3) for researcher: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:07:43,199 - openai._base_client - INFO - Retrying request to /chat/completions in 0.497969 seconds
-2026-03-18 02:07:43,698 - openai._base_client - INFO - Retrying request to /chat/completions in 0.777524 seconds
-2026-03-18 02:07:44,477 - openai._base_client - INFO - Retrying request to /chat/completions in 0.418050 seconds
-2026-03-18 02:07:44,896 - openai._base_client - INFO - Retrying request to /chat/completions in 0.752623 seconds
-2026-03-18 02:07:45,650 - openai._base_client - INFO - Retrying request to /chat/completions in 0.421129 seconds
-2026-03-18 02:07:46,072 - openai._base_client - INFO - Retrying request to /chat/completions in 0.820305 seconds
-2026-03-18 02:07:46,894 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 2/3) for researcher: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:07:50,896 - openai._base_client - INFO - Retrying request to /chat/completions in 0.405848 seconds
-2026-03-18 02:07:51,303 - openai._base_client - INFO - Retrying request to /chat/completions in 0.828957 seconds
-2026-03-18 02:07:52,134 - openai._base_client - INFO - Retrying request to /chat/completions in 0.418035 seconds
-2026-03-18 02:07:52,553 - openai._base_client - INFO - Retrying request to /chat/completions in 0.818735 seconds
-2026-03-18 02:07:53,374 - openai._base_client - INFO - Retrying request to /chat/completions in 0.397102 seconds
-2026-03-18 02:07:53,772 - openai._base_client - INFO - Retrying request to /chat/completions in 0.785293 seconds
-2026-03-18 02:07:54,559 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 3/3) for researcher: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:07:54,560 - LLMRunner - ERROR - V8 Engine Error: researcher exhausted 3 LLM retries. Fatal: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:07:54,561 - LLMRunner - INFO - V8 Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
-2026-03-18 02:08:20,771 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:08:20,771 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
-2026-03-18 02:08:20,772 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: failed_retry_exhaustion
-2026-03-18 02:08:20,772 - LLMRunner - INFO - V8 Engine: Booting execution for CONTENT-001 assigned to researcher.
-2026-03-18 02:08:20,772 - Factory - WARNING - No routing found for researcher. Defaulting to safe ollama fallback.
-2026-03-18 02:08:20,772 - Factory - INFO - Initializing ollama (llama3) for agent researcher
-2026-03-18 02:08:20,784 - core.vault - WARNING - Security Violation: Agent researcher denied access to mailroom
-2026-03-18 02:08:20,784 - LLMRunner - WARNING - SECURITY BLOCK: researcher illegally attempted to load 'mailroom'.
-2026-03-18 02:08:20,786 - openai._base_client - INFO - Retrying request to /chat/completions in 0.404558 seconds
-2026-03-18 02:08:21,192 - openai._base_client - INFO - Retrying request to /chat/completions in 0.813668 seconds
-2026-03-18 02:08:22,007 - openai._base_client - INFO - Retrying request to /chat/completions in 0.459198 seconds
-2026-03-18 02:08:22,467 - openai._base_client - INFO - Retrying request to /chat/completions in 0.795247 seconds
-2026-03-18 02:08:23,264 - openai._base_client - INFO - Retrying request to /chat/completions in 0.388396 seconds
-2026-03-18 02:08:23,653 - openai._base_client - INFO - Retrying request to /chat/completions in 0.927859 seconds
-2026-03-18 02:08:24,585 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 1/3) for researcher: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:08:26,586 - openai._base_client - INFO - Retrying request to /chat/completions in 0.482755 seconds
-2026-03-18 02:08:27,070 - openai._base_client - INFO - Retrying request to /chat/completions in 0.978280 seconds
-2026-03-18 02:08:28,050 - openai._base_client - INFO - Retrying request to /chat/completions in 0.482471 seconds
-2026-03-18 02:08:28,534 - openai._base_client - INFO - Retrying request to /chat/completions in 0.756844 seconds
-2026-03-18 02:08:29,292 - openai._base_client - INFO - Retrying request to /chat/completions in 0.397385 seconds
-2026-03-18 02:08:29,691 - openai._base_client - INFO - Retrying request to /chat/completions in 0.867266 seconds
-2026-03-18 02:08:30,560 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 2/3) for researcher: <failed_attempts>
-
-<generation number="1">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="2">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-<generation number="3">
-<exception>
-    Connection error.
-</exception>
-<completion>
-    None
-</completion>
-</generation>
-
-</failed_attempts>
-
-<last_exception>
-    Connection error.
-</last_exception>
-2026-03-18 02:08:34,562 - openai._base_client - INFO - Retrying request to /chat/completions in 0.494107 seconds
-2026-03-18 02:08:35,267 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-18 02:08:41,224 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:08:41,225 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
-2026-03-18 02:08:41,225 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: executing_llm
-2026-03-18 02:08:41,225 - LLMRunner - INFO - V8 Engine: Booting execution for CONTENT-001 assigned to researcher.
-2026-03-18 02:08:41,226 - Factory - WARNING - No routing found for researcher. Defaulting to safe ollama fallback.
-2026-03-18 02:08:41,226 - Factory - INFO - Initializing ollama (llama3) for agent researcher
-2026-03-18 02:08:41,327 - core.vault - WARNING - Security Violation: Agent researcher denied access to mailroom
-2026-03-18 02:08:41,327 - LLMRunner - WARNING - SECURITY BLOCK: researcher illegally attempted to load 'mailroom'.
-2026-03-18 02:08:41,327 - LLMRunner - INFO - V8 Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
-2026-03-18 02:09:25,803 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:09:25,804 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
-2026-03-18 02:09:25,804 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
-2026-03-18 02:09:25,804 - LLMRunner - INFO - V8 Engine: Booting execution for CONTENT-001 assigned to researcher.
-2026-03-18 02:09:25,804 - Factory - WARNING - No routing found for researcher. Defaulting to safe ollama fallback.
-2026-03-18 02:09:25,804 - Factory - INFO - Initializing ollama (llama3) for agent researcher
-2026-03-18 02:09:25,814 - core.vault - WARNING - Security Violation: Agent researcher denied access to mailroom
-2026-03-18 02:09:25,814 - LLMRunner - WARNING - SECURITY BLOCK: researcher illegally attempted to load 'mailroom'.
-2026-03-18 02:09:25,815 - LLMRunner - INFO - V8 Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
-2026-03-18 02:09:40,375 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:09:40,375 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
-2026-03-18 02:09:40,375 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
-2026-03-18 02:09:40,375 - LLMRunner - INFO - V8 Engine: Booting execution for CONTENT-001 assigned to researcher.
-2026-03-18 02:09:40,376 - Factory - WARNING - No routing found for researcher. Defaulting to safe ollama fallback.
-2026-03-18 02:09:40,376 - Factory - INFO - Initializing ollama (llama3) for agent researcher
-2026-03-18 02:09:40,386 - core.vault - ERROR - Error reading vault policy: Expecting property name enclosed in double quotes: line 8 column 3 (char 208)
-2026-03-18 02:09:40,386 - LLMRunner - WARNING - SECURITY BLOCK: researcher illegally attempted to load 'mailroom'.
-2026-03-18 02:09:40,386 - LLMRunner - INFO - V8 Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
-2026-03-18 02:09:51,291 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:09:51,292 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
-2026-03-18 02:09:51,292 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
-2026-03-18 02:09:51,292 - LLMRunner - INFO - V8 Engine: Booting execution for CONTENT-001 assigned to researcher.
-2026-03-18 02:09:51,292 - Factory - WARNING - No routing found for researcher. Defaulting to safe ollama fallback.
-2026-03-18 02:09:51,292 - Factory - INFO - Initializing ollama (llama3) for agent researcher
-2026-03-18 02:09:51,303 - LLMRunner - WARNING - V8 Tool Mount Error: Skill 'mailroom' authorized but missing from Runtime Registry.
-2026-03-18 02:09:51,303 - LLMRunner - INFO - V8 Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
-2026-03-18 02:10:27,599 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:10:27,599 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
-2026-03-18 02:10:27,599 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
-2026-03-18 02:10:27,600 - LLMRunner - INFO - V8 Engine: Booting execution for CONTENT-001 assigned to researcher.
-2026-03-18 02:10:27,600 - Factory - WARNING - No routing found for researcher. Defaulting to safe ollama fallback.
-2026-03-18 02:10:27,600 - Factory - INFO - Initializing ollama (llama3) for agent researcher
-2026-03-18 02:10:27,616 - core.vault - WARNING - Security Violation: Agent researcher denied access to mailroom
-2026-03-18 02:10:27,617 - LLMRunner - WARNING - SECURITY BLOCK: researcher illegally attempted to load 'mailroom'.
-2026-03-18 02:10:27,617 - LLMRunner - INFO - V8 Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
-2026-03-18 02:12:21,531 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-18 02:12:41,658 - Orchestrator - INFO - Processing new file in inbox: start_post.md
-2026-03-18 02:12:41,658 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
-2026-03-18 02:12:41,658 - LLMRunner - INFO - V8 Engine: Booting execution for CONTENT-001 assigned to researcher.
-2026-03-18 02:12:41,659 - Factory - WARNING - No routing found for researcher. Defaulting to safe ollama fallback.
-2026-03-18 02:12:41,659 - Factory - INFO - Initializing ollama (llama3) for agent researcher
-2026-03-18 02:12:41,756 - LLMRunner - INFO - V8 Tool Mount: Successfully bound mailroom_routing to researcher.
-2026-03-18 02:12:41,757 - LLMRunner - INFO - V8 Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:22:30,534 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
+2026-03-18 11:22:33,721 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:22:33,721 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:22:33,722 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
+2026-03-18 11:22:33,722 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:22:33,722 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to researcher.
+2026-03-18 11:22:33,722 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 11:22:33,804 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 11:22:34,443 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:22:34,447 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer.
+2026-03-18 11:22:34,448 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:22:34,548 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:22:34,548 - Orchestrator - INFO - Task CONTENT-001 assigned to writer (Lead Storyteller)
+2026-03-18 11:22:34,549 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:22:34,549 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to writer.
+2026-03-18 11:22:34,549 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 11:22:34,559 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 11:22:35,505 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:22:35,506 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from writer to editor.
+2026-03-18 11:22:35,507 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:22:35,607 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:22:35,607 - Orchestrator - INFO - Task CONTENT-001 assigned to editor (LinkedIn Content Architect)
+2026-03-18 11:22:35,607 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:22:35,607 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to editor.
+2026-03-18 11:22:35,608 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent editor
+2026-03-18 11:22:35,619 - LLMRunner - INFO - OS Tool Mount: Successfully bound file_management to editor.
+2026-03-18 11:22:35,619 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to editor.
+2026-03-18 11:22:36,872 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:22:36,872 - LLMRunner - INFO - OS Synthetic Route: Editor finished. Saving final post.
+2026-03-18 11:22:36,873 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:26:10,046 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:26:10,046 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:26:10,047 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
+2026-03-18 11:26:10,047 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to researcher.
+2026-03-18 11:26:10,048 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 11:26:10,062 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 11:26:10,673 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:26:10,674 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer.
+2026-03-18 11:26:10,675 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:26:10,775 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:26:10,775 - Orchestrator - INFO - Task CONTENT-001 assigned to writer (Lead Storyteller)
+2026-03-18 11:26:10,775 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:26:10,775 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to writer.
+2026-03-18 11:26:10,776 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 11:26:10,788 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 11:26:11,786 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:26:11,787 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from writer to editor.
+2026-03-18 11:26:11,787 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:26:11,887 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:26:11,888 - Orchestrator - INFO - Task CONTENT-001 assigned to editor (LinkedIn Content Architect)
+2026-03-18 11:26:11,888 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:26:11,888 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to editor.
+2026-03-18 11:26:11,889 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent editor
+2026-03-18 11:26:11,899 - LLMRunner - INFO - OS Tool Mount: Successfully bound file_management to editor.
+2026-03-18 11:26:11,899 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to editor.
+2026-03-18 11:26:12,863 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:26:12,865 - LLMRunner - INFO - OS Synthetic Route: Editor finished. Saving final post.
+2026-03-18 11:26:12,865 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:27:34,669 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:27:34,669 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:27:34,670 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
+2026-03-18 11:27:34,670 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:27:34,670 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to researcher.
+2026-03-18 11:27:34,670 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 11:27:34,680 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 11:27:36,843 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:27:36,844 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer.
+2026-03-18 11:27:36,845 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:27:36,945 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:27:36,945 - Orchestrator - INFO - Task CONTENT-001 assigned to writer (Lead Storyteller)
+2026-03-18 11:27:36,945 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:27:36,946 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to writer.
+2026-03-18 11:27:36,946 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 11:27:36,961 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 11:27:38,243 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:27:38,244 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from writer to editor.
+2026-03-18 11:27:38,244 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:27:38,344 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:27:38,344 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:27:38,345 - Orchestrator - INFO - Task CONTENT-001 assigned to editor (LinkedIn Content Architect)
+2026-03-18 11:27:38,345 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:27:38,345 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to editor.
+2026-03-18 11:27:38,346 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent editor
+2026-03-18 11:27:38,356 - LLMRunner - INFO - OS Tool Mount: Successfully bound file_management to editor.
+2026-03-18 11:27:38,356 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to editor.
+2026-03-18 11:27:39,222 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-03-18 11:27:40,195 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:27:40,196 - LLMRunner - INFO - OS Synthetic Route: Editor finished. Saving final post.
+2026-03-18 11:27:40,196 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.

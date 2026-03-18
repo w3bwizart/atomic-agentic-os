@@ -1,9 +1,71 @@
-# 🏗️ The Atomic Agentic OS: Architectural Blueprint (v2.0)
+# 🏗️ The Atomic Agentic OS (v2.0)
 
-A decentralized **Agentic OS** where specialized Atomic Agents interact with a shared workspace and external systems. The system is designed to be **headless, file-based, and human-readable**, allowing it to scale from local coding tasks to enterprise-level business automations.
+Welcome to the **Atomic Agentic OS**, a file-based operating system where specialized AI agents work together in an assembly line to automate your tasks.
 
-## 1. Directory Schema
+Whether you're a starter building your first AI workflow or a Senior AI Architect designing ISO-compliant enterprise systems, this OS scales beautifully to fit your needs.
 
+---
+
+## ⚡ The 1-Minute Quick Start (For Beginners)
+
+Want to see the magic happen instantly? Here is everything you need to know.
+
+Think of this OS like a factory.
+1. The **Inbox** is where you drop a task.
+2. The **Orchestrator** is the manager who wakes up the workers when a task arrives.
+3. The **Agents** are the specialized workers that read the task, do their job, and pass it to the next person.
+4. The **Review** folder is where the finished product is placed.
+
+### Step 1: Add Your AI Key
+The OS is completely **model-agnostic**. It seamlessly natively routes to **Groq, OpenAI, Anthropic, Gemini, or local Ollama** models!
+To get started, simply configure your favorite provider. 
+1. Create a file called `.env` in the root folder.
+2. Add your provider's API key inside it (e.g., Groq for maximum speed):
+   ```bash
+   GROQ_API_KEY=your_key_here
+   # OPENAI_API_KEY=...
+   # ANTHROPIC_API_KEY=...
+   ```
+
+### Step 2: Turn on the Factory
+Open your terminal and run the manager:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Start the Orchestrator
+PYTHONPATH=. python3 core/orchestrator.py
+```
+*Leave this terminal open! You will see the matrix-style logs streaming here.*
+
+### Step 3: Drop a Task in the Inbox
+Open a **second terminal** and drop a test file into the inbox to wake the agents up:
+```bash
+cp examples/content_team/.agents/inbox/start_post.md .agents/inbox/start_post.md
+```
+
+Watch your first terminal! The `researcher`, `writer`, and `editor` agents will spring to life, pass notes back and forth, and eventually drop a highly-polished LinkedIn post into the `.agents/review/` directory!
+
+---
+
+## 🧠 Under the Hood (For Senior Developers)
+
+If you are a Senior Engineer, you care about predictability, auditability, and immutability. The Atomic Agentic OS is designed to be a transparent **State Bus**, heavily relying on declarative file systems rather than obfuscated memory stores.
+
+### The OS Execution Pipeline (`core/runner.py`)
+At its core, the OS uses a strict, immutable 9-step execution loop powered by `atomic-agents`. When the Orchestrator daemon (`watchdog`) detects a payload, it spins up the Atomic Engine. The engine strictly mounts authorized tools based on Role-Based Access Control (`.vault/policy.json`), loads workspace SOPs into the system prompt, and manages exponential backoffs for rate limits.
+
+### The Flat-File State Bus & Pydantic Handshakes
+Agents do not communicate via hidden RPC calls.
+Every task handoff is a strictly typed Pydantic schema (`InterAgentHandshake`).
+When an agent finishes a block of work, it invokes the `mailroom_routing` skill, which serializes the Handshake out to a Markdown file with YAML frontmatter, and writes it to the next agent's `.agents/inbox/`.
+This file-based State Bus means you can `cat`, pause, or modify messages *in transit* horizontally between execution bursts.
+
+### ISO-Compliant Flight Recorders
+Every single transaction generates a `.state.json` file telemetry trace in the `.agents/active/` directory. This acts as a flight recorder, mapping the precise start timestamp, tool mounting success, LLM validation steps, and crash tracebacks.
+
+### Directory Schema Blueprint
 ```text
 .
 ├── .agents/
@@ -15,11 +77,11 @@ A decentralized **Agentic OS** where specialized Atomic Agents interact with a s
 │   └── policy.json     # RBAC & Tool Permissions
 ├── config/
 │   ├── workforce.yaml  # Agent identity and roles
-│   ├── providers.yaml  # Model agnostic routing (OpenAI, Anthropic, Ollama)
+│   ├── providers.yaml  # Model agnostic routing (OpenAI, Anthropic, Groq, Ollama)
 │   └── kernel.md       # Universal Workspace SOPs injected into the system prompt
 ├── core/
 │   ├── orchestrator.py # File-watcher Dispatcher
-│   ├── runner.py       # The V8 Execution Engine
+│   ├── runner.py       # The OS Execution Engine
 │   ├── factory.py      # LLM Provider Initialization
 │   └── vault.py        # Security Validation
 └── skills/
@@ -29,73 +91,3 @@ A decentralized **Agentic OS** where specialized Atomic Agents interact with a s
     ├── scaffolder/     # Meta-agent workflow generation
     └── terminal/       # Isolated Bash access
 ```
-
----
-
-## 🏗️ V8 Engine Architecture (Phase 1 Complete)
-
-The OS has successfully completed its foundational "V8" re-architecture, enforcing a strict separation between the immutable runtime and declarative agent workflows.
-
-### 1. The Engine (`core/runner.py`)
-A 9-step immutable execution loop using `atomic-agents`. It strictly mounts authorized skills, initializes the agent context, handles API rate-limit retries via exponential backoff, and ensures full observability.
-
-### 2. The Flight Recorder (`.state.json`)
-Every task dispatched generates a state trace tracking timestamps, pipeline steps, LLM failures, and full memory dumps for ISO-compliant auditability.
-
-### 3. The InterAgentHandshake (`core/schemas/handshake.py`)
-A strict `Pydantic` schema defining how agents communicate. Requests are serialized into standard Markdown files with YAML frontmatter (Sender, Receiver, Priority, Directive, Payload).
-
-### 4. The Mailroom Skill (`skills/mailroom/tool.py`)
-An OS-level skill allowing an active agent to generate an `InterAgentHandshake` atom and seamlessly route it to another workspace's inbox over the flat-file State Bus.
-
----
-
-## 🚀 Setup & Execution
-
-### 1. Installation
-
-Clone this repository and create a Python virtual environment:
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-### 2. Verify V8 Engine Integrity
-
-The OS ships with a full validation suite. Ensures the Handshake payload serializes correctly and the Mailroom correctly routes across conceptual workspaces.
-
-```bash
-source venv/bin/activate
-PYTHONPATH=. python3 -m unittest discover core/
-```
-
-### 3. Boot the Orchestrator
-
-Run the core orchestrator script. This starts a `watchdog` daemon that listens to the `.agents/inbox/` directory and mounts the V8 Engine to process incoming requests.
-
-```bash
-# Optional: Clear zombie processes first
-./cleanup.sh
-
-# Keep this running in your terminal
-PYTHONPATH=. python3 core/orchestrator.py
-```
-
-### 4. Run the Diagnostic Handshake test
-
-1. Create a Handshake test file inside `.agents/inbox/` (for example, `test.md`):
-
-```markdown
----
-task_id: "HW-002"
-agent_id: "dictator"
-priority: "high"
----
-# Task: Diagnostic
-Acknowledge this file to confirm the Atomic Agentic OS is mounted and the Flight Recorder is tracking.
-```
-
-2. Watch the orchestrator terminal. You should see logs indicating the OS booted the V8 framework for the agent `dictator`.
-3. Check the `.agents/review/` directory. The engine will drop a full execution report there. Check `.agents/active/HW-002.state.json` to view the trace of the pipeline execution.
