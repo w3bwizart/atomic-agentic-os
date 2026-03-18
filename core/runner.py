@@ -250,7 +250,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
     # ---------------------------------------------------------
     # 9. RESULT DISPATCH (Artifact Generation)
     # ---------------------------------------------------------
-    review_dir = Path(".agents/review")
+    review_dir = Path(workspace_dir) / ".agents" / "review"
     review_dir.mkdir(parents=True, exist_ok=True)
     review_file = review_dir / f"{task_id}_report.md"
 

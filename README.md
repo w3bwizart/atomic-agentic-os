@@ -27,25 +27,25 @@ To get started, simply configure your favorite provider.
    # ANTHROPIC_API_KEY=...
    ```
 
-### Step 2: Turn on the Factory
-Open your terminal and run the manager:
+### Step 2: Turn on the Multi-Tenant Orchestrator
+Open your terminal and run the daemon:
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# Start the Orchestrator
-PYTHONPATH=. python3 core/orchestrator.py
+# Start the Recursive Watcher
+PYTHONPATH=. venv/bin/python core/orchestrator.py
 ```
 *Leave this terminal open! You will see the matrix-style logs streaming here.*
 
-### Step 3: Drop a Task in the Inbox
-Open a **second terminal** and drop a test file into the inbox to wake the agents up:
+### Step 3: Trigger an Isolated Workspace Workflow
+Open a **second terminal** and trigger the active sandbox. The Orchestrator automatically binds to dynamically loaded folders in `workspaces/`:
 ```bash
-cp examples/content_team/.agents/inbox/start_post.md .agents/inbox/start_post.md
+touch workspaces/content_team/.agents/inbox/start_post.md
 ```
 
-Watch your first terminal! The `researcher`, `writer`, and `editor` agents will spring to life, pass notes back and forth, and eventually drop a highly-polished LinkedIn post into the `.agents/review/` directory!
+Watch your first terminal! The `researcher`, `writer`, and `editor` agents will securely load the `content_team` workforce graph, pass internal handshakes back and forth, and drop a highly-polished LinkedIn post into the `workspaces/content_team/.agents/review/` directory!
 
 ---
 

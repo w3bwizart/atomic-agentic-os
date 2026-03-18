@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "researcher": ["mailroom_routing"],
+    "writer": ["mailroom_routing"],
+    "editor": ["file_management", "mailroom_routing"],
+    "dictator": ["mailroom_routing", "terminal_access", "file_management", "scaffold"]
+  },
+  "restricted_paths": [
+    ".vault",
+    "config",
+    "core"
+  ],
+  "max_tool_invocations_per_run": 5
+}
