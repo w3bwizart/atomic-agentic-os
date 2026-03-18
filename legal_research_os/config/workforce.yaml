@@ -1,9 +1,0 @@
-agents:
-  - id: "case_law_researcher"
-    role: "Legal Researcher"
-    description: "Case Law Researcher"
-    skills: ["file_management"]
-  - id: "legal_reviewer"
-    role: "Legal Reviewer"
-    description: "Legal Reviewer"
-    skills: ["file_management"]

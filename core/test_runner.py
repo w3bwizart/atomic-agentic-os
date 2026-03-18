@@ -32,7 +32,9 @@ class TestRunner(unittest.TestCase):
         
         # Override the review dir locally for test
         import core.runner
+        from unittest.mock import patch, MagicMock
         original_path = core.runner.Path
+        test_active_dir = self.active_dir
         
         class MockPath:
             def __init__(self, path_str):
@@ -41,28 +43,34 @@ class TestRunner(unittest.TestCase):
             def exists(self): return True
             def __truediv__(self, other):
                 if "review" in self.path_str:
-                    return original_path(str(self.active_dir / other))
+                    return original_path(str(test_active_dir / other))
                 return original_path(self.path_str) / other
                 
         core.runner.Path = MockPath
         
-        try:
-            execute_agent_task(
-                task_id="TEST-001",
-                agent_id="test_agent",
-                agent_config=self.agent_config,
-                body="test body",
-                state_file=self.state_file,
-                sops="test sops"
-            )
-            
-            # Verify state was updated
-            with open(self.state_file, 'r') as f:
-                state = json.load(f)
-            self.assertEqual(state["current_step"], "executing_llm")
-            
-        finally:
-            core.runner.Path = original_path
+        # Mock get_llm_provider to return a real Instructor dummy client
+        import instructor
+        from openai import OpenAI
+        dummy_client = instructor.from_openai(OpenAI(api_key="dummy-key"))
+        
+        with patch('core.runner.get_llm_provider', return_value=(dummy_client, "gpt-4o")):
+            try:
+                execute_agent_task(
+                    task_id="TEST-001",
+                    agent_id="test_agent",
+                    agent_config=self.agent_config,
+                    body="test body",
+                    state_file=self.state_file,
+                    sops="test sops"
+                )
+                
+                # Verify state was updated
+                with open(self.state_file, 'r') as f:
+                    state = json.load(f)
+                self.assertEqual(state["current_step"], "completed")
+                
+            finally:
+                core.runner.Path = original_path
 
 if __name__ == '__main__':
     unittest.main()
