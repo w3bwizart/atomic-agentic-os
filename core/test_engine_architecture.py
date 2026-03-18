@@ -2,25 +2,25 @@ import unittest
 import shutil
 from pathlib import Path
 
-from core.schemas.handshake import InterAgentHandshake
-from skills.mailroom.tool import MailroomSkill
+from core.schemas.atom_handshake import InterAgentHandshakeAtom
+from skills.mailroom_routing.tool import MailroomSkill
 
 class TestEngineArchitecture(unittest.TestCase):
     def setUp(self):
         # Create a mock workspace environment
         self.workspace_root = Path("workspaces")
-        self.marketing_os = self.workspace_root / "marketing_os" / ".agents" / "inbox"
+        self.marketing_os = self.workspace_root / "marketing_os" / ".organism_agents" / "inbox"
         self.marketing_os.mkdir(parents=True, exist_ok=True)
         
-        self.local_inbox = Path(".agents/inbox")
+        self.local_inbox = Path(".organism_agents/inbox")
         self.local_inbox.mkdir(parents=True, exist_ok=True)
 
     def tearDown(self):
         shutil.rmtree(self.workspace_root, ignore_errors=True)
-        shutil.rmtree(Path(".agents"), ignore_errors=True)
+        shutil.rmtree(Path(".organism_agents"), ignore_errors=True)
 
     def test_handshake_serialization(self):
-        handshake = InterAgentHandshake(
+        handshake = InterAgentHandshakeAtom(
             sender_id="copywriter",
             sender_workspace="marketing_os",
             receiver_id="editor",
@@ -34,7 +34,7 @@ class TestEngineArchitecture(unittest.TestCase):
         
         # Verify strict frontmatter OS injection
         self.assertIn("task_id: ", md_output)
-        self.assertIn("agent_id: editor", md_output)
+        self.assertIn("organism_agent_id: editor", md_output)
         self.assertIn("priority: high", md_output)
         
         # Verify strict payload construction
@@ -43,7 +43,7 @@ class TestEngineArchitecture(unittest.TestCase):
 
     def test_mailroom_local_routing(self):
         mailroom = MailroomSkill()
-        handshake = InterAgentHandshake(
+        handshake = InterAgentHandshakeAtom(
             sender_id="dictator",
             sender_workspace="root",
             receiver_id="worker",
@@ -58,7 +58,8 @@ class TestEngineArchitecture(unittest.TestCase):
 
     def test_mailroom_cross_workspace_routing(self):
         mailroom = MailroomSkill()
-        handshake = InterAgentHandshake(
+        mailroom.workspace_dir = self.workspace_root / "marketing_os"
+        handshake = InterAgentHandshakeAtom(
             sender_id="root_dispatch",
             sender_workspace="marketing_os",
             receiver_id="seo_agent",
@@ -75,7 +76,7 @@ class TestEngineArchitecture(unittest.TestCase):
         # Verify content was physically written
         with open(expected_file, 'r') as f:
             content = f.read()
-            self.assertIn("agent_id: seo_agent", content)
+            self.assertIn("organism_agent_id: seo_agent", content)
             self.assertIn("priority: critical", content)
 
 if __name__ == '__main__':

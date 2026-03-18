@@ -6,16 +6,16 @@ from pathlib import Path
 # Setup basic logging
 logger = logging.getLogger(__name__)
 
-VAULT_POLICY_PATH = Path(".vault/policy.json")
+VAULT_POLICY_PATH = Path(".vault/atom.policy.json")
 
-def check_permission(agent_id: str, skill_name: str, workspace_dir: str = ".") -> bool:
+def check_permission(organism_agent_id: str, skill_name: str, workspace_dir: str = ".") -> bool:
     """
     Check if an agent has permission to use a specific skill.
     Reads from local workspace policy, falling back to global policy.
     """
-    vault_path = Path(workspace_dir) / ".vault" / "policy.json"
+    vault_path = Path(workspace_dir) / ".vault" / "atom.policy.json"
     if not vault_path.exists():
-        vault_path = Path(".vault/policy.json")
+        vault_path = Path(".vault/atom.policy.json")
 
     if not vault_path.exists():
         logger.warning(f"Vault policy file not found at {vault_path}.")
@@ -26,13 +26,13 @@ def check_permission(agent_id: str, skill_name: str, workspace_dir: str = ".") -
             policy = json.load(f)
 
         permissions = policy.get("permissions", {})
-        agent_permissions = permissions.get(agent_id, [])
+        agent_permissions = permissions.get(organism_agent_id, [])
 
         # In actual system, we might have roles or wildcard permissions
         if skill_name in agent_permissions:
             return True
         else:
-            logger.warning(f"Security Violation: Agent {agent_id} denied access to {skill_name}")
+            logger.warning(f"Security Violation: Agent {organism_agent_id} denied access to {skill_name}")
             return False
 
     except Exception as e:

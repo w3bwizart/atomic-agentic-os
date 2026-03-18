@@ -8,9 +8,9 @@ import yaml
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-from core.runner import execute_agent_task
+from core.runner import execute_organism_agent_task
 
-log_dir = Path(".agents/logs")
+log_dir = Path(".organism_agents/logs")
 log_dir.mkdir(parents=True, exist_ok=True)
 import sys
 logging.basicConfig(
@@ -88,12 +88,12 @@ class InboxHandler(FileSystemEventHandler):
 
             metadata, body = self.parse_frontmatter(content)
             task_id = metadata.get('task_id', 'unknown_task')
-            agent_id = metadata.get('agent_id', 'dictator')
+            organism_agent_id = metadata.get('organism_agent_id', 'dictator')
 
             # Load Isolated Tenant Workforce
-            workforce_path = workspace_dir / "config" / "workforce.yaml"
+            workforce_path = workspace_dir / "config" / "organism.workforce.yaml"
             if not workforce_path.exists():
-                logger.error(f"Tenant {workspace_dir.name} missing workforce.yaml. Aborting.")
+                logger.error(f"Tenant {workspace_dir.name} missing organism.workforce.yaml. Aborting.")
                 active_path.unlink(missing_ok=True)
                 return
                 
@@ -101,19 +101,19 @@ class InboxHandler(FileSystemEventHandler):
                 tenant_workforce = yaml.safe_load(f).get("agents", [])
 
             # Find agent in local workforce
-            agent_config = next((a for a in tenant_workforce if a['id'] == agent_id), None)
+            agent_config = next((a for a in tenant_workforce if a['id'] == organism_agent_id), None)
             if not agent_config:
-                logger.error(f"Agent {agent_id} not found in {workspace_dir.name} workforce. Aborting.")
+                logger.error(f"Agent {organism_agent_id} not found in {workspace_dir.name} workforce. Aborting.")
                 active_path.unlink(missing_ok=True)
                 return
 
-            logger.info(f"Task {task_id} assigned to {agent_id} within tenant {workspace_dir.name}")
+            logger.info(f"Task {task_id} assigned to {organism_agent_id} within tenant {workspace_dir.name}")
 
             # 1. State Recovery inside Workspace
             state_file = active_dir / f"{task_id}.state.json"
             state_data = {
                 "current_step": "initialization",
-                "assigned_agent": agent_id,
+                "assigned_agent": organism_agent_id,
                 "subtasks_completed": [],
                 "tool_outputs": []
             }
@@ -134,7 +134,7 @@ class InboxHandler(FileSystemEventHandler):
                     sops = f.read()
 
             # Delegate execution to Runner (Passing workspace_dir)
-            execute_agent_task(task_id, agent_id, agent_config, body, state_file, sops, workspace_dir=str(workspace_dir))
+            execute_organism_agent_task(task_id, organism_agent_id, agent_config, body, state_file, sops, workspace_dir=str(workspace_dir))
 
             # Remove active file post-processing
             if active_path.exists():

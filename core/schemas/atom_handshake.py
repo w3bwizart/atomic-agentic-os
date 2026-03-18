@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import Optional, Dict, Any
 from pydantic import BaseModel, Field
 
-class InterAgentHandshake(BaseModel):
+class InterAgentHandshakeAtom(BaseModel):
     """
     The strict protocol for inter-workspace agent communication in the Atomic Agentic OS.
     This Atom guarantees a predictable contract when one agent (the Sender) needs to 
@@ -65,7 +65,7 @@ class InterAgentHandshake(BaseModel):
         # We extract metadata strictly
         metadata = {
             "task_id": self.handshake_id,
-            "agent_id": self.receiver_id,
+            "organism_agent_id": self.receiver_id,
             "priority": self.priority,
             "sender_workspace": self.sender_workspace,
             "callback_required": self.callback_required

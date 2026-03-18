@@ -11,30 +11,30 @@ from datetime import datetime
 import time
 import yaml
 
-from atomic_agents.agents.atomic_agent import AtomicAgent, AgentConfig
+from atomic_agents.agents.atomic_agent import AtomicAgent as OrganismAtomicAgent, AgentConfig
 from atomic_agents.context.system_prompt_generator import SystemPromptGenerator
 
 import importlib.util
 from core.factory import get_llm_provider
 from core.vault import check_permission
-from core.schemas.handshake import InterAgentHandshake
+from core.schemas.atom_handshake import InterAgentHandshakeAtom
 
 logger = logging.getLogger("LLMRunner")
 
-def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: str, state_file: Path, sops: str, workspace_dir: str = "."):
+def execute_organism_agent_task(task_id: str, organism_agent_id: str, agent_config: dict, body: str, state_file: Path, sops: str, workspace_dir: str = "."):
     """
     The Core Execution Pipeline.
     Strictly standardizes the processing of a State Bus event using Atomic-Agents.
     
     Args:
         task_id: The unique correlation ID for the transaction (often the Handshake ID).
-        agent_id: The identifier of the agent defined in workforce.yaml.
+        organism_agent_id: The identifier of the agent defined in organism.workforce.yaml.
         agent_config: The explicit dictionary of the agent's capabilities (role, tools).
         body: The declarative task instructions (often serialized markdown from a Handshake).
         state_file: The `.state.json` path acting as the flight recorder for this run.
         sops: Workspace-level Standard Operating Procedures injected into the kernel.
     """
-    logger.info(f"Atomic Engine: Booting execution for {task_id} assigned to {agent_id}.")
+    logger.info(f"Atomic Engine: Booting execution for {task_id} assigned to {organism_agent_id}.")
     
     # ---------------------------------------------------------
     # 1. FLIGHT RECORDER INITIALIZATION (Traceability)
@@ -56,7 +56,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
     system_prompt = SystemPromptGenerator(
         background=[
             "You are a specialized Agent operating within the OS Atomic Agentic OS runtime.",
-            f"Your strict identity ID is: {agent_id}.",
+            f"Your strict identity ID is: {organism_agent_id}.",
             f"Your designated Role is: {agent_config.get('role', 'Generic Worker')}.",
             f"Role Explicit Description: {agent_config.get('description', 'No description provided.')}"
         ],
@@ -67,7 +67,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
             "4. Never hallucinate API calls or external systems not provided via tools."
         ],
         output_instructions=[
-            "CRITICAL: If you are instructed to use a tool to output your work (like InterAgentHandshake), you MUST NOT output conversational text. You MUST directly invoke the tool to deliver your payload. Failure to use the tool will cause the system to crash.",
+            "CRITICAL: If you are instructed to use a tool to output your work (like InterAgentHandshakeAtom), you MUST NOT output conversational text. You MUST directly invoke the tool to deliver your payload. Failure to use the tool will cause the system to crash.",
             "Universal Workspace Standard Operating Procedures (SOPs):",
             sops
         ]
@@ -76,9 +76,9 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
     # ---------------------------------------------------------
     # 3. BRAIN ALLOCATION (Model Agnosticism)
     # ---------------------------------------------------------
-    client, model = get_llm_provider(agent_id)
+    client, model = get_llm_provider(organism_agent_id)
     if not client:
-        logger.error(f"Atomic Engine Alert: Failed to mount LLM provider for {agent_id}. Halting.")
+        logger.error(f"Atomic Engine Alert: Failed to mount LLM provider for {organism_agent_id}. Halting.")
         state_data["current_step"] = "failed_llm_mount"
         with open(state_file, 'w') as f: json.dump(state_data, f, indent=2)
         return
@@ -86,12 +86,12 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
     # ---------------------------------------------------------
     # 4. SKILL MOUNTING (Atomic Molecules)
     # ---------------------------------------------------------
-    # Tools are dynamically injected, but gated by the strict .vault/policy.json RBAC.
+    # Tools are dynamically injected, but gated by the strict .vault/atom.policy.json RBAC.
     requested_skills = agent_config.get('skills', [])
     authorized_tools = []
     
     for skill in requested_skills:
-        if check_permission(agent_id, skill, workspace_dir=workspace_dir):
+        if check_permission(organism_agent_id, skill, workspace_dir=workspace_dir):
             tool_class = None
             
             # 1. STRICT TENANT ISOLATION: Always attempt to load the custom Python script directly from the Workspace first.
@@ -125,19 +125,19 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
                     tool_instance.state_file = state_file
                 tool_instance.workspace_dir = workspace_dir
                 authorized_tools.append(tool_instance)
-                logger.info(f"OS Tool Mount: Successfully bound {skill} to {agent_id}.")
+                logger.info(f"OS Tool Mount: Successfully bound {skill} to {organism_agent_id}.")
             else:
                 if not skill_path.exists():
                     logger.warning(f"OS Tool Mount Error: Skill '{skill}' missing physical Python script at {skill_path}.")
                 else:
                     logger.warning(f"OS Tool Mount Error: Skill '{skill}' found but missing a valid BaseTool inheritance.")
         else:
-            logger.warning(f"SECURITY BLOCK: {agent_id} illegally attempted to load '{skill}'.")
+            logger.warning(f"SECURITY BLOCK: {organism_agent_id} illegally attempted to load '{skill}'.")
 
     # ---------------------------------------------------------
     # 5. AGENT INSTANTIATION (The Organism)
     # ---------------------------------------------------------
-    agent = AtomicAgent(
+    agent = OrganismAtomicAgent(
         config=AgentConfig(
             client=client,
             model=model,
@@ -161,7 +161,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
         # Diagnostic trap for safe testing pipelines without wasting API credits
         api_key = getattr(client, "api_key", getattr(getattr(client, "client", None), "api_key", ""))
         if api_key in ["dummy-key", "ollama", "ENV_VAR"]:
-            final_response = f"[Atomic Engine Diagnostic] Acknowledged payload by {agent_id}."
+            final_response = f"[Atomic Engine Diagnostic] Acknowledged payload by {organism_agent_id}."
             execution_success = True
         else:
             # The strict run execution
@@ -171,7 +171,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
                     final_response = response.chat_message
                     
                     if not final_response or final_response.strip() == "":
-                        logger.warning(f"OS Execution Warning: {agent_id} generated an empty response. Marking failure.")
+                        logger.warning(f"OS Execution Warning: {organism_agent_id} generated an empty response. Marking failure.")
                         state_data["current_step"] = "failed_empty_return"
                     else:
                         execution_success = True
@@ -181,13 +181,13 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
                             receiver = None
                             directive = "Process the attached payload."
                             
-                            workforce_path = Path(workspace_dir) / "config" / "workforce.yaml"
+                            workforce_path = Path(workspace_dir) / "config" / "organism.workforce.yaml"
                             if workforce_path.exists():
                                 with open(workforce_path, 'r') as f:
                                     workforce_data = yaml.safe_load(f).get("agents", [])
                                 # Find next agent
                                 for i, w_agent in enumerate(workforce_data):
-                                    if w_agent['id'] == agent_id:
+                                    if w_agent['id'] == organism_agent_id:
                                         if i + 1 < len(workforce_data):
                                             receiver = workforce_data[i+1]['id']
                                             directive = workforce_data[i+1].get('description', directive)
@@ -196,12 +196,12 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
                             payload_data = {"raw_llm_output": final_response}
                             
                             if receiver:
-                                logger.info(f"OS Synthetic Route: Forcing Handshake from {agent_id} to {receiver} in {workspace_dir}.")
+                                logger.info(f"OS Synthetic Route: Forcing Handshake from {organism_agent_id} to {receiver} in {workspace_dir}.")
                                 inbox_dir = Path(workspace_dir) / ".agents" / "inbox"
                                 inbox_dir.mkdir(parents=True, exist_ok=True)
-                                handshake = InterAgentHandshake(
+                                handshake = InterAgentHandshakeAtom(
                                     handshake_id=task_id, sender_workspace=Path(workspace_dir).name, 
-                                    sender_id=agent_id, receiver_id=receiver, 
+                                    sender_id=organism_agent_id, receiver_id=receiver, 
                                     payload=payload_data, directive=directive
                                 )
                                 with open(inbox_dir / f"{handshake.handshake_id}.md", "w") as hf:
@@ -221,12 +221,12 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
                     break # Break retry loop on successful completion
                     
                 except Exception as llm_e:
-                    logger.warning(f"OS LLM Constraint Error (Attempt {attempt + 1}/{max_retries}) for {agent_id}: {llm_e}")
+                    logger.warning(f"OS LLM Constraint Error (Attempt {attempt + 1}/{max_retries}) for {organism_agent_id}: {llm_e}")
                     if attempt < max_retries - 1:
                         time.sleep(retry_delay)
                         retry_delay *= 2 # Exponential backoff for rate limits
                     else:
-                        logger.error(f"Atomic Engine Error: {agent_id} exhausted {max_retries} LLM retries. Fatal: {llm_e}")
+                        logger.error(f"Atomic Engine Error: {organism_agent_id} exhausted {max_retries} LLM retries. Fatal: {llm_e}")
                         final_response = f"OS Fatal Execution Error: {llm_e}"
                         state_data["current_step"] = "failed_retry_exhaustion"
                         
@@ -267,7 +267,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
             "timestamp": datetime.utcnow().isoformat(),
             "os_path": str(Path.cwd()),
             "task_id": task_id,
-            "agent_id": agent_id,
+            "organism_agent_id": organism_agent_id,
             "status": state_data.get("current_step", "unknown_fault")
         }
         with open(history_path, 'a') as f:
@@ -284,7 +284,7 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
 
     with open(review_file, 'w') as f:
         f.write(f"# OS Execution Report: {task_id}\n")
-        f.write(f"**Agent Segment:** {agent_id}\n")
+        f.write(f"**Agent Segment:** {organism_agent_id}\n")
         f.write(f"**Execution Status:** {'Success' if execution_success else 'FAILED'}\n")
         f.write(f"**Timestamp:** {state_data['timestamp_end']}\n\n")
         f.write(f"## Response Payload:\n{final_response}\n")
