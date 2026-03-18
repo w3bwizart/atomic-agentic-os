@@ -16,3 +16,7 @@
 - Fixed missing `task_decomposition` execution warnings by removing unimplemented skill from Dictator configuration.
 
 
+
+## [Reopened] - Phase 1: Engine Re-Architecture
+- Received Master Context Injection detailing the "V8 of AI Agents" vision.
+- Pivot from basic file-watching to strict `InterAgentHandshake` state bus and heavily commented ISO-ready `runner.py` execution.

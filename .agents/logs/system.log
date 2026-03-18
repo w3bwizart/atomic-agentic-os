@@ -1,36 +1,46 @@
-2026-03-14 03:34:08,175 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-14 03:49:41,117 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-14 03:51:17,743 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-14 03:52:16,814 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-14 03:52:29,082 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-14 03:52:31,730 - Orchestrator - INFO - New file detected in inbox: scaffold_legal.md
-2026-03-14 03:52:31,730 - Orchestrator - INFO - Task SCAFFOLD-001 assigned to dictator (Strategy & Task Allocation)
-2026-03-14 03:52:31,731 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
-2026-03-14 03:52:31,865 - LLMRunner - WARNING - Skill task_decomposition is authorized but not found in TOOL_REGISTRY.
-2026-03-14 03:52:31,865 - LLMRunner - INFO - Executing Agent Run for SCAFFOLD-001 with dictator...
-2026-03-14 03:52:32,867 - LLMRunner - INFO - Task SCAFFOLD-001 completed. Report written to review folder.
-2026-03-18 00:38:55,302 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-18 00:39:08,091 - Orchestrator - INFO - New file detected in inbox: test5.md
-2026-03-18 00:39:08,092 - Orchestrator - INFO - Task HW-005 assigned to dictator (Strategy & Task Allocation)
-2026-03-18 00:39:08,101 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
-2026-03-18 00:39:08,228 - LLMRunner - WARNING - Skill task_decomposition is authorized but not found in TOOL_REGISTRY.
-2026-03-18 00:39:08,228 - LLMRunner - INFO - Executing Agent Run for HW-005 with dictator...
-2026-03-18 00:39:08,228 - LLMRunner - INFO - Task HW-005 completed. Report written to review folder.
-2026-03-18 00:39:08,592 - Orchestrator - INFO - New file detected in inbox: test5.md
-2026-03-18 00:39:08,593 - Orchestrator - INFO - Task unknown_task assigned to dictator (Strategy & Task Allocation)
-2026-03-18 00:39:08,594 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
-2026-03-18 00:39:08,603 - LLMRunner - WARNING - Skill task_decomposition is authorized but not found in TOOL_REGISTRY.
-2026-03-18 00:39:08,604 - LLMRunner - INFO - Executing Agent Run for unknown_task with dictator...
-2026-03-18 00:39:08,604 - LLMRunner - INFO - Task unknown_task completed. Report written to review folder.
-2026-03-18 00:39:44,052 - Orchestrator - INFO - Graceful shutdown initiated by KeyboardInterrupt.
-2026-03-18 00:39:45,598 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-18 00:39:51,253 - Orchestrator - INFO - Processing new file in inbox: test6.md
-2026-03-18 00:39:51,254 - Orchestrator - INFO - Task HW-006 assigned to dictator (Strategy & Task Allocation)
-2026-03-18 00:39:51,254 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
-2026-03-18 00:39:51,357 - LLMRunner - WARNING - Skill task_decomposition is authorized but not found in TOOL_REGISTRY.
-2026-03-18 00:39:51,357 - LLMRunner - INFO - Executing Agent Run for HW-006 with dictator...
-2026-03-18 00:39:51,358 - LLMRunner - INFO - Task HW-006 completed. Report written to review folder.
-2026-03-18 00:40:03,205 - Orchestrator - INFO - Graceful shutdown initiated by KeyboardInterrupt.
-2026-03-18 00:50:21,426 - Factory - WARNING - No routing found for unknown_agent. Defaulting to safe ollama fallback.
-2026-03-18 00:50:21,426 - Factory - INFO - Initializing ollama (llama3) for agent unknown_agent
-2026-03-18 00:50:21,523 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
+2026-03-18 01:39:55,060 - Factory - WARNING - No routing found for unknown_agent. Defaulting to safe ollama fallback.
+2026-03-18 01:39:55,060 - Factory - INFO - Initializing ollama (llama3) for agent unknown_agent
+2026-03-18 01:39:55,158 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
+2026-03-18 01:39:55,170 - LLMRunner - INFO - V8 Engine: Booting execution for TEST-001 assigned to test_agent.
+2026-03-18 01:39:55,171 - Factory - WARNING - No routing found for test_agent. Defaulting to safe ollama fallback.
+2026-03-18 01:39:55,171 - Factory - INFO - Initializing ollama (llama3) for agent test_agent
+2026-03-18 01:39:55,186 - openai._base_client - INFO - Retrying request to /chat/completions in 0.447644 seconds
+2026-03-18 01:39:55,635 - openai._base_client - INFO - Retrying request to /chat/completions in 0.870150 seconds
+2026-03-18 01:39:56,506 - openai._base_client - INFO - Retrying request to /chat/completions in 0.429101 seconds
+2026-03-18 01:39:56,936 - openai._base_client - INFO - Retrying request to /chat/completions in 0.762857 seconds
+2026-03-18 01:39:57,701 - openai._base_client - INFO - Retrying request to /chat/completions in 0.399531 seconds
+2026-03-18 01:39:58,101 - openai._base_client - INFO - Retrying request to /chat/completions in 0.998657 seconds
+2026-03-18 01:39:59,102 - LLMRunner - WARNING - V8 LLM Constraint Error (Attempt 1/3) for test_agent: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Connection error.
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Connection error.
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Connection error.
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Connection error.
+</last_exception>
