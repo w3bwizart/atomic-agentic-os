@@ -8,13 +8,17 @@ logger = logging.getLogger(__name__)
 
 VAULT_POLICY_PATH = Path(".vault/policy.json")
 
-def check_permission(agent_id: str, skill_name: str) -> bool:
+def check_permission(agent_id: str, skill_name: str, workspace_dir: str = ".") -> bool:
     """
     Check if an agent has permission to use a specific skill.
-    Reads from .vault/policy.json.
+    Reads from local workspace policy, falling back to global policy.
     """
-    if not VAULT_POLICY_PATH.exists():
-        logger.warning(f"Vault policy file not found at {VAULT_POLICY_PATH}.")
+    vault_path = Path(workspace_dir) / ".vault" / "policy.json"
+    if not vault_path.exists():
+        vault_path = Path(".vault/policy.json")
+
+    if not vault_path.exists():
+        logger.warning(f"Vault policy file not found at {vault_path}.")
         return False
 
     try:

@@ -33,14 +33,8 @@ class MailroomSkill(BaseTool):
         Executes the Handshake dispatch.
         """
         try:
-            # By default, we route to the local root .agents/inbox
-            # If a different workspace is specified, we route it to `workspaces/{workspace}/.agents/inbox`
-            if params.sender_workspace == "root" or not params.sender_workspace:
-                inbox_dir = Path(".agents/inbox")
-            else:
-                # Assuming the OS root holds a `workspaces/` directory housing the isolated pods 
-                inbox_dir = Path("workspaces") / params.sender_workspace / ".agents/inbox"
-            
+            workspace_dir = getattr(self, "workspace_dir", ".")
+            inbox_dir = Path(workspace_dir) / ".agents/inbox"
             inbox_dir.mkdir(parents=True, exist_ok=True)
             
             # The exact file payload

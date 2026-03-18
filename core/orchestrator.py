@@ -27,17 +27,15 @@ logger = logging.getLogger("Orchestrator")
 # File Watcher & Execution Loop
 # ---------------------------------------------------------
 class InboxHandler(FileSystemEventHandler):
-    def __init__(self):
-        super().__init__()
-        # Load workforce once
-        with open("config/workforce.yaml", 'r') as f:
-            self.workforce = yaml.safe_load(f).get("agents", [])
-
     def on_created(self, event):
         if event.is_directory or not event.src_path.endswith('.md'):
             return
 
         filepath = Path(event.src_path)
+        # Verify this is actually within a tenant's inbox
+        if ".agents" not in filepath.parts or "inbox" not in filepath.parts:
+            return
+
         # Watchdog debounce: check logic happens in the thread to avoid blocking
         threading.Thread(target=self.process_file, args=(filepath,), daemon=True).start()
 
@@ -63,27 +61,26 @@ class InboxHandler(FileSystemEventHandler):
             # Brief pause to let file writing finish and avoid reading 0 bytes
             time.sleep(0.1)
             
-            if not filepath.exists():
-                return
-                
-            if filepath.stat().st_size == 0:
-                logger.debug(f"File {filepath.name} is empty, waiting... (debounce)")
+            if not filepath.exists() or filepath.stat().st_size == 0:
                 time.sleep(0.2)
                 if not filepath.exists() or filepath.stat().st_size == 0:
                     return
             
-            logger.info(f"Processing new file in inbox: {filepath.name}")
+            # Extract Tenant Workspace Context
+            agents_dir_index = filepath.parts.index('.agents')
+            workspace_dir = Path(*filepath.parts[:agents_dir_index])
+            
+            logger.info(f"Tenant Detected [{workspace_dir.name}]: Processing {filepath.name}")
 
-            # Atomic Claim Logic: Try to move the file
-            # If the file was moved by another thread, FileNotFoundError handles it cleanly.
-            active_dir = Path(".agents/active")
+            # Atomic Claim Logic
+            active_dir = workspace_dir / ".agents" / "active"
             active_dir.mkdir(parents=True, exist_ok=True)
             active_path = active_dir / filepath.name
 
             try:
                 filepath.rename(active_path)
             except FileNotFoundError:
-                logger.debug(f"File {filepath.name} already claimed by another agent thread. Skipping.")
+                logger.debug(f"File {filepath.name} already claimed. Skipping.")
                 return
 
             with open(active_path, 'r') as f:
@@ -93,16 +90,26 @@ class InboxHandler(FileSystemEventHandler):
             task_id = metadata.get('task_id', 'unknown_task')
             agent_id = metadata.get('agent_id', 'dictator')
 
-            # Find agent in workforce
-            agent_config = next((a for a in self.workforce if a['id'] == agent_id), None)
+            # Load Isolated Tenant Workforce
+            workforce_path = workspace_dir / "config" / "workforce.yaml"
+            if not workforce_path.exists():
+                logger.error(f"Tenant {workspace_dir.name} missing workforce.yaml. Aborting.")
+                active_path.unlink(missing_ok=True)
+                return
+                
+            with open(workforce_path, 'r') as f:
+                tenant_workforce = yaml.safe_load(f).get("agents", [])
+
+            # Find agent in local workforce
+            agent_config = next((a for a in tenant_workforce if a['id'] == agent_id), None)
             if not agent_config:
-                logger.error(f"Agent {agent_id} not found in workforce.yaml. Aborting task {task_id}.")
+                logger.error(f"Agent {agent_id} not found in {workspace_dir.name} workforce. Aborting.")
                 active_path.unlink(missing_ok=True)
                 return
 
-            logger.info(f"Task {task_id} assigned to {agent_id} ({agent_config['role']})")
+            logger.info(f"Task {task_id} assigned to {agent_id} within tenant {workspace_dir.name}")
 
-            # 1. State Recovery
+            # 1. State Recovery inside Workspace
             state_file = active_dir / f"{task_id}.state.json"
             state_data = {
                 "current_step": "initialization",
@@ -119,15 +126,15 @@ class InboxHandler(FileSystemEventHandler):
                 with open(state_file, 'w') as f:
                     json.dump(state_data, f, indent=2)
 
-            # 2. SOP Injector
-            kernel_md_path = Path("config/kernel.md")
+            # 2. SOP Injector for Tenant Workspace
+            kernel_md_path = workspace_dir / "config" / "kernel.md"
             sops = ""
             if kernel_md_path.exists():
                 with open(kernel_md_path, 'r') as f:
                     sops = f.read()
 
-            # Delegate execution to Runner
-            execute_agent_task(task_id, agent_id, agent_config, body, state_file, sops)
+            # Delegate execution to Runner (Passing workspace_dir)
+            execute_agent_task(task_id, agent_id, agent_config, body, state_file, sops, workspace_dir=str(workspace_dir))
 
             # Remove active file post-processing
             if active_path.exists():
@@ -137,23 +144,22 @@ class InboxHandler(FileSystemEventHandler):
             logger.error(f"Error processing file {filepath.name}: {e}")
 
 def main():
-    inbox_path = ".agents/inbox"
-    os.makedirs(inbox_path, exist_ok=True)
+    # Watch all workspaces
+    workspaces_path = Path("workspaces")
+    workspaces_path.mkdir(exist_ok=True)
 
     event_handler = InboxHandler()
     observer = Observer()
-    observer.schedule(event_handler, inbox_path, recursive=False)
+    observer.schedule(event_handler, str(workspaces_path), recursive=True)
     observer.start()
 
-    print(f"Orchestrator V2 started. Watching {inbox_path} for new requests...")
-    logger.info("Orchestrator V2 online. Watching inbox.")
+    logger.info(f"Multi-Tenant Orchestrator online. Recursively monitoring {workspaces_path}...")
 
     try:
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
-        logger.info("Graceful shutdown initiated by KeyboardInterrupt.")
-        print("\nOrchestrator V2 shutting down gracefully...")
+        logger.info("Graceful shutdown initiated.")
         observer.stop()
 
     observer.join()

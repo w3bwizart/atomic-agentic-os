@@ -9,6 +9,7 @@ import logging
 from pathlib import Path
 from datetime import datetime
 import time
+import yaml
 
 from atomic_agents.agents.atomic_agent import AtomicAgent, AgentConfig
 from atomic_agents.context.system_prompt_generator import SystemPromptGenerator
@@ -20,7 +21,7 @@ from core.schemas.handshake import InterAgentHandshake
 
 logger = logging.getLogger("LLMRunner")
 
-def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: str, state_file: Path, sops: str):
+def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: str, state_file: Path, sops: str, workspace_dir: str = "."):
     """
     The Core Execution Pipeline.
     Strictly standardizes the processing of a State Bus event using Atomic-Agents.
@@ -90,13 +91,14 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
     authorized_tools = []
     
     for skill in requested_skills:
-        if check_permission(agent_id, skill):
+        if check_permission(agent_id, skill, workspace_dir=workspace_dir):
             tool_class = get_tool_class(skill)
             if tool_class:
                 tool_instance = tool_class()
                 # Inject local state awareness into the tool if required
                 if hasattr(tool_instance, 'state_file') or skill == 'terminal_access':
                     tool_instance.state_file = state_file
+                tool_instance.workspace_dir = workspace_dir
                 authorized_tools.append(tool_instance)
                 logger.info(f"OS Tool Mount: Successfully bound {skill} to {agent_id}.")
             else:
@@ -146,35 +148,42 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
                     else:
                         execution_success = True
                         
-                        # OS SYNTHETIC ROUTING (Self-Healing Fallback for LLMs that ignore tool APIs)
+                        # OS SYNTHETIC ROUTING (Dynamic Workspace Extraction)
                         try:
                             receiver = None
                             directive = "Process the attached payload."
                             
-                            # Content Team Sequential Routing Fallbacks
-                            if agent_id == "researcher": 
-                                receiver = "writer"
-                                directive = "Expand this outline into a full narrative draft."
-                            elif agent_id == "writer": 
-                                receiver = "editor"
-                                directive = "Format this draft for maximum engagement on LinkedIn."
+                            workforce_path = Path(workspace_dir) / "config" / "workforce.yaml"
+                            if workforce_path.exists():
+                                with open(workforce_path, 'r') as f:
+                                    workforce_data = yaml.safe_load(f).get("agents", [])
+                                # Find next agent
+                                for i, w_agent in enumerate(workforce_data):
+                                    if w_agent['id'] == agent_id:
+                                        if i + 1 < len(workforce_data):
+                                            receiver = workforce_data[i+1]['id']
+                                            directive = workforce_data[i+1].get('description', directive)
+                                        break
                             
                             payload_data = {"raw_llm_output": final_response}
                             
                             if receiver:
-                                logger.info(f"OS Synthetic Route: Forcing Handshake from {agent_id} to {receiver}.")
-                                inbox_dir = Path(".agents/inbox")
+                                logger.info(f"OS Synthetic Route: Forcing Handshake from {agent_id} to {receiver} in {workspace_dir}.")
+                                inbox_dir = Path(workspace_dir) / ".agents" / "inbox"
+                                inbox_dir.mkdir(parents=True, exist_ok=True)
                                 handshake = InterAgentHandshake(
-                                    handshake_id=task_id, sender_workspace="root", 
+                                    handshake_id=task_id, sender_workspace=Path(workspace_dir).name, 
                                     sender_id=agent_id, receiver_id=receiver, 
                                     payload=payload_data, directive=directive
                                 )
                                 with open(inbox_dir / f"{handshake.handshake_id}.md", "w") as hf:
                                     hf.write(handshake.to_markdown_file())
                                     
-                            elif agent_id == "editor":
-                                logger.info(f"OS Synthetic Route: Editor finished. Saving final post.")
-                                review_post = Path(".agents/review/linkedin_post_final.md")
+                            else:
+                                logger.info(f"OS Synthetic Route: Terminal agent finished. Saving payload to {workspace_dir}/review.")
+                                review_dir = Path(workspace_dir) / ".agents" / "review"
+                                review_dir.mkdir(parents=True, exist_ok=True)
+                                review_post = review_dir / f"{task_id}_final_output.md"
                                 with open(review_post, "w") as f:
                                     f.write(final_response)
                                     
