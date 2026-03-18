@@ -128,7 +128,8 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
 
     try:
         # Diagnostic trap for safe testing pipelines without wasting API credits
-        if getattr(client, "api_key", "") == "dummy-key":
+        api_key = getattr(client, "api_key", getattr(getattr(client, "client", None), "api_key", ""))
+        if api_key in ["dummy-key", "ollama", "ENV_VAR"]:
             final_response = f"[V8 Engine Diagnostic] Acknowledged payload by {agent_id}."
             execution_success = True
         else:

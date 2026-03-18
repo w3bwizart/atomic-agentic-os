@@ -2,9 +2,13 @@ import os
 import yaml
 import logging
 from pathlib import Path
+from dotenv import load_dotenv
+
 import instructor
 from openai import OpenAI
 from anthropic import Anthropic
+
+load_dotenv()
 
 logger = logging.getLogger("Factory")
 
