@@ -1,71 +1,60 @@
-# 🏗️ The Atomic Agentic OS: Architectural Blueprint (v2.0)
+# 🏗️ The Atomic Agentic OS: Architectural Blueprint (v2.0 - V8 Engine)
 
-A decentralized **Agentic OS** where specialized Atomic Agents interact with a shared workspace and external systems. The system is designed to be **headless, file-based, and human-readable**, allowing it to scale from local coding tasks to enterprise-level business automations.
+A decentralized, file-based **Agentic OS** built to act as the "V8 Engine" for specialized AI agents. 
+The system enforces strict separation between the "Shredder" (the immutable, model-agnostic runtime) and the "Paper" (declarative agent workflows, ISO-compliant state traces, and prompt injections).
 
-## 1. Directory Schema
+## 🌟 Current Status: Phase 1 (Core OS Hardening) Complete
+The OS has completed its foundational V8 re-architecture. The execution pipeline is fully automated, highly observable, and uses a strict inter-workspace communication schema.
+
+---
+
+## 🏗️ The V8 Architecture
+
+### 1. The Engine (`core/runner.py`)
+The universal execution loop. It is a 9-step immutable pipeline powered by `atomic-agents`. It strictly mounts authorized skills, initializes the agent context, handles API rate-limit retries via exponential backoff, and ensures total observability through the Flight Recorder.
+
+### 2. The Flight Recorder (`.state.json`)
+Every task dispatched to an agent generates a `.state.json` file in the `.agents/active/` directory. This file tracks timestamps, the active step of the pipeline, LLM failure states, and full memory dumps to guarantee ISO-compliant auditability.
+
+### 3. The InterAgentHandshake (`core/schemas/handshake.py`)
+A strict `Pydantic` schema defining how agents communicate. Every request passed through the system is serialized into a standard Markdown file loaded with YAML frontmatter containing the required execution arguments (Sender ID, Receiver ID, Priority, Directive, Payload).
+
+### 4. The Mailroom Skill (`skills/mailroom/tool.py`)
+A dedicated OS-level skill that allows an active agent to seamlessly generate an `InterAgentHandshake` atom and seamlessly drop it into another isolated workspace's inbox over the flat-file State Bus.
+
+---
+
+## 📁 Directory Schema (The Workspace Cartridge)
 
 ```text
 .
 ├── .agents/
-│   ├── inbox/          # Task entry point
-│   ├── active/         # Processing state
-│   ├── review/         # Human/QA gate
-│   └── logs/           # Execution traces
+│   ├── inbox/          # Task entry point (Handshake Atoms dropped here)
+│   ├── active/         # Processing state (Flight Recorders live here)
+│   ├── review/         # Human/QA gate (Generated Engine Reports)
+│   └── logs/           # Global execution traces
 ├── .vault/
-│   └── policy.json     # RBAC & Permissions
+│   └── policy.json     # RBAC & Tool Permissions
 ├── config/
-│   ├── workforce.yaml  # Agent roles
-│   ├── providers.yaml  # LLM settings
-│   └── kernel.md       # System SOPs
+│   ├── workforce.yaml  # Agent identity and roles
+│   ├── providers.yaml  # Model agnostic routing (OpenAI, Anthropic, Ollama)
+│   └── kernel.md       # Universal Workspace SOPs injected into the system prompt
 ├── core/
 │   ├── orchestrator.py # File-watcher Dispatcher
-│   ├── runner.py       # LLM Execution Loop
+│   ├── runner.py       # The V8 Execution Engine
 │   ├── factory.py      # LLM Provider Initialization
-│   └── vault.py        # Security & Validation
-├── docs/examples/      # Stress test configurations
+│   └── vault.py        # Security Validation
 └── skills/
-    ├── registry.py     # Tool dynamic mapping (Phonebook)
-    ├── dependencies/   # Cross-agent WaitSkill
-    ├── file_manager/   # Standard file I/O operations
-    └── terminal/       # Isolated bash access
+    ├── registry.py     # Global OS Tool Registry
+    ├── mailroom/       # Cross-workspace I/O Hub
+    ├── file_manager/   # Standard file operations
+    ├── scaffolder/     # Meta-agent workflow generation
+    └── terminal/       # Isolated Bash access
 ```
-
-## 🛠️ Core Feature List
-
-### 1. Atomic Skill Attribution (RBAC)
-Agents are defined by their Tools/Skills. We use Pydantic-driven tool validation to ensure agents only access their designated functions.
-
-### 2. External System Integration (Connectors)
-Access to the world via Direct APIs, **MCP (Model Context Protocol)**, and **Browser-as-a-Service**. Ingest data from SQL, Slack, Salesforce, or any web portal.
-
-### 3. Secret Management (The "Zero-Knowledge" Layer)
-Protect sensitive credentials from the "Agent Brain." Secrets are stored in a secure OS Keychain or a Vault (e.g., HashiCorp). The agent never "sees" the raw key in its context window; it only calls a `secure_request_skill` that handles the authentication behind the scenes.
-
-### 4. Flat-File Messaging & State (The "Sprawl" Bus)
-`.agents/` folder acts as the source of truth. Uses Markdown for human-readability and JSONL for high-speed agentic logs.
-
-### 5. Dictator-Lieutenant Workflow
-Hierarchical task breakdown. 1 Planner (Dictator) → N specialized executors (Lieutenants).
-
-### 6. Centralized SOPs & Guidelines
-A "Bible" (e.g., `kernel.md` or Obsidian vault) containing code standards, branding guides, and security rules.
-
-## ✨ Visionary / "Nice-to-Have" Features
-
-### 1. The "Agent Command Center" (Observability Dashboard)
-A visual UI that parses the `.agents/` logs in real-time. View active agent "thoughts," tool-call history, and current bottlenecks. Stays "Flat-File First"—the dashboard is just a viewer for the markdown/JSONL files.
-
-### 2. User & System Analytics
-Tracking ROI and performance via token usage per task, success rate of "Micro-Commit" loops, and time-saved metrics for the business user.
-
-### 3. The "Meta-Scaffolder" (The Yeoman Agent)
-An "Architect Agent" that takes a high-level idea and generates the entire folder structure, `skill.md` files, and initial "Tickets" for a new project.
 
 ---
 
-## 🚀 Setup & Diagnostic Testing
-
-To test the core Agentic OS environment and ensure the file-watcher is processing correctly, follow these steps:
+## 🚀 Setup & Execution
 
 ### 1. Installation
 
@@ -77,9 +66,18 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Start the Orchestrator
+### 2. Verify V8 Engine Integrity
 
-Run the core orchestrator script. This starts a `watchdog` daemon that listens to the `.agents/inbox/` directory and safely dispatches threaded jobs to the `runner`.
+The OS ships with a full validation suite. Ensures the Handshake payload serializes correctly and the Mailroom correctly routes across conceptual workspaces.
+
+```bash
+source venv/bin/activate
+PYTHONPATH=. python3 -m unittest discover core/
+```
+
+### 3. Boot the Orchestrator
+
+Run the core orchestrator script. This starts a `watchdog` daemon that listens to the `.agents/inbox/` directory and mounts the V8 Engine to process incoming requests.
 
 ```bash
 # Optional: Clear zombie processes first
@@ -89,11 +87,9 @@ Run the core orchestrator script. This starts a `watchdog` daemon that listens t
 PYTHONPATH=. python3 core/orchestrator.py
 ```
 
-### 3. Run the Diagnostic Test (The "Hello World")
+### 4. Run the Diagnostic Handshake test
 
-The orchestrator is currently configured with a "Dictator" diagnostic mode. If a task is assigned to `dictator`, the system will simply acknowledge the file, initialize its internal state tracking, and move the file out of the inbox.
-
-1. Create a markdown file inside `.agents/inbox/` (for example, `test.md`):
+1. Create a Handshake test file inside `.agents/inbox/` (for example, `test.md`):
 
 ```markdown
 ---
@@ -102,8 +98,8 @@ agent_id: "dictator"
 priority: "high"
 ---
 # Task: Diagnostic
-Acknowledge this file.
+Acknowledge this file to confirm the V8 pipeline is mounted and the Flight Recorder is tracking.
 ```
 
-2. Watch the orchestrator terminal. You should see logs indicating that the file was detected, the frontmatter parsed, SOPs injected, and the file moved.
-3. Check the `.agents/active/` directory. The `test.md` file will now be located there, along with a newly generated `HW-002.state.json` file used for state synchronization. You can also view `.agents/logs/system.log` to trace exactly what happened.
+2. Watch the orchestrator terminal. You should see logs indicating the OS booted the V8 framework for the agent `dictator`.
+3. Check the `.agents/review/` directory. The engine will drop a full execution report there. Check `.agents/active/HW-002.state.json` to view the trace of the pipeline execution.
