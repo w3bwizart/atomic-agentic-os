@@ -27,13 +27,13 @@
     },
     {
       "phase": 3,
-      "name": "Agentic UI Widgets",
+      "name": "Terminology Refactor (Methodological Alignment)",
       "status": "in_progress",
       "objectives": [
-        "Design decoupled UI architecture for State Atoms",
-        "Implement State Publisher to stream JSON state updates",
-        "Create standalone Vanilla JS widgets (e.g., BudgetWidget)",
-        "Connect UI widgets to the OS State Bus"
+        "Audit the entire codebase to map generic structural terms to the Atomic Methodology",
+        "Rename 'Agents' -> 'Molecules', 'Handshakes' -> 'Reactions', etc.",
+        "Refactor schema logic to strictly enforce the new nomenclature natively in Python",
+        "Update all context tracking, logging, and vault policies"
       ]
     }
   ]

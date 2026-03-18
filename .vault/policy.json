@@ -3,7 +3,7 @@
     "researcher": ["mailroom_routing"],
     "writer": ["mailroom_routing"],
     "editor": ["file_management", "mailroom_routing"],
-    "dictator": ["mailroom_routing", "terminal_access", "file_management", "scaffold"]
+    "dictator": ["mailroom_routing", "terminal_access", "file_management", "scaffold_skill"]
   },
   "restricted_paths": [
     ".vault",

@@ -360,3 +360,725 @@
 2026-03-18 13:00:52,906 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
 2026-03-18 13:00:52,908 - LLMRunner - INFO - OS Synthetic Route: Terminal agent finished. Saving payload to workspaces/content_team/review.
 2026-03-18 13:00:52,909 - LLMRunner - INFO - Atomic Engine: Task CONTENT-000 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-000_report.md.
+2026-03-18 13:30:52,243 - Orchestrator - INFO - Graceful shutdown initiated.
+2026-03-18 13:30:57,086 - Orchestrator - INFO - Multi-Tenant Orchestrator online. Recursively monitoring workspaces...
+2026-03-18 13:31:07,352 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.md
+2026-03-18 13:31:07,352 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.md
+2026-03-18 13:31:07,353 - Orchestrator - INFO - Task CONTENT-000 assigned to researcher within tenant content_team
+2026-03-18 13:31:07,354 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-000 assigned to researcher.
+2026-03-18 13:31:07,354 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 13:31:07,431 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 13:31:09,029 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-03-18 13:31:09,502 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 13:31:09,506 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer in workspaces/content_team.
+2026-03-18 13:31:09,507 - LLMRunner - INFO - Atomic Engine: Task CONTENT-000 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-000_report.md.
+2026-03-18 13:31:09,607 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-000.md
+2026-03-18 13:31:09,607 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-000.md
+2026-03-18 13:31:09,608 - Orchestrator - INFO - Task CONTENT-000 assigned to writer within tenant content_team
+2026-03-18 13:31:09,609 - Orchestrator - INFO - Recovered state for CONTENT-000 at step: completed
+2026-03-18 13:31:09,609 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-000 assigned to writer.
+2026-03-18 13:31:09,609 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 13:31:09,623 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 13:31:09,728 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.1.md
+2026-03-18 13:31:09,730 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher within tenant content_team
+2026-03-18 13:31:09,730 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to researcher.
+2026-03-18 13:31:09,731 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 13:31:09,741 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 13:31:10,478 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 13:31:10,480 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer in workspaces/content_team.
+2026-03-18 13:31:10,481 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-001_report.md.
+2026-03-18 13:31:10,580 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-001.md
+2026-03-18 13:31:10,582 - Orchestrator - INFO - Task CONTENT-001 assigned to writer within tenant content_team
+2026-03-18 13:31:10,582 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 13:31:10,582 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to writer.
+2026-03-18 13:31:10,583 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 13:31:10,584 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 13:31:10,585 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from writer to editor in workspaces/content_team.
+2026-03-18 13:31:10,586 - LLMRunner - INFO - Atomic Engine: Task CONTENT-000 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-000_report.md.
+2026-03-18 13:31:10,596 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 13:31:10,686 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-000.md
+2026-03-18 13:31:10,688 - Orchestrator - INFO - Task CONTENT-000 assigned to editor within tenant content_team
+2026-03-18 13:31:10,688 - Orchestrator - INFO - Recovered state for CONTENT-000 at step: completed
+2026-03-18 13:31:10,688 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-000 assigned to editor.
+2026-03-18 13:31:10,689 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent editor
+2026-03-18 13:31:10,702 - LLMRunner - INFO - OS Tool Mount: Successfully bound file_management to editor.
+2026-03-18 13:31:10,702 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to editor.
+2026-03-18 13:31:11,225 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 13:31:11,227 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from writer to editor in workspaces/content_team.
+2026-03-18 13:31:11,228 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-001_report.md.
+2026-03-18 13:31:11,328 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-001.md
+2026-03-18 13:31:11,328 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-001.md
+2026-03-18 13:31:11,330 - Orchestrator - INFO - Task CONTENT-001 assigned to editor within tenant content_team
+2026-03-18 13:31:11,330 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 13:31:11,330 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to editor.
+2026-03-18 13:31:11,331 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent editor
+2026-03-18 13:31:11,344 - LLMRunner - INFO - OS Tool Mount: Successfully bound file_management to editor.
+2026-03-18 13:31:11,344 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to editor.
+2026-03-18 13:31:11,861 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 13:31:11,862 - LLMRunner - INFO - OS Synthetic Route: Terminal agent finished. Saving payload to workspaces/content_team/review.
+2026-03-18 13:31:11,863 - LLMRunner - INFO - Atomic Engine: Task CONTENT-000 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-000_report.md.
+2026-03-18 13:31:12,330 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.2.md
+2026-03-18 13:31:12,330 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.2.md
+2026-03-18 13:31:12,331 - Orchestrator - INFO - Task CONTENT-002 assigned to researcher within tenant content_team
+2026-03-18 13:31:12,332 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-002 assigned to researcher.
+2026-03-18 13:31:12,332 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 13:31:12,348 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 13:31:12,609 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 13:31:12,611 - LLMRunner - INFO - OS Synthetic Route: Terminal agent finished. Saving payload to workspaces/content_team/review.
+2026-03-18 13:31:12,611 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-001_report.md.
+2026-03-18 13:31:14,304 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 13:31:14,307 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer in workspaces/content_team.
+2026-03-18 13:31:14,309 - LLMRunner - INFO - Atomic Engine: Task CONTENT-002 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-002_report.md.
+2026-03-18 13:31:14,408 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-002.md
+2026-03-18 13:31:14,410 - Orchestrator - INFO - Task CONTENT-002 assigned to writer within tenant content_team
+2026-03-18 13:31:14,410 - Orchestrator - INFO - Recovered state for CONTENT-002 at step: completed
+2026-03-18 13:31:14,410 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-002 assigned to writer.
+2026-03-18 13:31:14,411 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 13:31:14,425 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 13:31:15,605 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 13:31:15,607 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from writer to editor in workspaces/content_team.
+2026-03-18 13:31:15,608 - LLMRunner - INFO - Atomic Engine: Task CONTENT-002 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-002_report.md.
+2026-03-18 13:31:15,708 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-002.md
+2026-03-18 13:31:15,709 - Orchestrator - INFO - Task CONTENT-002 assigned to editor within tenant content_team
+2026-03-18 13:31:15,710 - Orchestrator - INFO - Recovered state for CONTENT-002 at step: completed
+2026-03-18 13:31:15,710 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-002 assigned to editor.
+2026-03-18 13:31:15,710 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent editor
+2026-03-18 13:31:15,724 - LLMRunner - INFO - OS Tool Mount: Successfully bound file_management to editor.
+2026-03-18 13:31:15,724 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to editor.
+2026-03-18 13:31:15,830 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 13:31:15,893 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 13:31:15,948 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 13:31:15,950 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 1/3) for editor: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99765, Requested 1676. Please try again in 20m45.024s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99765, Requested 1676. Please try again in 20m45.024s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99765, Requested 1676. Please try again in 20m45.024s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99765, Requested 1676. Please try again in 20m45.024s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 13:31:18,022 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 13:31:18,072 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 13:31:18,129 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 13:31:18,130 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 2/3) for editor: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99763, Requested 2319. Please try again in 29m58.848s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99763, Requested 2319. Please try again in 29m58.848s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99763, Requested 2319. Please try again in 29m58.848s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99763, Requested 2319. Please try again in 29m58.848s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 13:31:22,214 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 13:31:22,271 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 13:31:22,324 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 13:31:22,325 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 3/3) for editor: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99758, Requested 2962. Please try again in 39m10.08s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99758, Requested 2962. Please try again in 39m10.08s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99758, Requested 2962. Please try again in 39m10.08s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99758, Requested 2962. Please try again in 39m10.08s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 13:31:22,326 - LLMRunner - ERROR - Atomic Engine Error: editor exhausted 3 LLM retries. Fatal: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99758, Requested 2962. Please try again in 39m10.08s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99758, Requested 2962. Please try again in 39m10.08s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99758, Requested 2962. Please try again in 39m10.08s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99758, Requested 2962. Please try again in 39m10.08s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 13:31:22,328 - LLMRunner - INFO - Atomic Engine: Task CONTENT-002 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-002_report.md.
+2026-03-18 14:17:44,202 - Orchestrator - INFO - Graceful shutdown initiated.
+2026-03-18 14:17:50,104 - Orchestrator - INFO - Multi-Tenant Orchestrator online. Recursively monitoring workspaces...
+2026-03-18 14:18:17,883 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.1.md
+2026-03-18 14:18:17,883 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.1.md
+2026-03-18 14:18:17,883 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.1.md
+2026-03-18 14:18:17,885 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher within tenant content_team
+2026-03-18 14:18:17,885 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 14:18:17,886 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to researcher.
+2026-03-18 14:18:17,886 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 14:18:17,896 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.2.md
+2026-03-18 14:18:17,896 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.2.md
+2026-03-18 14:18:17,896 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.2.md
+2026-03-18 14:18:17,898 - Orchestrator - INFO - Task CONTENT-002 assigned to researcher within tenant content_team
+2026-03-18 14:18:17,900 - Orchestrator - INFO - Recovered state for CONTENT-002 at step: failed_retry_exhaustion
+2026-03-18 14:18:17,900 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-002 assigned to researcher.
+2026-03-18 14:18:17,902 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 14:18:17,903 - Orchestrator - INFO - Tenant Detected [content_team]: Processing start_post.md
+2026-03-18 14:18:17,904 - Orchestrator - ERROR - Error processing file start_post.md: [Errno 2] No such file or directory: 'workspaces/content_team/.agents/inbox/start_post.md'
+2026-03-18 14:18:17,905 - Orchestrator - INFO - Task CONTENT-000 assigned to researcher within tenant content_team
+2026-03-18 14:18:17,905 - Orchestrator - INFO - Recovered state for CONTENT-000 at step: completed
+2026-03-18 14:18:17,906 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-000 assigned to researcher.
+2026-03-18 14:18:17,907 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 14:18:18,003 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 14:18:18,003 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 14:18:18,004 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 14:18:18,804 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 14:18:18,808 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer in workspaces/content_team.
+2026-03-18 14:18:18,810 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-001_report.md.
+2026-03-18 14:18:18,909 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-001.md
+2026-03-18 14:18:18,909 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-001.md
+2026-03-18 14:18:18,911 - Orchestrator - INFO - Task CONTENT-001 assigned to writer within tenant content_team
+2026-03-18 14:18:18,911 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 14:18:18,911 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to writer.
+2026-03-18 14:18:18,912 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 14:18:18,916 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 14:18:18,917 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer in workspaces/content_team.
+2026-03-18 14:18:18,918 - LLMRunner - INFO - Atomic Engine: Task CONTENT-000 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-000_report.md.
+2026-03-18 14:18:18,925 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 14:18:18,936 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 14:18:18,938 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer in workspaces/content_team.
+2026-03-18 14:18:18,939 - LLMRunner - INFO - Atomic Engine: Task CONTENT-002 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-002_report.md.
+2026-03-18 14:18:19,017 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-000.md
+2026-03-18 14:18:19,019 - Orchestrator - INFO - Task CONTENT-000 assigned to writer within tenant content_team
+2026-03-18 14:18:19,019 - Orchestrator - INFO - Recovered state for CONTENT-000 at step: completed
+2026-03-18 14:18:19,019 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-000 assigned to writer.
+2026-03-18 14:18:19,020 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 14:18:19,030 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 14:18:19,032 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:19,039 - Orchestrator - INFO - Tenant Detected [content_team]: Processing CONTENT-002.md
+2026-03-18 14:18:19,040 - Orchestrator - INFO - Task CONTENT-002 assigned to writer within tenant content_team
+2026-03-18 14:18:19,040 - Orchestrator - INFO - Recovered state for CONTENT-002 at step: completed
+2026-03-18 14:18:19,040 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-002 assigned to writer.
+2026-03-18 14:18:19,041 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 14:18:19,051 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 14:18:19,082 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:19,126 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:19,128 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 1/3) for writer: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1208. Please try again in 17m23.712s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1208. Please try again in 17m23.712s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1208. Please try again in 17m23.712s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1208. Please try again in 17m23.712s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:19,128 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:19,158 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:19,184 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:19,210 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:19,226 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:19,227 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 1/3) for writer: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1203. Please try again in 17m19.392s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1203. Please try again in 17m19.392s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1203. Please try again in 17m19.392s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1203. Please try again in 17m19.392s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:19,254 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:19,255 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 1/3) for writer: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1212. Please try again in 17m27.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1212. Please try again in 17m27.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1212. Please try again in 17m27.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1212. Please try again in 17m27.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:21,179 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:21,231 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:21,279 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:21,280 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 2/3) for writer: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1395. Please try again in 20m3.552s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1395. Please try again in 20m3.552s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1395. Please try again in 20m3.552s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1395. Please try again in 20m3.552s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:21,283 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:21,314 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:21,330 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:21,373 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:21,378 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:21,379 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 2/3) for writer: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1385. Please try again in 19m54.912s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1385. Please try again in 19m54.912s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1385. Please try again in 19m54.912s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1385. Please try again in 19m54.912s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:21,423 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:21,424 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 2/3) for writer: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1403. Please try again in 20m10.464s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1403. Please try again in 20m10.464s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1403. Please try again in 20m10.464s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99998, Requested 1403. Please try again in 20m10.464s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:25,330 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:25,379 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:25,441 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:25,442 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 3/3) for writer: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1582. Please try again in 22m40.8s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1582. Please try again in 22m40.8s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1582. Please try again in 22m40.8s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1582. Please try again in 22m40.8s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:25,442 - LLMRunner - ERROR - Atomic Engine Error: writer exhausted 3 LLM retries. Fatal: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1582. Please try again in 22m40.8s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1582. Please try again in 22m40.8s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1582. Please try again in 22m40.8s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1582. Please try again in 22m40.8s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:25,444 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-001_report.md.
+2026-03-18 14:18:25,445 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:25,482 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:25,504 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:25,533 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:25,550 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:25,552 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 3/3) for writer: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1567. Please try again in 22m27.84s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1567. Please try again in 22m27.84s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1567. Please try again in 22m27.84s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1567. Please try again in 22m27.84s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:25,552 - LLMRunner - ERROR - Atomic Engine Error: writer exhausted 3 LLM retries. Fatal: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1567. Please try again in 22m27.84s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1567. Please try again in 22m27.84s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1567. Please try again in 22m27.84s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1567. Please try again in 22m27.84s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:25,554 - LLMRunner - INFO - Atomic Engine: Task CONTENT-000 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-000_report.md.
+2026-03-18 14:18:25,588 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-18 14:18:25,589 - LLMRunner - WARNING - OS LLM Constraint Error (Attempt 3/3) for writer: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1594. Please try again in 22m51.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1594. Please try again in 22m51.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1594. Please try again in 22m51.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1594. Please try again in 22m51.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:25,589 - LLMRunner - ERROR - Atomic Engine Error: writer exhausted 3 LLM retries. Fatal: <failed_attempts>
+
+<generation number="1">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1594. Please try again in 22m51.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="2">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1594. Please try again in 22m51.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+<generation number="3">
+<exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1594. Please try again in 22m51.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</exception>
+<completion>
+    None
+</completion>
+</generation>
+
+</failed_attempts>
+
+<last_exception>
+    Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01km03hf3ee939vpdpmd2wkq7r` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 1594. Please try again in 22m51.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+</last_exception>
+2026-03-18 14:18:25,591 - LLMRunner - INFO - Atomic Engine: Task CONTENT-002 successfully dispatched to workspaces/content_team/.agents/review/CONTENT-002_report.md.

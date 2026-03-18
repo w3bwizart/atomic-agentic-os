@@ -86,14 +86,13 @@ Every single transaction generates a `.state.json` file telemetry trace in the `
 │   ├── runner.py       # The OS Execution Engine
 │   ├── factory.py      # LLM Provider Initialization
 │   └── vault.py        # Security Validation
-└── skills/
-    ├── registry.py     # Global OS Tool Registry
-    ├── mailroom/       # Cross-workspace I/O Hub
-    ├── file_manager/   # Standard file operations
-    ├── scaffolder/     # Meta-agent workflow generation
-    └── terminal/       # Isolated Bash access
+└── skills/                 # Global OS Kernel Tools (Fallback)
+    ├── mailroom_routing/   # Cross-workspace I/O Hub
+    ├── file_management/    # Standard file operations
+    ├── scaffold_skill/     # Meta-agent workflow generation
+    └── terminal_access/    # Isolated Bash access
 ```
 
-## 🔮 The Roadmap: Moving to Multi-Tenancy
-The Atomic Agentic OS is currently a high-performance **Single-Tenant MVP**, utilizing a single-threaded orchestrator loop and generalized fail-safes. The next evolutionary phase is **Multi-Tenant Architecture**, where the Orchestrator will seamlessly spin up isolated environments based on dynamic folder structures (), completely removing hardcoded fallbacks and enabling universal scalability.
+## 🔮 The Roadmap: Methodology Alignment
+The Atomic Engine has achieved **True Multi-Tenant Workspace Isolation** featuring parallel asynchronous LLM loops and strict dynamic `importlib` script resolution boundaries. The next evolutionary phase is entirely semantic: aligning the functional physical OS to perfectly mirror the overarching Atomic Methodology (i.e. replacing legacy `Agents` with `Molecules` and `Handshakes` with `Reactions`).
 

@@ -14,8 +14,8 @@ import yaml
 from atomic_agents.agents.atomic_agent import AtomicAgent, AgentConfig
 from atomic_agents.context.system_prompt_generator import SystemPromptGenerator
 
+import importlib.util
 from core.factory import get_llm_provider
-from skills.registry import get_tool_class
 from core.vault import check_permission
 from core.schemas.handshake import InterAgentHandshake
 
@@ -92,7 +92,32 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
     
     for skill in requested_skills:
         if check_permission(agent_id, skill, workspace_dir=workspace_dir):
-            tool_class = get_tool_class(skill)
+            tool_class = None
+            
+            # 1. STRICT TENANT ISOLATION: Always attempt to load the custom Python script directly from the Workspace first.
+            skill_path = Path(workspace_dir) / "skills" / skill / "tool.py"
+            
+            # 2. GLOBAL FALLBACK: If running at the Root OS (e.g. system maintenance), fallback to the core skills menu.
+            if not skill_path.exists() and workspace_dir == ".":
+                skill_path = Path("skills") / skill / "tool.py"
+                
+            if skill_path.exists():
+                module_name = f"dynamic_skill_{skill}"
+                spec = importlib.util.spec_from_file_location(module_name, str(skill_path))
+                if spec and spec.loader:
+                    module = importlib.util.module_from_spec(spec)
+                    try:
+                        spec.loader.exec_module(module)
+                        # Extract the BaseTool class
+                        from atomic_agents.base.base_tool import BaseTool
+                        for attr_name in dir(module):
+                            attr = getattr(module, attr_name)
+                            if isinstance(attr, type) and issubclass(attr, BaseTool) and attr is not BaseTool:
+                                tool_class = attr
+                                break
+                    except Exception as e:
+                        logger.error(f"OS Tool Mount Error: Failed to compile Python module {skill_path}: {e}")
+            
             if tool_class:
                 tool_instance = tool_class()
                 # Inject local state awareness into the tool if required
@@ -102,7 +127,10 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
                 authorized_tools.append(tool_instance)
                 logger.info(f"OS Tool Mount: Successfully bound {skill} to {agent_id}.")
             else:
-                logger.warning(f"OS Tool Mount Error: Skill '{skill}' authorized but missing from Runtime Registry.")
+                if not skill_path.exists():
+                    logger.warning(f"OS Tool Mount Error: Skill '{skill}' missing physical Python script at {skill_path}.")
+                else:
+                    logger.warning(f"OS Tool Mount Error: Skill '{skill}' found but missing a valid BaseTool inheritance.")
         else:
             logger.warning(f"SECURITY BLOCK: {agent_id} illegally attempted to load '{skill}'.")
 
