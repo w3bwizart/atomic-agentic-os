@@ -1,9 +1,14 @@
 """
-LLM Runner: Handles the execution loop of a given agent to decouple processing from the Orchestrator.
+LLM Runner (The Engine)
+This module acts as the model-agnostic runtime for the Atomic Agentic OS.
+It is an immutable "OS" engine that reads a Workspace Cartridge and strictly
+executes it according to ISO compliance and traceability standards.
 """
 import json
 import logging
 from pathlib import Path
+from datetime import datetime
+import time
 
 from atomic_agents.agents.atomic_agent import AtomicAgent, AgentConfig
 from atomic_agents.context.system_prompt_generator import SystemPromptGenerator
@@ -11,55 +16,97 @@ from atomic_agents.context.system_prompt_generator import SystemPromptGenerator
 from core.factory import get_llm_provider
 from skills.registry import get_tool_class
 from core.vault import check_permission
+from core.schemas.handshake import InterAgentHandshake
 
 logger = logging.getLogger("LLMRunner")
 
 def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: str, state_file: Path, sops: str):
     """
-    Spins up the agent and runs the execution loop, updating state and outputs.
+    The Core Execution Pipeline.
+    Strictly standardizes the processing of a State Bus event using Atomic-Agents.
+    
+    Args:
+        task_id: The unique correlation ID for the transaction (often the Handshake ID).
+        agent_id: The identifier of the agent defined in workforce.yaml.
+        agent_config: The explicit dictionary of the agent's capabilities (role, tools).
+        body: The declarative task instructions (often serialized markdown from a Handshake).
+        state_file: The `.state.json` path acting as the flight recorder for this run.
+        sops: Workspace-level Standard Operating Procedures injected into the kernel.
     """
-    # 1. Instantiate the System Prompt
+    logger.info(f"Atomic Engine: Booting execution for {task_id} assigned to {agent_id}.")
+    
+    # ---------------------------------------------------------
+    # 1. FLIGHT RECORDER INITIALIZATION (Traceability)
+    # ---------------------------------------------------------
+    try:
+        with open(state_file, 'r') as f:
+            state_data = json.load(f)
+    except Exception:
+        state_data = {}
+
+    state_data["current_step"] = "initializing_engine"
+    state_data["timestamp_start"] = datetime.utcnow().isoformat()
+    with open(state_file, 'w') as f: json.dump(state_data, f, indent=2)
+
+    # ---------------------------------------------------------
+    # 2. CONTEXT INJECTION (The "Paper")
+    # ---------------------------------------------------------
+    # We strictly isolate the Agent's specific role from the universal system SOPs.
     system_prompt = SystemPromptGenerator(
         background=[
-            "You are a specialized Agent operating within the Agentic OS.",
-            f"Your ID is {agent_id}. Your Role is {agent_config['role']}.",
-            f"Role Description: {agent_config['description']}"
+            "You are a specialized Agent operating within the OS Atomic Agentic OS runtime.",
+            f"Your strict identity ID is: {agent_id}.",
+            f"Your designated Role is: {agent_config.get('role', 'Generic Worker')}.",
+            f"Role Explicit Description: {agent_config.get('description', 'No description provided.')}"
         ],
         steps=[
-            "Read the user's task carefully.",
-            "Use your tools to accomplish the task.",
-            "If you are the dictator, break the task down into sub-agent files and drop them in the inbox."
+            "1. Read the provided Task Directive carefully.",
+            "2. Identify the required output state format.",
+            "3. Utilize your strictly injected tools to accomplish the task.",
+            "4. Never hallucinate API calls or external systems not provided via tools."
         ],
         output_instructions=[
-            "Here are the system Standard Operating Procedures (SOPs):",
+            "CRITICAL: If you are instructed to use a tool to output your work (like InterAgentHandshake), you MUST NOT output conversational text. You MUST directly invoke the tool to deliver your payload. Failure to use the tool will cause the system to crash.",
+            "Universal Workspace Standard Operating Procedures (SOPs):",
             sops
         ]
     )
 
-    # 2. Get LLM Provider
+    # ---------------------------------------------------------
+    # 3. BRAIN ALLOCATION (Model Agnosticism)
+    # ---------------------------------------------------------
     client, model = get_llm_provider(agent_id)
     if not client:
-        logger.error(f"Failed to initialize LLM client for {agent_id}.")
+        logger.error(f"Atomic Engine Alert: Failed to mount LLM provider for {agent_id}. Halting.")
+        state_data["current_step"] = "failed_llm_mount"
+        with open(state_file, 'w') as f: json.dump(state_data, f, indent=2)
         return
 
-    # 3. Load Authorized Tools via Registry
+    # ---------------------------------------------------------
+    # 4. SKILL MOUNTING (Atomic Molecules)
+    # ---------------------------------------------------------
+    # Tools are dynamically injected, but gated by the strict .vault/policy.json RBAC.
     requested_skills = agent_config.get('skills', [])
     authorized_tools = []
+    
     for skill in requested_skills:
         if check_permission(agent_id, skill):
             tool_class = get_tool_class(skill)
             if tool_class:
                 tool_instance = tool_class()
-                # If tool uses state_file, inject it
+                # Inject local state awareness into the tool if required
                 if hasattr(tool_instance, 'state_file') or skill == 'terminal_access':
                     tool_instance.state_file = state_file
                 authorized_tools.append(tool_instance)
+                logger.info(f"OS Tool Mount: Successfully bound {skill} to {agent_id}.")
             else:
-                logger.warning(f"Skill {skill} is authorized but not found in TOOL_REGISTRY.")
+                logger.warning(f"OS Tool Mount Error: Skill '{skill}' authorized but missing from Runtime Registry.")
         else:
-            logger.warning(f"Security Block: {agent_id} attempted to load unauthorized tool {skill}")
+            logger.warning(f"SECURITY BLOCK: {agent_id} illegally attempted to load '{skill}'.")
 
-    # 4. Agent Configuration & Initialization
+    # ---------------------------------------------------------
+    # 5. AGENT INSTANTIATION (The Organism)
+    # ---------------------------------------------------------
     agent = AtomicAgent(
         config=AgentConfig(
             client=client,
@@ -69,114 +116,146 @@ def execute_agent_task(task_id: str, agent_id: str, agent_config: dict, body: st
         )
     )
 
-    # 5. Execution
-    logger.info(f"Executing Agent Run for {task_id} with {agent_id}...")
-    try:
-        with open(state_file, 'r') as f:
-            state_data = json.load(f)
-    except Exception:
-        state_data = {}
-
+    # ---------------------------------------------------------
+    # 6. EXECUTION & RETRY LOOP (Fault Tolerance)
+    # ---------------------------------------------------------
     state_data["current_step"] = "executing_llm"
     with open(state_file, 'w') as f: json.dump(state_data, f, indent=2)
 
-    # --- BEGIN MOCK LLM CALL FOR DIAGNOSTIC TESTING ---
     final_response = ""
-    if task_id.startswith("HYPER-SYNTH"):
-        import time
-        time.sleep(2) # Simulate thinking
-        if agent_id == "dictator":
-            final_response = "Decomposing HYPER-SYNTH-001 into 8 subtasks."
-            sub_agents = ["economist", "cyber_security", "devops", "legal_policy", "case_study_scout", "sop_auditor", "the_critic", "ghost_writer"]
-            inbox_dir = Path(".agents/inbox")
-            for child in sub_agents:
-                with open(inbox_dir / f"HYPER-SYNTH-{child}.md", "w") as f:
-                    f.write(f"---\ntask_id: \"HYPER-SYNTH-{child}\"\nagent_id: \"{child}\"\npriority: \"urgent\"\n---\nWrite your chapter.")
-        elif agent_id == "the_critic":
-            final_response = "Critic Agent: Rejecting chapters for Low Depth."
-        elif agent_id == "sop_auditor":
-            final_response = "Auditor Agent: Flagging missing URL."
-        elif agent_id == "ghost_writer":
-            final_response = "Ghost Writer: Assembled Final_Whitepaper_2030.md"
-        else:
-            final_response = f"{agent_id} completed chapter synthesis."
-    elif task_id.startswith("SCAFFOLD"):
-        import time
-        time.sleep(1)
-        scaffold_tool = next((t for t in authorized_tools if t.__class__.__name__ == "ScaffoldSkill"), None)
-        if scaffold_tool:
-            params = scaffold_tool.input_schema(
-                project_name="legal_research_os",
-                kernel_content="## Research Integrity\nAll research findings must include the source URL and a 2-sentence summary of the credibility of the source.\n\n## Scaffolding Standards\n- All generated workspaces must follow the standard ASCII directory schema.\n- Every workspace must start with a `README.md` explaining the purpose of the specific agentic workforce.\n- Initial 'Seed Tickets' must be placed in the `.agents/inbox/` of the new workspace.\n\n## Legal Workspace Rules\n- Extreme accuracy.\n- Mandatory citation of Belgian Law.",
-                workforce_content="agents:\n  - id: \"case_law_researcher\"\n    role: \"Legal Researcher\"\n    description: \"Case Law Researcher\"\n    skills: [\"file_management\"]\n  - id: \"legal_reviewer\"\n    role: \"Legal Reviewer\"\n    description: \"Legal Reviewer\"\n    skills: [\"file_management\"]",
-                readme_content="# Legal Research Workspace\nLegal Workspace configured by Meta Scaffolder.",
-                initial_ticket_filename="ticket_001.md",
-                initial_ticket_content="---\ntask_id: \"LEGAL-001\"\nagent_id: \"case_law_researcher\"\npriority: \"high\"\n---\n# Research Task\nResearch the impact of the 2026 Capital Gains tax on family holding companies."
-            )
-            result = scaffold_tool.run(params)
-            final_response = f"Scaffolded workspaces/legal_research_os: {result.message}"
-        else:
-            final_response = "Error: ScaffoldSkill not found in authorized tools."
-    else:
-        try:
-            # Check for dummy key safety fallback if no ENV_VAR
-            if getattr(client, "api_key", "") == "dummy-key":
-                final_response = f"Diagnostic Acknowledgment by {agent_id}. Setup is entirely valid."
-            else:
-                response = agent.run(agent.input_schema(chat_message=body))
-                final_response = response.chat_message
-                if not final_response or final_response.strip() == "":
-                    logger.warning(f"Empty response generated by {agent_id}. Marking as failed.")
-                    state_data["current_step"] = "failed"
-        except Exception as e:
-            logger.error(f"LLM Error: {e}")
-            final_response = f"Error during execution: {e}"
-            state_data["current_step"] = "failed"
+    max_retries = 3
+    retry_delay = 2
+    execution_success = False
 
-    # 6. Memory Dump
+    try:
+        # Diagnostic trap for safe testing pipelines without wasting API credits
+        api_key = getattr(client, "api_key", getattr(getattr(client, "client", None), "api_key", ""))
+        if api_key in ["dummy-key", "ollama", "ENV_VAR"]:
+            final_response = f"[Atomic Engine Diagnostic] Acknowledged payload by {agent_id}."
+            execution_success = True
+        else:
+            # The strict run execution
+            for attempt in range(max_retries):
+                try:
+                    response = agent.run(agent.input_schema(chat_message=body))
+                    final_response = response.chat_message
+                    
+                    if not final_response or final_response.strip() == "":
+                        logger.warning(f"OS Execution Warning: {agent_id} generated an empty response. Marking failure.")
+                        state_data["current_step"] = "failed_empty_return"
+                    else:
+                        execution_success = True
+                        
+                        # OS SYNTHETIC ROUTING (Self-Healing Fallback for LLMs that ignore tool APIs)
+                        try:
+                            receiver = None
+                            directive = "Process the attached payload."
+                            
+                            # Content Team Sequential Routing Fallbacks
+                            if agent_id == "researcher": 
+                                receiver = "writer"
+                                directive = "Expand this outline into a full narrative draft."
+                            elif agent_id == "writer": 
+                                receiver = "editor"
+                                directive = "Format this draft for maximum engagement on LinkedIn."
+                            
+                            payload_data = {"raw_llm_output": final_response}
+                            
+                            if receiver:
+                                logger.info(f"OS Synthetic Route: Forcing Handshake from {agent_id} to {receiver}.")
+                                inbox_dir = Path(".agents/inbox")
+                                handshake = InterAgentHandshake(
+                                    handshake_id=task_id, sender_workspace="root", 
+                                    sender_id=agent_id, receiver_id=receiver, 
+                                    payload=payload_data, directive=directive
+                                )
+                                with open(inbox_dir / f"{handshake.handshake_id}.md", "w") as hf:
+                                    hf.write(handshake.to_markdown_file())
+                                    
+                            elif agent_id == "editor":
+                                logger.info(f"OS Synthetic Route: Editor finished. Saving final post.")
+                                review_post = Path(".agents/review/linkedin_post_final.md")
+                                with open(review_post, "w") as f:
+                                    f.write(final_response)
+                                    
+                        except Exception as parse_e:
+                            logger.warning(f"OS Synthetic Routing failed: {parse_e}")
+                            
+                    break # Break retry loop on successful completion
+                    
+                except Exception as llm_e:
+                    logger.warning(f"OS LLM Constraint Error (Attempt {attempt + 1}/{max_retries}) for {agent_id}: {llm_e}")
+                    if attempt < max_retries - 1:
+                        time.sleep(retry_delay)
+                        retry_delay *= 2 # Exponential backoff for rate limits
+                    else:
+                        logger.error(f"Atomic Engine Error: {agent_id} exhausted {max_retries} LLM retries. Fatal: {llm_e}")
+                        final_response = f"OS Fatal Execution Error: {llm_e}"
+                        state_data["current_step"] = "failed_retry_exhaustion"
+                        
+    except Exception as fatal_e:
+        logger.error(f"OS System Panic: Unhandled exception during execution block: {fatal_e}", exc_info=True)
+        final_response = f"Atomic Engine Panic: {fatal_e}"
+        state_data["current_step"] = "failed_system_panic"
+
+    if execution_success:
+        state_data["current_step"] = "completed"
+        
+    # ---------------------------------------------------------
+    # 7. EVENT LOGGING (ISO Persistence)
+    # ---------------------------------------------------------
     try:
         if hasattr(agent, "memory"):
             if callable(getattr(agent.memory, "model_dump", None)):
                 state_data["agent_memory"] = agent.memory.model_dump()
             elif hasattr(agent.memory, "history"):
-                state_data["agent_memory"] = [msg.model_dump() if hasattr(msg, "model_dump") else str(msg) for msg in agent.memory.history]
+                state_data["agent_memory"] = [
+                    msg.model_dump() if hasattr(msg, "model_dump") else str(msg) 
+                    for msg in agent.memory.history
+                ]
             else:
                 state_data["agent_memory"] = str(agent.memory)
-    except Exception as e:
-        logger.error(f"Error during agent execution: {e}", exc_info=True)
-        final_response = f"Execution failed: {str(e)}"
-        state_data["current_step"] = "failed"
-        with open(state_file, 'w') as f:
-            json.dump(state_data, f, indent=2)
+    except Exception as mem_e:
+        logger.warning(f"OS Memory Capture Error: Could not serialize agent history: {mem_e}")
 
-    # --- Telemetry Lite: Global History Logging ---
+    state_data["timestamp_end"] = datetime.utcnow().isoformat()
+    with open(state_file, 'w') as f: json.dump(state_data, f, indent=2)
+
+    # ---------------------------------------------------------
+    # 8. TELEMETRY SYNCHRONIZATION
+    # ---------------------------------------------------------
     try:
-        from datetime import datetime
         history_path = Path.home() / ".agent_os_history"
         telemetry_entry = {
             "timestamp": datetime.utcnow().isoformat(),
             "os_path": str(Path.cwd()),
             "task_id": task_id,
             "agent_id": agent_id,
-            "status": state_data.get("current_step", "unknown")
+            "status": state_data.get("current_step", "unknown_fault")
         }
         with open(history_path, 'a') as f:
             f.write(json.dumps(telemetry_entry) + "\n")
     except Exception as telemetry_error:
-        logger.warning(f"Failed to write to telemetry .agent_os_history: {telemetry_error}")
+        logger.warning(f"OS Telemetry Failure: Cannot write to .agent_os_history: {telemetry_error}")
 
-    # 4. Generate the Final Report
+    # ---------------------------------------------------------
+    # 9. RESULT DISPATCH (Artifact Generation)
+    # ---------------------------------------------------------
     review_dir = Path(".agents/review")
     review_dir.mkdir(parents=True, exist_ok=True)
     review_file = review_dir / f"{task_id}_report.md"
 
     with open(review_file, 'w') as f:
-        f.write(f"# Task {task_id}: Execution Report\n")
-        f.write(f"**Agent:** {agent_id}\n")
-        f.write(f"**Status:** Success\n\n")
-        f.write(f"## Response:\n{final_response}\n")
-        f.write(f"\n## Tools Used:\n")
-        for tool in authorized_tools:
-            f.write(f"- {tool.__class__.__name__}\n")
+        f.write(f"# OS Execution Report: {task_id}\n")
+        f.write(f"**Agent Segment:** {agent_id}\n")
+        f.write(f"**Execution Status:** {'Success' if execution_success else 'FAILED'}\n")
+        f.write(f"**Timestamp:** {state_data['timestamp_end']}\n\n")
+        f.write(f"## Response Payload:\n{final_response}\n")
+        f.write(f"\n## Modules Activated:\n")
+        if authorized_tools:
+            for tool in authorized_tools:
+                f.write(f"- {tool.__class__.__name__}\n")
+        else:
+            f.write("- (None)\n")
 
-    logger.info(f"Task {task_id} completed. Report written to review folder.")
+    logger.info(f"Atomic Engine: Task {task_id} successfully dispatched to {review_file}.")

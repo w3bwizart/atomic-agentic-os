@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "dictator": [
-      "file_management",
-      "task_decomposition"
-    ]
-  }
-}

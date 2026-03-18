@@ -8,12 +8,12 @@ The system operates sequentially. Each agent completes their specialized task an
 ### Phase 1: Research (Agent: `researcher`)
 *   **Trigger**: Receives the initial topic request.
 *   **Action**: Generate a detailed outline with bullet points, statistics, and a logical flow for the article.
-*   **Handoff**: Use the `mailroom` skill to send a handshake to the `writer`. Put the outline in the `payload` under the key `outline`. 
+*   **Handoff**: CRITICAL: You MUST invoke the `InterAgentHandshake` tool function to send a handshake to the `writer`. Do NOT output the handshake as plain text in your response. Put the outline in the `payload` under the key `outline`. 
 
 ### Phase 2: Drafting (Agent: `writer`)
 *   **Trigger**: Receives the handshake from the `researcher`.
 *   **Action**: Expand the outline into a full narrative draft. Focus on storytelling, depth, and readability. Do not worry about formatting yet.
-*   **Handoff**: Use the `mailroom` skill to send a handshake to the `editor`. Put the drafted text in the `payload` under the key `draft`.
+*   **Handoff**: CRITICAL: You MUST invoke the `InterAgentHandshake` tool function to send a handshake to the `editor`. Do NOT output the handshake as plain text in your response. Put the drafted text in the `payload` under the key `draft`.
 
 ### Phase 3: Final Optimization (Agent: `editor`)
 *   **Trigger**: Receives the handshake from the `writer`.

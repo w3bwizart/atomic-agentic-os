@@ -2,9 +2,13 @@ import os
 import yaml
 import logging
 from pathlib import Path
+from dotenv import load_dotenv
+
 import instructor
 from openai import OpenAI
 from anthropic import Anthropic
+
+load_dotenv()
 
 logger = logging.getLogger("Factory")
 
@@ -43,6 +47,17 @@ def get_llm_provider(agent_id: str):
         api_key = provider_config.get("api_key")
         if api_key == "ENV_VAR": api_key = os.environ.get("ANTHROPIC_API_KEY", "dummy-key")
         client = instructor.from_anthropic(Anthropic(api_key=api_key))
+        return client, model
+
+    elif provider_name == "groq":
+        from openai import OpenAI
+        api_key = provider_config.get("api_key")
+        if api_key == "ENV_VAR": api_key = os.environ.get("GROQ_API_KEY", "dummy-key")
+        
+        client = instructor.from_openai(OpenAI(
+            api_key=api_key,
+            base_url="https://api.groq.com/openai/v1"
+        ))
         return client, model
 
     elif provider_name == "ollama":

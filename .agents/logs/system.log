@@ -1,33 +1,89 @@
-2026-03-14 03:34:08,175 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-14 03:49:41,117 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-14 03:51:17,743 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-14 03:52:16,814 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-14 03:52:29,082 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-14 03:52:31,730 - Orchestrator - INFO - New file detected in inbox: scaffold_legal.md
-2026-03-14 03:52:31,730 - Orchestrator - INFO - Task SCAFFOLD-001 assigned to dictator (Strategy & Task Allocation)
-2026-03-14 03:52:31,731 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
-2026-03-14 03:52:31,865 - LLMRunner - WARNING - Skill task_decomposition is authorized but not found in TOOL_REGISTRY.
-2026-03-14 03:52:31,865 - LLMRunner - INFO - Executing Agent Run for SCAFFOLD-001 with dictator...
-2026-03-14 03:52:32,867 - LLMRunner - INFO - Task SCAFFOLD-001 completed. Report written to review folder.
-2026-03-18 00:38:55,302 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-18 00:39:08,091 - Orchestrator - INFO - New file detected in inbox: test5.md
-2026-03-18 00:39:08,092 - Orchestrator - INFO - Task HW-005 assigned to dictator (Strategy & Task Allocation)
-2026-03-18 00:39:08,101 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
-2026-03-18 00:39:08,228 - LLMRunner - WARNING - Skill task_decomposition is authorized but not found in TOOL_REGISTRY.
-2026-03-18 00:39:08,228 - LLMRunner - INFO - Executing Agent Run for HW-005 with dictator...
-2026-03-18 00:39:08,228 - LLMRunner - INFO - Task HW-005 completed. Report written to review folder.
-2026-03-18 00:39:08,592 - Orchestrator - INFO - New file detected in inbox: test5.md
-2026-03-18 00:39:08,593 - Orchestrator - INFO - Task unknown_task assigned to dictator (Strategy & Task Allocation)
-2026-03-18 00:39:08,594 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
-2026-03-18 00:39:08,603 - LLMRunner - WARNING - Skill task_decomposition is authorized but not found in TOOL_REGISTRY.
-2026-03-18 00:39:08,604 - LLMRunner - INFO - Executing Agent Run for unknown_task with dictator...
-2026-03-18 00:39:08,604 - LLMRunner - INFO - Task unknown_task completed. Report written to review folder.
-2026-03-18 00:39:44,052 - Orchestrator - INFO - Graceful shutdown initiated by KeyboardInterrupt.
-2026-03-18 00:39:45,598 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
-2026-03-18 00:39:51,253 - Orchestrator - INFO - Processing new file in inbox: test6.md
-2026-03-18 00:39:51,254 - Orchestrator - INFO - Task HW-006 assigned to dictator (Strategy & Task Allocation)
-2026-03-18 00:39:51,254 - Factory - INFO - Initializing openai (gpt-4o) for agent dictator
-2026-03-18 00:39:51,357 - LLMRunner - WARNING - Skill task_decomposition is authorized but not found in TOOL_REGISTRY.
-2026-03-18 00:39:51,357 - LLMRunner - INFO - Executing Agent Run for HW-006 with dictator...
-2026-03-18 00:39:51,358 - LLMRunner - INFO - Task HW-006 completed. Report written to review folder.
-2026-03-18 00:40:03,205 - Orchestrator - INFO - Graceful shutdown initiated by KeyboardInterrupt.
+2026-03-18 11:22:30,534 - Orchestrator - INFO - Orchestrator V2 online. Watching inbox.
+2026-03-18 11:22:33,721 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:22:33,721 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:22:33,722 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
+2026-03-18 11:22:33,722 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:22:33,722 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to researcher.
+2026-03-18 11:22:33,722 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 11:22:33,804 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 11:22:34,443 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:22:34,447 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer.
+2026-03-18 11:22:34,448 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:22:34,548 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:22:34,548 - Orchestrator - INFO - Task CONTENT-001 assigned to writer (Lead Storyteller)
+2026-03-18 11:22:34,549 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:22:34,549 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to writer.
+2026-03-18 11:22:34,549 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 11:22:34,559 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 11:22:35,505 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:22:35,506 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from writer to editor.
+2026-03-18 11:22:35,507 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:22:35,607 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:22:35,607 - Orchestrator - INFO - Task CONTENT-001 assigned to editor (LinkedIn Content Architect)
+2026-03-18 11:22:35,607 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:22:35,607 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to editor.
+2026-03-18 11:22:35,608 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent editor
+2026-03-18 11:22:35,619 - LLMRunner - INFO - OS Tool Mount: Successfully bound file_management to editor.
+2026-03-18 11:22:35,619 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to editor.
+2026-03-18 11:22:36,872 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:22:36,872 - LLMRunner - INFO - OS Synthetic Route: Editor finished. Saving final post.
+2026-03-18 11:22:36,873 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:26:10,046 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:26:10,046 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:26:10,047 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
+2026-03-18 11:26:10,047 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to researcher.
+2026-03-18 11:26:10,048 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 11:26:10,062 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 11:26:10,673 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:26:10,674 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer.
+2026-03-18 11:26:10,675 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:26:10,775 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:26:10,775 - Orchestrator - INFO - Task CONTENT-001 assigned to writer (Lead Storyteller)
+2026-03-18 11:26:10,775 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:26:10,775 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to writer.
+2026-03-18 11:26:10,776 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 11:26:10,788 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 11:26:11,786 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:26:11,787 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from writer to editor.
+2026-03-18 11:26:11,787 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:26:11,887 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:26:11,888 - Orchestrator - INFO - Task CONTENT-001 assigned to editor (LinkedIn Content Architect)
+2026-03-18 11:26:11,888 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:26:11,888 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to editor.
+2026-03-18 11:26:11,889 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent editor
+2026-03-18 11:26:11,899 - LLMRunner - INFO - OS Tool Mount: Successfully bound file_management to editor.
+2026-03-18 11:26:11,899 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to editor.
+2026-03-18 11:26:12,863 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:26:12,865 - LLMRunner - INFO - OS Synthetic Route: Editor finished. Saving final post.
+2026-03-18 11:26:12,865 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:27:34,669 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:27:34,669 - Orchestrator - INFO - Processing new file in inbox: start_post.md
+2026-03-18 11:27:34,670 - Orchestrator - INFO - Task CONTENT-001 assigned to researcher (Content Researcher)
+2026-03-18 11:27:34,670 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:27:34,670 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to researcher.
+2026-03-18 11:27:34,670 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent researcher
+2026-03-18 11:27:34,680 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to researcher.
+2026-03-18 11:27:36,843 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:27:36,844 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from researcher to writer.
+2026-03-18 11:27:36,845 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:27:36,945 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:27:36,945 - Orchestrator - INFO - Task CONTENT-001 assigned to writer (Lead Storyteller)
+2026-03-18 11:27:36,945 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:27:36,946 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to writer.
+2026-03-18 11:27:36,946 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent writer
+2026-03-18 11:27:36,961 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to writer.
+2026-03-18 11:27:38,243 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:27:38,244 - LLMRunner - INFO - OS Synthetic Route: Forcing Handshake from writer to editor.
+2026-03-18 11:27:38,244 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.
+2026-03-18 11:27:38,344 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:27:38,344 - Orchestrator - INFO - Processing new file in inbox: CONTENT-001.md
+2026-03-18 11:27:38,345 - Orchestrator - INFO - Task CONTENT-001 assigned to editor (LinkedIn Content Architect)
+2026-03-18 11:27:38,345 - Orchestrator - INFO - Recovered state for CONTENT-001 at step: completed
+2026-03-18 11:27:38,345 - LLMRunner - INFO - Atomic Engine: Booting execution for CONTENT-001 assigned to editor.
+2026-03-18 11:27:38,346 - Factory - INFO - Initializing groq (llama-3.3-70b-versatile) for agent editor
+2026-03-18 11:27:38,356 - LLMRunner - INFO - OS Tool Mount: Successfully bound file_management to editor.
+2026-03-18 11:27:38,356 - LLMRunner - INFO - OS Tool Mount: Successfully bound mailroom_routing to editor.
+2026-03-18 11:27:39,222 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-03-18 11:27:40,195 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-18 11:27:40,196 - LLMRunner - INFO - OS Synthetic Route: Editor finished. Saving final post.
+2026-03-18 11:27:40,196 - LLMRunner - INFO - Atomic Engine: Task CONTENT-001 successfully dispatched to .agents/review/CONTENT-001_report.md.

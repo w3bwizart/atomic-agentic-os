@@ -1,56 +1,30 @@
-# 🌟 Atomic Agentic OS: The North Star Blueprint
-
-## 1. The Core Philosophy (The "Why")
-The **Atomic Agentic OS** is not a chatbot; it is a **System Design Pattern**. It applies "Atomic Design" (Brad Frost) to AI Orchestration. It aims to solve "Prompt Fragility" by breaking AI logic into the smallest possible functional units.
-
-### The 5 Stages of the OS
-1.  **Atoms (The Schemas):** Type-safe Pydantic models. They define the "shape" of data (e.g., `FinancialTransaction`). **No logic, just structure.**
-2.  **Molecules (The Tools):** A Function + an Atom. These are "Atomic Skills" (e.g., `TerminalSkill`). They have no "intelligence"; they just perform a job.
-3.  **Organisms (The Agents):** Molecule + LLM + Persona + Kernel. This is the first level of intelligence. A worker with a specific role and set of tools.
-4.  **Workspaces (The Offices):** A directory-based "Silo" where Organisms live (e.g., `/workspaces/marketing`).
-5.  **The OS (The Ecosystem):** The "Mother Ship" that manages the **State Bus** (file-watcher) and **Registry** that connects the Workspaces.
-
+---
+description: "Master Context Injection: Atomic Agentic OS (The V8 of AI Agents)"
 ---
 
-## 2. Technical Decisions (The "How")
+# 🛸 ANTIGRAVITY MISSION: ATOMIC AGENTIC OS
 
-### The "Sprawl" Architecture
-We chose a **File-Based State Bus** over a traditional database/Redis.
-* **Transport:** The file system (`.agents/inbox`, `active/`, `review/`).
-* **Watcher:** Python `watchdog` library triggers events on file drops.
-* **Observability:** Human-readable `.md` and `.json` files provide a native audit trail.
-* **Scalability:** Workspaces are self-contained "Drones" created via the `ScaffoldSkill`.
+**Role:** Senior AI Systems Architect.
+**Project:** Atomic Agentic OS (A V8-style Runtime for AI).
+**Architecture Pattern:** Atomic Design (Atoms → Molecules → Organisms → Workspaces → OS).
 
-### The Technical Stack
-| Component | Implementation |
-| :--- | :--- |
-| **Logic Layer** | Python 3.10+ |
-| **Data Validation** | Pydantic (Strict Types) |
-| **LLM Interface** | `instructor` library (Atomic Agents compliant) |
-| **Configuration** | YAML (Providers & Workforce) |
-| **Security** | `.vault/policy.json` (RBAC Logic) |
-| **Governance** | `kernel.md` (System instructions) |
+## 1. Technical Architecture (The "Shredder")
+* **The Engine (`runner.py`):** A model-agnostic runtime using the `atomic-agents` framework. It must be heavily commented. It reads a "Cartridge" (Workspace) and executes it.
+* **The Cartridge (Workspace):** Contains `workforce.yaml` (Agent definitions), `kernel.md` (System DNA), and `.agents/inbox` (The Trigger).
+* **The Factory:** Handles multi-provider integration (Ollama, Gemini, Claude, DeepSeek) via a unified interface.
+* **The State Bus:** A file-based communication layer (`.state.json`). Agents talk across workspaces by moving "Handshake Atoms" (JSON) between inboxes.
+* **Connectivity:** Supports **MCP (Model Context Protocol)** and standard REST APIs as "Atomic Molecules" (Skills).
 
----
+## 2. The Implementation Goals
+1.  **Model Agnosticism:** The system must swap brains instantly via `config/providers.yaml`.
+2.  **Strict Traceability:** Every execution must be logged for ISO compliance. The code (Engine) is immutable; the behavior (Markdown) is declarative.
+3.  **Scalability:** Support for 1,000+ workspaces running in isolated Docker containers sharing a root `/workspaces` volume for inter-agent "mail."
+4.  **Agentic UI:** Future-proofing for "Widgets"—UI components that render "State Atoms" (JSON) produced by agents.
 
-## 3. Hardened Principles
-* **Zero Hardcoding:** Swappable "Limbs" (LLMs, Databases, Auth).
-* **Atomic Handoffs:** Agents talk via Schemas, never loose text.
-* **Stateless Execution:** Every agent run is reconstructed from the `.state.json`.
-
----
-
-## 4. Current Directive: Finish the Core OS (Phase 1)
-Our immediate priority is to finalize and harden the core Atomic Agentic OS before moving on to visual extensions.
-
-**Current Progress:**
-1. We have a working **Orchestrator V2** using `watchdog` to monitor `.agents/` folders.
-2. We have a **Factory** that routes tasks to OpenAI, Anthropic, or local Ollama.
-3. We have a **Scaffolder** that allows the OS to self-replicate new workspaces.
-4. We use **Pydantic** for schemas (Atoms) and **Markdown** for governance (Kernel).
-5. We have implemented **RBAC** via a `.vault/policy.json`.
-
-**The Immediate Goal:**
-To harden this 'Microkernel' OS where agents work in isolated workspaces and communicate via a file-based state bus. Ensure rock-solid reliability, excellent error handling, and complete test coverage for the core file-watching and execution loop.
-
-*(Note: The integration of Agentic UI Widgets has been deferred to Phase 2, strictly following the completion of Phase 1).*
+## 3. Immediate Focus Tasks: The "Handshake & Runner"
+1.  **Finalize the `InterAgentHandshake` Atom:** Create a Pydantic model that defines how one workspace requests data from another (Priority, Payload, Callback Path).
+2.  **Refactor `core/runner.py`:** Write a clean, exhaustively commented engine that:
+    * Loads the `workforce.yaml`.
+    * Initializes the `atomic-agents` environment.
+    * Executes the task and saves the flight recorder state to `.state.json`.
+3.  **Implement the "Mailroom" Skill:** Create a skill that allows an agent to move a file from its `active/` folder to a neighbor's `inbox/`.

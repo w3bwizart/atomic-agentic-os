@@ -1,21 +1,22 @@
+
 providers:
   openai:
-    api_key: "ENV_VAR"
     model: "gpt-4o"
-  anthropic:
     api_key: "ENV_VAR"
-    model: "claude-3-5-sonnet-20240620"
+  anthropic:
+    model: "claude-3-5-sonnet-20241022"
+    api_key: "ENV_VAR"
+  groq:
+    model: "llama-3.3-70b-versatile"
+    api_key: "ENV_VAR"
+
   ollama:
+    model: "llama3"
     base_url: "http://localhost:11434/v1"
-    model: "llama3:8b"
 
 routing:
   dictator: "openai"
-  economist: "anthropic"
-  cyber_security: "openai"
-  devops: "ollama"
-  legal_policy: "openai"
-  case_study_scout: "anthropic"
-  sop_auditor: "ollama"
-  the_critic: "openai"
-  ghost_writer: "ollama"
+  coder: "ollama"
+  researcher: "groq"
+  writer: "groq"
+  editor: "groq"
