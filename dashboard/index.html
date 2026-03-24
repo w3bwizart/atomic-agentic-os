@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic OS Telemetry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="glass-header">
+            <div class="logo-area">
+                <div class="status-indicator"></div>
+                <h1>AGENTIC_OS <span>// TELEMETRY</span></h1>
+            </div>
+            <div class="nav-controls">
+                <button id="refreshBtn" class="cyber-btn">FORCE_SYNC()</button>
+            </div>
+        </header>
+        
+        <main>
+            <section class="panel stats-panel glass-panel">
+                <h2>SYSTEM_OVERVIEW</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>TOTAL TASKS</h3>
+                        <p id="totalTasks">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>ACTIVE AGENTS</h3>
+                        <p id="activeAgents">0</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="panel log-panel glass-panel">
+                <h2>GLOBAL_EXECUTION_LOG</h2>
+                <div class="table-container">
+                    <table id="historyTable">
+                        <thead>
+                            <tr>
+                                <th>TIMESTAMP</th>
+                                <th>TASK_ID</th>
+                                <th>AGENT_ID</th>
+                                <th>STATUS</th>
+                                <th>OS_PATH</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyBody">
+                            <!-- Injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
