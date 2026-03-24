@@ -3,7 +3,9 @@
     "researcher": ["mailroom_routing"],
     "writer": ["mailroom_routing"],
     "editor": ["file_management", "mailroom_routing"],
-    "dictator": ["mailroom_routing", "terminal_access", "file_management", "scaffold_skill"]
+    "dictator": ["mailroom_routing", "terminal_access", "file_management", "scaffold_skill"],
+    "assistant": ["mailroom_routing", "terminal_access", "file_management", "scaffold_skill", "unscaffold_skill"],
+    "hello_agent": ["file_management", "terminal_access"]
   },
   "restricted_paths": [
     ".vault",

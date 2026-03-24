@@ -1,6 +1,6 @@
 ---
 task_id: CONTENT-000
-agent_id: researcher
+organism_agent_id: researcher
 ---
 # New LinkedIn Campaign: The Future of Agentic Operating Systems
 

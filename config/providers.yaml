@@ -7,7 +7,7 @@ providers:
     model: "claude-3-5-sonnet-20241022"
     api_key: "ENV_VAR"
   groq:
-    model: "llama-3.3-70b-versatile"
+    model: "llama-3.1-8b-instant"
     api_key: "ENV_VAR"
 
   ollama:
@@ -16,6 +16,8 @@ providers:
 
 routing:
   dictator: "openai"
+  assistant: "groq"
+  hello_agent: "groq"
   coder: "ollama"
   researcher: "groq"
   writer: "groq"

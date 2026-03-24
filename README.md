@@ -1,8 +1,16 @@
-# 🏗️ The Atomic Agentic OS (v2.0)
+# 🏗️ The Atomic Agentic OS - Built with Atomic-Agents
 
 Welcome to the **Atomic Agentic OS**, a file-based operating system where specialized AI agents work together in an assembly line to automate your tasks.
 
 Whether you're a starter building your first AI workflow or a Senior AI Architect designing ISO-compliant enterprise systems, this OS scales beautifully to fit your needs.
+
+---
+
+### 🧩 Pluggable Infrastructure (Bring Your Own Backend)
+While this OS ships with a zero-dependency **Flat-File State Bus** for frictionless onboarding, the architecture is inherently modular. You can seamlessly swap components as your needs scale:
+*   **The OS Inbox** can be swapped out for an enterprise message broker like **Apache Kafka** or **RabbitMQ**.
+*   **The Flight Recorders (`.state.json`)** can be migrated to a **Graph/Vector Database** (e.g., Neo4j, Pinecone) to natively power Semantic Memory retrieval over horizontal agentic histories.
+*   **The Artifacts (`.md`)** can stream directly into Amazon S3, Azure Blob, or PostgreSQL.
 
 ---
 
@@ -18,13 +26,14 @@ Think of this OS like a factory.
 
 ### Step 1: Add Your AI Key
 The OS is completely **model-agnostic**. It seamlessly natively routes to **Groq, OpenAI, Anthropic, Gemini, or local Ollama** models!
-To get started, simply configure your favorite provider. 
+To get started, simply configure your favorite provider.
 1. Create a file called `.env` in the root folder.
 2. Add your provider's API key inside it (e.g., Groq for maximum speed):
    ```bash
    GROQ_API_KEY=your_key_here
    # OPENAI_API_KEY=...
    # ANTHROPIC_API_KEY=...
+   # OLLAMA_API_BASE=http://localhost:11434/v1 (No API key needed for local Ollama!)
    ```
 
 ### Step 2: Turn on the Multi-Tenant Orchestrator
@@ -39,15 +48,59 @@ PYTHONPATH=. venv/bin/python core/orchestrator.py
 ```
 *Leave this terminal open! You will see the matrix-style logs streaming here.*
 
-### Step 3: Trigger an Isolated Workspace Workflow
-Open a **second terminal** and trigger the active sandbox. The Orchestrator automatically binds to dynamically loaded folders in `workspaces/`:
-```bash
-touch workspaces/content_team/.agents/inbox/start_post.md
-```
+---
 
-Watch your first terminal! The `researcher`, `writer`, and `editor` agents will securely load the `content_team` workforce graph, pass internal handshakes back and forth, and drop a highly-polished LinkedIn post into the `workspaces/content_team/.agents/review/` directory!
+## 🚀 Deployment Patterns
 
-> **Note on Parallelism**: Because the Orchestrator daemon is natively asynchronous, you can drop 10 payloads simultaneously into a single tenant inbox. The engine will instantly spawn 10 parallel execution threads, processing the complete pipelines at once without blocking the file watcher!
+The OS supports different architectural modalities depending on how complex your pipelines are.
+
+### Pattern A: Creating Agents in the Root OS (Global)
+If you just need a personal assistant or generic workers that operate on your main OS directory, you can build them directly into the Root OS.
+
+1. **Define your workforce:** Open `config/organism.workforce.yaml` and add an agent (e.g., `id: assistant`).
+2. **Assign tools:** Bind global skills inside the YAML configuration.
+3. **Feed the task:** Drop a Markdown file (an `InterAgentHandshakeAtom`) into the global `.organism_agents/inbox/`.
+   ```markdown
+   ---
+   task_id: GLOBAL-001
+   organism_agent_id: assistant
+   ---
+   Summarize the contents of my latest project...
+   ```
+4. The Orchestrator will instantly parse the event and execute the task universally across the repository.
+
+---
+
+### Pattern B: Creating and Feeding Isolated Workspaces (Multi-Tenant)
+For complex multi-agent pipelines (like a 3-agent content factory), you should isolate them inside dynamic Workspaces. The OS supports infinite parallel tenant workspaces securely walled off from each other.
+
+1. **Scaffold the Workspace Autonomously:** Instead of manually copying folders, let the Root `assistant` generate it for you! Drop a markdown payload into the global `.organism_agents/inbox/`:
+   ```markdown
+   ---
+   task_id: OS-SCAFFOLD
+   organism_agent_id: assistant
+   ---
+   Use your scaffold tool to create a new isolated workspace called `my_tenant` mirroring the `content_team` architecture.
+   ```
+2. **Define the Isolated Workforce:** Open the newly generated `workspaces/my_tenant/config/organism.workforce.yaml` and modify your specialized assembly line.
+3. **Feed the Workspace:** Drop a task specifically into that tenant's inbox: `workspaces/{tenant_name}/.organism_agents/inbox/`.
+4. **Parallel Execution:** The Mother Ship dynamically mounts the local workforce and custom tools, completely walling them off from the global OS context. You can simultaneously feed 10 different workspaces and the engine will spin up 10 asynchronous threads!
+
+---
+
+### Pattern C: Containerized Agents (Docker)
+For ultimate isolation, you can containerize the OS Engine or individual agent workspaces using Docker. Because the entire State Bus relies on basic Markdown files, you never have to worry about container networking or exposing ports!
+
+1. **Dockerize the Orchestrator:** Create a basic `Dockerfile` in the root directory that installs your Python `requirements.txt` and runs `core/orchestrator.py`.
+2. **Mount the Data Volumes:** When running the container, simply mount your local host directories as volumes so the agent can read and write payloads natively:
+   ```bash
+   docker run -d --name atomic_os \
+     -v ./.organism_agents:/app/.organism_agents \
+     -v ./workspaces:/app/workspaces \
+     -v ./config:/app/config \
+     atomic_agent_os:latest
+   ```
+3. **Execution from the Host Mac/Linux:** You can now securely run untrusted agent code mathematically sandboxed inside a Linux container, while still seamlessly dropping `.md` tasks securely from your local desktop!
 
 ---
 
@@ -60,17 +113,18 @@ At its core, the OS uses a strict, immutable 9-step execution loop powered by `a
 
 ### The Flat-File State Bus & Pydantic Handshakes
 Agents do not communicate via hidden RPC calls.
-Every task handoff is a strictly typed Pydantic schema (`InterAgentHandshake`).
-When an agent finishes a block of work, it invokes the `mailroom_routing` skill, which serializes the Handshake out to a Markdown file with YAML frontmatter, and writes it to the next agent's `.agents/inbox/`.
+Every task handoff is a strictly typed Pydantic schema (`InterAgentHandshakeAtom`).
+When an agent finishes a block of work, it invokes the `mailroom_routing` skill, which serializes the Handshake out to a Markdown file with YAML frontmatter, and writes it to the next agent's `.organism_agents/inbox/`.
 This file-based State Bus means you can `cat`, pause, or modify messages *in transit* horizontally between execution bursts.
 
 ### ISO-Compliant Flight Recorders
-Every single transaction generates a `.state.json` file telemetry trace in the `.agents/active/` directory. This acts as a flight recorder, mapping the precise start timestamp, tool mounting success, LLM validation steps, and crash tracebacks.
+Every single transaction generates a `.state.json` file telemetry trace in the `.organism_agents/active/` directory. This acts as a flight recorder, mapping the precise start timestamp, tool mounting success, LLM validation steps, and crash tracebacks.
+
 
 ### Directory Schema Blueprint
 ```text
 .
-├── .agents/
+├── .organism_agents/
 │   ├── inbox/          # Task entry point (Handshake Atoms dropped here)
 │   ├── active/         # Processing state (Flight Recorders live here)
 │   ├── review/         # Human/QA gate (Generated Engine Reports)
@@ -78,7 +132,7 @@ Every single transaction generates a `.state.json` file telemetry trace in the `
 ├── .vault/
 │   └── policy.json     # RBAC & Tool Permissions
 ├── config/
-│   ├── workforce.yaml  # Agent identity and roles
+│   ├── organism.workforce.yaml # Global Agent identity and roles
 │   ├── providers.yaml  # Model agnostic routing (OpenAI, Anthropic, Groq, Ollama)
 │   └── kernel.md       # Universal Workspace SOPs injected into the system prompt
 ├── core/
@@ -86,13 +140,6 @@ Every single transaction generates a `.state.json` file telemetry trace in the `
 │   ├── runner.py       # The OS Execution Engine
 │   ├── factory.py      # LLM Provider Initialization
 │   └── vault.py        # Security Validation
-└── skills/                 # Global OS Kernel Tools (Fallback)
-    ├── mailroom_routing/   # Cross-workspace I/O Hub
-    ├── file_management/    # Standard file operations
-    ├── scaffold_skill/     # Meta-agent workflow generation
-    └── terminal_access/    # Isolated Bash access
+└── workspaces/             # Isolated Multi-Tenant Architectures
+    └── content_team/       # Example Factory Sandbox
 ```
-
-## 🔮 The Roadmap: Methodology Alignment
-The Atomic Engine has achieved **True Multi-Tenant Workspace Isolation** featuring parallel asynchronous LLM loops and strict dynamic `importlib` script resolution boundaries. The next evolutionary phase is entirely semantic: aligning the functional physical OS to perfectly mirror the overarching Atomic Methodology (i.e. replacing legacy `Agents` with `Molecules` and `Handshakes` with `Reactions`).
-

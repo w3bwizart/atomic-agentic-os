@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "weather_api": [
+      "file_management",
+      "mailroom_routing"
+    ],
+    "display_api": [
+      "file_management",
+      "mailroom_routing"
+    ]
+  }
+}
