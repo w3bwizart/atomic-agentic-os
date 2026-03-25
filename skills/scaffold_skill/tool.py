@@ -61,6 +61,8 @@ class ScaffoldSkill(BaseTool[ScaffoldInputSchema, ScaffoldOutputSchema]):
                 shutil.copy("requirements.txt", base_dir / "requirements.txt")
             if Path("cleanup.sh").exists():
                 shutil.copy("cleanup.sh", base_dir / "cleanup.sh")
+            if Path("config/providers.yaml").exists():
+                shutil.copy("config/providers.yaml", base_dir / "config" / "providers.yaml")
 
             kernel_content = textwrap.dedent(f"""\
             # Workspace: {params.project_name}

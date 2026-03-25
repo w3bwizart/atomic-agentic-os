@@ -33,8 +33,10 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
             super().do_GET()
 
 if __name__ == "__main__":
+    from http.server import ThreadingHTTPServer
     # Ensure server runs out of the dashboard/ directory so index.html works natively
     os.chdir(Path(__file__).parent)
-    with socketserver.TCPServer(("", PORT), DashboardHandler) as httpd:
+    server_address = ('', PORT)
+    with ThreadingHTTPServer(server_address, DashboardHandler) as httpd:
         print(f"Serving Telemetry API on port {PORT}")
         httpd.serve_forever()
