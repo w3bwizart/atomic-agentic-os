@@ -93,7 +93,7 @@ class InboxHandler(FileSystemEventHandler):
 
             metadata, body = self.parse_frontmatter(content)
             task_id = metadata.get('task_id', 'unknown_task')
-            organism_agent_id = metadata.get('organism_agent_id', 'dictator')
+            organism_agent_id = metadata.get('organism_agent_id', 'assistant')
 
             # Load Isolated Tenant Workforce
             workforce_path = workspace_dir / "config" / "organism.workforce.yaml"
